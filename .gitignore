@@ -3,3 +3,6 @@
 ################################################################################
 
 /packages
+/ProfileManagementSystem/bin
+/ProfileManagementSystem/obj/Debug
+/.vs
