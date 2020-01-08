@@ -172,7 +172,8 @@
     <Content Include="html\forms-controls.html" />
     <Content Include="html\forms-layouts.html" />
     <Content Include="html\forms-validation.html" />
-    <Content Include="html\element.html" />
+    <Content Include="html\mockup2.html" />
+    <Content Include="html\mockup1.html" />
     <Content Include="html\index.html" />
     <Content Include="html\main.css" />
     <Content Include="html\tables-regular.html" />
