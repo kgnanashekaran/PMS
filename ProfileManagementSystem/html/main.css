@@ -10763,7 +10763,9 @@ a, button, .btn {
 }
 
 .app-theme-white .app-page-title {
-    background: rgba(255,255,255,0.45)
+    /*background: rgba(255,255,255,0.45)*/
+    background: #e43612;
+    color:#FFF;
 }
 
 .app-theme-white .app-footer .app-footer__inner, .app-theme-white .app-header {
@@ -24382,8 +24384,22 @@ a {
     font-size: 1.25rem;
     margin: 0;
     height: 50px;
-    line-height: 50px;
+    /*line-height: 50px;*/
+    /*text-align: center;
+    display: flex;
+    align-items: center;
+    display: flex;
+    align-items: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
     text-align: center;
+    /*margin: 10% 0;*/
+    
+    /*background-color: rgba(33, 33, 33, .3);*/
+    /*align-items: center;*/
 }
 .dropdown-menu-header .menu-header-content.btn-pane-right .menu-header-btn-pane {
     margin: 0 0 0 auto;
@@ -24414,7 +24430,17 @@ a {
 .rounded {
     border-radius: .25rem !important;
 }
-.menu-header-subtitle1{
-    font-size:13px;
-    margin-top:5px;
+.menu-header-subtitle1, .menu-header-subtitle {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.menu-header-subtitle1 {
+    font-size: 13px;
+    margin-top: 5px;
 }

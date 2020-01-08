@@ -134,19 +134,29 @@
     <Content Include="Content\Site.css" />
     <Content Include="html\assets\fonts\fa-solid-900.svg" />
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="html\assets\images\avatars\7.jpg" />
+    <Content Include="html\assets\images\avatars\6.jpg" />
     <Content Include="html\assets\images\avatars\1.jpg" />
     <Content Include="html\assets\images\avatars\10.jpg" />
     <Content Include="html\assets\images\avatars\11.jpg" />
     <Content Include="html\assets\images\avatars\12.jpg" />
+    <Content Include="html\assets\images\avatars\13.jpg" />
+    <Content Include="html\assets\images\avatars\14.jpg" />
+    <Content Include="html\assets\images\avatars\15.jpg" />
     <Content Include="html\assets\images\avatars\2.jpg" />
     <Content Include="html\assets\images\avatars\3.jpg" />
     <Content Include="html\assets\images\avatars\4.jpg" />
     <Content Include="html\assets\images\avatars\5.jpg" />
     <Content Include="html\assets\images\avatars\8.jpg" />
     <Content Include="html\assets\images\avatars\9.jpg" />
+    <Content Include="html\assets\images\avatars\abstract2.jpg" />
     <Content Include="html\assets\images\brand-logo.svg" />
+    <Content Include="html\assets\images\excel.png" />
     <Content Include="html\assets\images\logo-inverse.png" />
     <Content Include="html\assets\images\logo.png" />
+    <Content Include="html\assets\images\pdf.png" />
+    <Content Include="html\assets\images\pp.png" />
+    <Content Include="html\assets\images\word.png" />
     <Content Include="html\assets\scripts\main.js" />
     <Content Include="html\charts-chartjs.html" />
     <Content Include="html\components-accordions.html" />
@@ -186,6 +196,8 @@
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.eot" />
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.ttf" />
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="App_Data\pmsdb.db" />
+    <Content Include="App_Data\pmsdb.db-journal" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -213,7 +225,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
