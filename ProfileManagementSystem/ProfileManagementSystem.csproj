@@ -156,6 +156,7 @@
     <Content Include="html\assets\images\logo.png" />
     <Content Include="html\assets\images\pdf.png" />
     <Content Include="html\assets\images\pp.png" />
+    <Content Include="html\assets\images\sop1.png" />
     <Content Include="html\assets\images\word.png" />
     <Content Include="html\assets\scripts\main.js" />
     <Content Include="html\charts-chartjs.html" />
@@ -182,6 +183,7 @@
     <Content Include="html\forms-controls.html" />
     <Content Include="html\forms-layouts.html" />
     <Content Include="html\forms-validation.html" />
+    <Content Include="html\mockup2_1.html" />
     <Content Include="html\mockup2.html" />
     <Content Include="html\mockup1.html" />
     <Content Include="html\index.html" />
