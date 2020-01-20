@@ -1,31 +1,104 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Himatsingka - Profile Management System";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+
+
+<div class="row" id="scroller">
+
+    <div class="row col-12 profile-row" id="user-profiles">
+        @{
+            for (int i = 0; i <= 11; i++)
+            {
+                <div class="col-sm-12 col-lg-6 col-xl-3">
+                    <div class="mb-3 profile-responsive card">
+                        <div class="dropdown-menu-header">
+                            <div class="dropdown-menu-header-inner bg-dark">
+                                <div class="menu-header-image opacity-2" style="background-image: url('~/assets/images/avatars/abstract2.jpg');"></div>
+                                <div class="menu-header-content btn-pane-right">
+                                    <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                        <div class="avatar-icon rounded"><img src="~/assets/images/avatars/2.jpg" alt="Avatar 5"></div>
+                                    </div>
+                                    <div>
+                                        <h5 class="menu-header-title">Jeff Walberg </h5>
+                                        <h6 class="menu-header-subtitle1">Emp.No# 12345</h6>
+                                        <h6 class="menu-header-subtitle">Lead UX Developer</h6>
+                                    </div>
+                                    <div class="menu-header-btn-pane">
+                                        <button class="btn btn-success">View Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+
+      
+    </div>
+
+    @*<div class="row col-12 profile-row" id="sops">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header">
+                    SOP's
+                </div>
+                <div class="table-responsive">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+
+                        <tbody>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    SOP Document 1
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    <img src="~/assets/images/sop1.png" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    SOP Document 2
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    <img src="~/assets/images/sop1.png" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    SOP Document 3
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">
+                                    <img src="~/assets/images/sop1.png" />
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+
+
+
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
