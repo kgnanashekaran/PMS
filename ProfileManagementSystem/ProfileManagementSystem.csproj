@@ -140,6 +140,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SOP.cs" />
+    <Compile Include="Models\profileUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,15 +170,39 @@
     <Content Include="assets\images\pdf.png" />
     <Content Include="assets\images\pp.png" />
     <Content Include="assets\images\sop1.png" />
+    <Content Include="assets\images\SOP\Slide1.JPG" />
+    <Content Include="assets\images\SOP\Slide10.JPG" />
+    <Content Include="assets\images\SOP\Slide11.JPG" />
+    <Content Include="assets\images\SOP\Slide12.JPG" />
+    <Content Include="assets\images\SOP\Slide13.JPG" />
+    <Content Include="assets\images\SOP\Slide14.JPG" />
+    <Content Include="assets\images\SOP\Slide2.JPG" />
+    <Content Include="assets\images\SOP\Slide20.JPG" />
+    <Content Include="assets\images\SOP\Slide21.JPG" />
+    <Content Include="assets\images\SOP\Slide22.JPG" />
+    <Content Include="assets\images\SOP\Slide23.JPG" />
+    <Content Include="assets\images\SOP\Slide24.JPG" />
+    <Content Include="assets\images\SOP\Slide25.JPG" />
+    <Content Include="assets\images\SOP\Slide26.JPG" />
+    <Content Include="assets\images\SOP\Slide3.JPG" />
+    <Content Include="assets\images\SOP\Slide4.JPG" />
+    <Content Include="assets\images\SOP\Slide5.JPG" />
+    <Content Include="assets\images\SOP\Slide6.JPG" />
+    <Content Include="assets\images\SOP\Slide62.JPG" />
+    <Content Include="assets\images\SOP\Slide7.JPG" />
+    <Content Include="assets\images\SOP\Slide8.JPG" />
+    <Content Include="assets\images\SOP\Slide9.JPG" />
     <Content Include="assets\images\word.png" />
-    <Content Include="assets\scripts\main.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.simplyscroll.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="assets\styles\jquery.simplyscroll.css" />
     <Content Include="assets\styles\main.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="html\assets\fonts\fa-solid-900.svg" />
@@ -246,7 +272,6 @@
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.ttf" />
     <Content Include="html\assets\fonts\Pe-icon-7-stroke.woff" />
     <Content Include="App_Data\pmsdb.db" />
-    <Content Include="App_Data\pmsdb.db-journal" />
     <Content Include="assets\fonts\fa-solid-900.eot" />
     <Content Include="assets\fonts\fa-solid-900.ttf" />
     <Content Include="assets\fonts\fa-solid-900.woff" />
@@ -276,20 +301,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />

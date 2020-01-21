@@ -1,4 +1,11 @@
-﻿<!doctype html>
+﻿@using System.Configuration;
+@{
+    var _minutes = int.Parse(ConfigurationManager.AppSettings["SwitchInterval_Minutes"].ToString());
+    _minutes = _minutes * 60000;
+    //var _minutes = 2000;
+}
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -9,10 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
-    <link href="~/assets/styles/main.css" rel="stylesheet">
-    <link href="~/assets/styles/jquery.simplyscroll.css" rel="stylesheet" />
+    @*<link href="~/assets/styles/main.css" rel="stylesheet">
+    <link href="~/assets/styles/jquery.simplyscroll.css" rel="stylesheet" />*@
+    <link href='@Styles.Url("~/bundles/style")' rel="stylesheet" type="text/css" />
 
-    <script src="~/assets/scripts/jquery.js"></script>
+    @*<script src="~/assets/scripts/jquery.js"></script>*@
+    <script src='@Scripts.Url("~/bundles/jquery")'></script>
 </head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -38,24 +47,7 @@
                     </button>
                 </span>
             </div>    <div class="app-header__content">
-                <div class="app-header-left">
-                    <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div>
-                    <!--<ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                Profile Management System
-                            </a>
-                        </li>
-
-                    </ul>-->
-                </div>
+                
                 @Html.Partial("_HeaderPartial")
             </div>
         </div>
@@ -90,20 +82,23 @@
 
         </div>
     </div>
-    <script type="text/javascript" src="~/assets/scripts/main.js"></script>
-    <script src="~/assets/scripts/jquery.simplyscroll.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/jquery.simplyscroll.js"></script>
+    @*<script src='@Scripts.Url("~/bundles/scripts")'></script>*@
     <script type="text/javascript">
 
         (function ($) {
             $(function () { //on DOM ready
-                $("#scroller").simplyScroll({
+                $("#scroller1, #scroller2").simplyScroll({
                     customClass: 'vert',
                     orientation: 'vertical',
                     auto: true,
                     manualMode: 'loop',
-                    frameRate: 20,
+                    frameRate: 30,
                     speed: 1
                 });
+
+
             });
         })(jQuery);
 
@@ -113,22 +108,23 @@
             //    $("#scroller div").toggle();
             //}, 2000);
 
-            //setInterval(function () {
-            //    $("#contentpanel div").toggle();
-            //}, 2000);
+            setInterval(function () {
+                //$("#contentpanel div").toggle();
+                $(".vert:first").toggle();
+            }, @_minutes);
 
             //setInterval(function () {
-            //    if ($("#user-profiles").is(":visible")) {
-            //        $("#user-profiles").hide().siblings().show();
+            //    if ($("#scroller1").is(":visible")) {
+            //        $("#scroller1").hide().siblings().show();
             //    } else {
-            //        $("#sops").hide().siblings().show();
+            //        $("#scroller2").hide().siblings().show();
             //    }
 
             //}, 2000);
         });
 
 
-        
+
 
     </script>
 
