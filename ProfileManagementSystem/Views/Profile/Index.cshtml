@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Himatsingka - Profile Management System";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<div class="container">
+    <div class="row">
+        <form id="form-input" class="form-horizontal">
+
+            @Html.AntiForgeryToken()
+
+            <br>
+
+            <br>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
+
+                    First Name <span class="required" style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtLastName">
+
+                    Last Name <span class="required" style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <input type="text" id="txtLastName" maxlength="100" class="form-control col-md-7 col-xs-12">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtUserEmail">
+
+                    Email <span class="required" style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12" onblur="CheckExistingUserMail() " onfocus="MessageHideMail()">
+
+                </div>
+
+                <div id="msgUserEmail" style="color:red"></div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
+
+                    Role <span style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <select name="Role" id="select_Role" class="form-control col-md-7 col-xs-12"></select>
+
+                </div>
+
+                <div style="padding-bottom: 1px;">&nbsp</div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsDisplay">
+
+                    Display <span style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <select id="IsDisplay" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
+
+                    Active <span style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <select id="IsActive" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+
+                    Picture <span style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+
+                </div>
+
+            </div>
+            <br>
+            <div class="ln_solid"></div>
+
+            <div class="form-group row">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+
+                    <button type="submit" id="btnSaveProfile" onclick=" SaveProfile(); return false;" class="btn btn-primary">Save</button>
+
+                    <button type="submit" id="btnUpdateProfile" onclick="UpdateProfile(); return false;" class="btn btn-primary" style="display:none">Update</button>
+
+                </div>
+
+            </div>
+
+            <div class="ln_solid"></div>
+
+        </form>
+    </div>
+</div>

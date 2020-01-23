@@ -18,6 +18,10 @@ namespace ProfileManagementSystem.Controllers
             {
                 ViewData["UserProfiles"] = GetUserProfileList();
                 ViewData["SOP"] = GetSOPList();
+
+
+                //ViewData["UserProfiles"] = null;
+                //ViewData["SOP"] = null;
             }
             catch (Exception ex)
             {
@@ -83,7 +87,7 @@ namespace ProfileManagementSystem.Controllers
             while (r.Read())
             {
                 profileUser _profileUser = new profileUser();
-                _profileUser.name = r["name"].ToString();
+                _profileUser.name = r["firstname"].ToString();
                 _profileUser.designation = r["designation"].ToString();
                 _profileUser.empno = r["empno"].ToString();
                 _profileUser.photo = r["photo"].ToString();

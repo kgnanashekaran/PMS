@@ -137,6 +137,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SOPController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -147,6 +150,11 @@
   <ItemGroup>
     <Content Include="assets\fonts\fa-solid-900.svg" />
     <Content Include="assets\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="assets\images\26.JPG" />
+    <Content Include="assets\images\27.JPG" />
+    <Content Include="assets\images\28.JPG" />
+    <Content Include="assets\images\29.JPG" />
+    <Content Include="assets\images\abc_1234.JPG" />
     <Content Include="assets\images\avatars\1.jpg" />
     <Content Include="assets\images\avatars\10.jpg" />
     <Content Include="assets\images\avatars\11.jpg" />
@@ -193,6 +201,8 @@
     <Content Include="assets\images\SOP\Slide8.JPG" />
     <Content Include="assets\images\SOP\Slide9.JPG" />
     <Content Include="assets\images\word.png" />
+    <Content Include="Content\Login.css" />
+    <Content Include="Content\Register.css" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.simplyscroll.js" />
     <Content Include="Scripts\main.js" />
@@ -304,8 +314,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\SOP\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utility\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
