@@ -1,42 +1,80 @@
-﻿
-@{
-    // ViewBag.Title = "Login";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Himatsingka - Profile Management System";
-}
+﻿@model ProfileManagementSystem.Models.LoginModel
 
-    <link href="~/Content/Login.css" rel="stylesheet" />
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
-            <!-- Icon -->
-            <div class="fadeIn first">
-                <img src="~/assets/images/brand-logo.svg" id="icon" alt="User Icon" />              
-            </div>
-            <!-- Login Form -->
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In" onclick="alerttheclick()">
-
-            </form>
-
-            <!-- Remind Passowrd -->
-
-            <div id="formFooter">
-
-                <a class="underlineHover" href="#">Forgot Password?</a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <script>
-        function alerttheclick() {
-            alert('Hi000000000');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">*@
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    <style type="text/css">
+        .bs-example {
+            height: 220px;
         }
-    </script>
+
+        .centerlook {
+            padding-left: 400px;
+            font-weight: bold;
+            width: 1000px;
+        }
+
+        .error {
+            padding-left: 400px;
+            font-weight: bold;
+            width: 1000px;
+            color: red;
+        }
+
+        .loginbtn {
+            padding-left: 500px;
+        }
+    </style>
+
+</head>
+<body>
+
+    @using (Html.BeginForm())
+    {
+        <div class="bs-example" style="border:2px solid gray;">
+
+            <div class="form-group centerlook">
+                <h1> Login </h1>
+            </div>
+            <div class="form-group centerlook">
+                <label>User Name: </label>
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+            <div class="form-group centerlook">
+                <label>Password:</label>
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+
+            </div>
+            <div class="form-group error">
+                @if (@ViewBag.NotValidUser == null)
+                {
+                     Response.Redirect("~/SOP/Index"); 
+                    //if (@ViewBag.NotValidUser == "Valid")
+                    //{
+                    //    { Response.Redirect("~/SOP/Index");}
+                    //}
+                    // <label> @ViewBag.NotValidUser</label>
+                }
+            </div>
+            <div class="loginbtn">
+
+                <input type="submit" value="Login" class="btn btn-primary" />
+
+            </div>
+        </div>
+    }
+</body>
+</html>   

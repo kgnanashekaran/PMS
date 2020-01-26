@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Configuration;
+using System.Data.SQLite;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
 namespace ProfileManagementSystem.Utility
 {
-    public class Utility
-    {
-        //Encrypt and Decrypt password
+    public static class Utility
+    {      
+        
+      
         #region Password Encryption
         public static string Encrypt(string clearText)
         {
@@ -66,12 +65,36 @@ namespace ProfileManagementSystem.Utility
                 }
                 return cipherText;
             }
-            catch
+            catch(Exception ex)
             {
                 return "";
             }
 
         }
+        #endregion
+        public static void StoreError(string method,string errorMessage)
+        {
+            string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
+            // SQLiteConnection conn = new SQLiteConnection(connectString);
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectString))
+                {
+                    SQLiteCommand cmd = new SQLiteCommand();
+                    cmd.CommandText = @"insert into errorLog(method,date,errorMessage) values ('" + method + "','" + DateTime.Now.ToString() + "','" + errorMessage + "')";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    //conn.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+        }
+
         //public static string PasswordDecryption(string ConString)
         //{
 
@@ -98,5 +121,4 @@ namespace ProfileManagementSystem.Utility
         //}
 
     }
-}
 }

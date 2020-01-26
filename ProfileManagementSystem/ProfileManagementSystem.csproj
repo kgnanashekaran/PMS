@@ -143,9 +143,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\SOP.cs" />
     <Compile Include="Models\profileUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\fa-solid-900.svg" />
@@ -175,6 +177,10 @@
     <Content Include="assets\images\excel.png" />
     <Content Include="assets\images\logo-inverse.png" />
     <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\others\edit.png" />
+    <Content Include="assets\images\others\sort_asc.png" />
+    <Content Include="assets\images\others\sort_both.png" />
+    <Content Include="assets\images\others\sort_desc.png" />
     <Content Include="assets\images\pdf.png" />
     <Content Include="assets\images\pp.png" />
     <Content Include="assets\images\sop1.png" />
@@ -184,25 +190,34 @@
     <Content Include="assets\images\SOP\Slide12.JPG" />
     <Content Include="assets\images\SOP\Slide13.JPG" />
     <Content Include="assets\images\SOP\Slide14.JPG" />
+    <Content Include="assets\images\SOP\Slide15.JPG" />
+    <Content Include="assets\images\SOP\Slide16.JPG" />
+    <Content Include="assets\images\SOP\Slide17.JPG" />
+    <Content Include="assets\images\SOP\Slide18.JPG" />
+    <Content Include="assets\images\SOP\Slide19.JPG" />
     <Content Include="assets\images\SOP\Slide2.JPG" />
     <Content Include="assets\images\SOP\Slide20.JPG" />
     <Content Include="assets\images\SOP\Slide21.JPG" />
     <Content Include="assets\images\SOP\Slide22.JPG" />
-    <Content Include="assets\images\SOP\Slide23.JPG" />
-    <Content Include="assets\images\SOP\Slide24.JPG" />
-    <Content Include="assets\images\SOP\Slide25.JPG" />
-    <Content Include="assets\images\SOP\Slide26.JPG" />
     <Content Include="assets\images\SOP\Slide3.JPG" />
     <Content Include="assets\images\SOP\Slide4.JPG" />
     <Content Include="assets\images\SOP\Slide5.JPG" />
     <Content Include="assets\images\SOP\Slide6.JPG" />
-    <Content Include="assets\images\SOP\Slide62.JPG" />
     <Content Include="assets\images\SOP\Slide7.JPG" />
     <Content Include="assets\images\SOP\Slide8.JPG" />
     <Content Include="assets\images\SOP\Slide9.JPG" />
     <Content Include="assets\images\word.png" />
+    <Content Include="Content\dataTables.bootstrap.min.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="images\edit.png" />
+    <Content Include="images\sort_asc.png" />
+    <Content Include="images\sort_both.png" />
+    <Content Include="images\sort_desc.png" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.simplyscroll.js" />
     <Content Include="Scripts\main.js" />
@@ -289,6 +304,9 @@
     <Content Include="assets\fonts\Pe-icon-7-stroke.eot" />
     <Content Include="assets\fonts\Pe-icon-7-stroke.ttf" />
     <Content Include="assets\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -300,6 +318,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -314,12 +333,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\SOP\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utility\" />
+    <Folder Include="assets\images\profiles\Profile_thumb\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

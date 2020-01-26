@@ -5,3 +5,5 @@
 /ProfileManagementSystem/bin
 /ProfileManagementSystem/obj/Debug
 /.vs
+/ProfileManagementSystem/obj/Release/ProfileManagementSystem.csproj.CoreCompileInputs.cache
+/ProfileManagementSystem/ProfileManagementSystem.csproj.user
