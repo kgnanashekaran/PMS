@@ -6,7 +6,9 @@
 
 <html>
 <head>
-
+    <meta charset="utf-8">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="~/Scripts/jquery.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
@@ -17,7 +19,7 @@
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
+
 </head>
 <body>
     <div class="container">
@@ -65,8 +67,9 @@
             <div class="form-group row">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
                     <button type="submit" id="btnSaveSOP" class="btn btn-primary">Save</button>
-                    <button type="submit" id="btnUpdateSOP"class="btn btn-primary" style="display:none">Update</button>
-                    <input type="hidden"  id="editid">
+                    <button type="submit" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
+                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                    <input type="hidden" id="editid">
                 </div>
             </div>
             <div class="ln_solid"></div>
@@ -177,6 +180,12 @@
             var data = new FormData();
             var files = $("#idUpload").get(0).files;
             if (files.length > 0) {
+                var fileSize = files[0].size / 1024;
+                if (fileSize > 60) {
+                    alert('File size shold not be greater than 60 KB');
+                    return;
+                }
+              
                 data.append("MyImages", files[0]);
                 data.append("Name", $("#txtFirstName").val());
                 data.append("IsActive", $('#IsActive option:selected').text());
@@ -191,13 +200,14 @@
                     success: function (response) {
                         //alert('saved');
                         clearAll();
-                        alert(response);
+                        ShowStatusMsg(response);
+                        //alert(response);
                         //code after success
                         //$("#txtImg").val(response);
                         //$("#imgPreview").attr('src', '/Upload/' + response);
                     },
                     error: function (er) {
-                        alert(er);
+                        showNotificationError('Error in Processing');
                     }
                 });
             }
@@ -208,6 +218,13 @@
             var files = $("#idUpload").get(0).files;
             //if (files.length > 0) {
             data.append("MyImages", files[0]);
+            if (files.length > 0) {
+                var fileSize = files[0].size / 1024;
+                if (fileSize > 60) {
+                    alert('File size shold not be greater than 60 KB');
+                    return;
+                }
+            }
             //}
             //else {
             //    data.append("MyImages", null);
@@ -226,22 +243,65 @@
                 success: function (response) {
                     //alert('Updated');
                     clearAll();
-                    alert(response);
+                    ShowStatusMsg(response);
                     //code after success
                     //$("#txtImg").val(response);
                     //$("#imgPreview").attr('src', '/Upload/' + response);
                 },
                 error: function (er) {
-                    alert(er);
+                    showNotificationError('Error in Processing');
                 }
             });
 
+    });
+
+    $("#btnClear").click(function () {
+        clearAll();
     });
     function clearAll() {
 
         $("#IsActive").val('Yes');
         $("#txtFirstName").val('');
         $("#txtsortOrder").val('');
+        $("#idUpload").val('');
+
+    }
+
+    function ShowStatusMsg(msg) {
+        debugger;
+        setTimeout(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 3000
+            };
+            toastr.success(msg, 'Notification');
+        }, 1300);
+
+    }
+
+    /////Validation Failure status............
+
+    function showNotificationError(msg) {
+
+        setTimeout(function () {
+
+            toastr.options = {
+
+                closeButton: true,
+
+                progressBar: true,
+
+                showMethod: 'slideDown',
+
+                timeOut: 3000
+
+            };
+
+            toastr.error(msg, 'Notification');
+
+        }, 1300);
 
     }
 </script>

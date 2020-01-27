@@ -1,8 +1,8 @@
 ﻿@{
-                /**/
+    /**/
 
-                ViewBag.Title = "Himatsingka - Profile Management System";
-                //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Himatsingka - Profile Management System";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 <!DOCTYPE html>
@@ -10,6 +10,9 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="~/Scripts/jquery.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
@@ -18,8 +21,9 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Content/toastr.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
+    @*<link href="~/Content/toastr.css" rel="stylesheet" />*@
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    @*<meta name="viewport" content="width=device-width" />*@
 
     <title>Index</title>
 
@@ -219,6 +223,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                                     <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
                                     <button type="submit" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
+                                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                                    <input type="hidden" id="editid">
                                 </div>
 
                             </div>
@@ -301,14 +307,17 @@
 
 
     $(document).ready(function () {
-
+        //$("#edit").val('');
         LoadProfileData();
 
     });
     $("#select_Role").change(function () {
         if ($("#select_Role").val() == 'Administrator') {
-            $("#pass").show();
-            $("#conPass").show();
+            //alert($("#editid").val());
+            if ($("#editid").val() != 'editRec') {
+                $("#pass").show();
+                $("#conPass").show();
+            }
         }
         if ($("#select_Role").val() == 'User') {
             $("#pass").hide();
@@ -386,6 +395,8 @@
         $("#txtUserEmail").prop("readonly", true);
         $("#btnUpdate").show();
         $("#btnSave").hide();
+        $("#editid").val('editRec');
+        
     }
     $("#btnSave").click(function () {
 
@@ -404,10 +415,21 @@
             alert('Please provide email !');
             return;
         }
+        var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (!expr.test($("#txtUserEmail").val())) {
+                alert('Invalid email');
+        }
 
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
         if (files.length > 0) {
+
+            var fileSize = files[0].size / 1024;
+            if (fileSize > 60) {
+                alert('File size shold not be greater than 60 KB');
+                return;
+            }
+          
             data.append("MyImages", files[0]);
             data.append("firstName", $("#txtFirstName").val());
             data.append("lastName", $("#txtLastName").val());
@@ -428,6 +450,7 @@
                 data: data,
                 success: function (response) {
                     alert(response);
+                    LoadProfileData();
                     clearAll();
                    // alert();
                     //code after success
@@ -444,6 +467,13 @@
     $("#btnUpdate").click(function () {
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
+        if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+            if (fileSize > 60) {
+                alert('File size shold not be greater than 60 KB');
+                return;
+            }
+        }
         data.append("MyImages", files[0]);
         data.append("firstName", $("#txtFirstName").val());
         data.append("lastName", $("#txtLastName").val());
@@ -465,7 +495,10 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    alert(response);
+                    ShowStatusMsg(response);
+                    showNotificationError(response);
+                    //alert(response);
+                    LoadProfileData();
                     clearAll();
                 },
                 error: function (er) {
@@ -473,7 +506,12 @@
                 }
             });
         //}
+    });   
+
+    $("#btnClear").click(function () {
+        clearAll();
     });
+
     function clearAll() {
 
         $("#txtFirstName").val('');
@@ -485,57 +523,51 @@
         $("#IsActive").val('Yes');
         $("#isDisplay").val('Yes');
         $("#txtUserEmail").prop("readonly", false);
+        $("#idUpload").val('');
+        $("#txtPassword").val('');
+        $("#ContxtPassword").val('');
+        $("#pass").hide();
+        $("#conPass").hide();
+        $("#editid").val('');
         //$("#btnUpdate").show();
         //$("#btnSave").hide();
     }
 
-    //function ShowStatusMsg(msg) {
+    function ShowStatusMsg(msg) {
+        debugger;
+        setTimeout(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 3000
+            };
+            toastr.success(msg, 'Notification');
+        }, 1300);
 
-
-
-    //    setTimeout(function () {
-
-    //        toastr.options = {
-
-    //            closeButton: true,
-
-    //            progressBar: true,
-
-    //            showMethod: 'slideDown',
-
-    //            timeOut: 3000
-
-    //        };
-
-    //        toastr.success(msg, 'Notification');
-
-
-
-    //    }, 1300);
-
-    //}
+    }
 
     /////Validation Failure status............
 
-    //function showNotificationError(msg) {
+    function showNotificationError(msg) {
 
-    //    setTimeout(function () {
+        setTimeout(function () {
 
-    //        toastr.options = {
+            toastr.options = {
 
-    //            closeButton: true,
+                closeButton: true,
 
-    //            progressBar: true,
+                progressBar: true,
 
-    //            showMethod: 'slideDown',
+                showMethod: 'slideDown',
 
-    //            timeOut: 3000
+                timeOut: 3000
 
-    //        };
+            };
 
-    //        toastr.error(msg, 'Notification');
+            toastr.error(msg, 'Notification');
 
-    //    }, 1300);
+        }, 1300);
 
-    //}
+    }
 </script>

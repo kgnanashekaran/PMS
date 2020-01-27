@@ -143,7 +143,7 @@ namespace ProfileManagementSystem.Controllers
                                 cmd = new SQLiteCommand();
                                 cmd.CommandText = @" select max(id) from profileUser where email = '" + email.ToLower() + "'";
                                 cmd.Connection = conn;
-                                //conn.Open();
+                                conn.Open();
                                 profile = cmd.ExecuteScalar().ToString();
                                 conn.Close();
                             }
@@ -168,7 +168,7 @@ namespace ProfileManagementSystem.Controllers
                                 }                             
                                 //_imgname = picname;
                                 var _savePath = Server.MapPath("/assets/images/profiles/") + _dbImgname + _ext;
-                                ViewBag.Msg = _savePath;
+                               // ViewBag.Msg = _savePath;
                                 // var path = _comPath;
                                 // Saving Image in Original Mode
                                 pic.SaveAs(_savePath);
@@ -280,6 +280,15 @@ namespace ProfileManagementSystem.Controllers
                         var _comPath = Server.MapPath("/assets/images/profiles/") + picname + _ext;
                         var path = _comPath;
                         pic.SaveAs(path);
+
+                        // resizing image
+                        MemoryStream ms = new MemoryStream();
+                        WebImage img = new WebImage(path);
+                        
+                        if (img.Width > 200)
+                            img.Resize(200, 200);
+                        img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + _ext);
+                        // end resize
                         return Json(Convert.ToString("Profile updated !"), JsonRequestBehavior.AllowGet);
                     }
                     else

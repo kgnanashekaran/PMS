@@ -19,8 +19,7 @@ namespace ProfileManagementSystem.Controllers
         {
             //try
             //{
-            //    user = HttpContext.Session["fName"].ToString();
-            //    if (string.IsNullOrEmpty(user))
+            //    if (Session["fName"] == null || string.IsNullOrEmpty(user))
             //    {
             //        return RedirectToAction("Index", "Login");
 
@@ -28,7 +27,9 @@ namespace ProfileManagementSystem.Controllers
             //}
             //catch (Exception ex)
             //{
-            //   // Utility.Utility.StoreError("SOP_Index", ex.Message);
+            //    Utility.Utility.StoreError("SOP_Index", ex.Message);
+            //    return RedirectToAction("Index", "Login");
+
             //}
             return View();
         }
@@ -39,7 +40,7 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (HttpContext.Session["fName"] == null)
+                //if (Session["fName"] == null)
                 //{
                 //    return RedirectToAction("Index", "Login");
 
@@ -59,7 +60,7 @@ namespace ProfileManagementSystem.Controllers
                 {
                     var fileName = Path.GetFileName(pic.FileName);
                     var _ext = Path.GetExtension(pic.FileName);
-                    var uploadedfilename = fileName + _ext;
+                    var uploadedfilename = fileName ;
                     if (_ext.ToLower() == ".jpg" || _ext.ToLower() == ".jpeg")
                     {
                         using (SQLiteConnection conn = new SQLiteConnection(connectString))
@@ -75,7 +76,7 @@ namespace ProfileManagementSystem.Controllers
                         using (SQLiteConnection conn = new SQLiteConnection(connectString))
                         {
                             cmd = new SQLiteCommand();
-                            cmd.CommandText = @" select max(id) from sop where name = '" + pic.FileName.ToLower() + "'";
+                            cmd.CommandText = @" select max(id) from sop where name = '" + userPicName.ToLower() + "'";
                             cmd.Connection = conn;
                             conn.Open();
                             picname = cmd.ExecuteScalar().ToString();
@@ -125,7 +126,7 @@ namespace ProfileManagementSystem.Controllers
         {
             try
             {
-                //if (HttpContext.Session["fName"] == null)
+                //if (Session["fName"] == null)
                 //{
                 //    return RedirectToAction("Index", "Login");
 
@@ -218,7 +219,7 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (HttpContext.Session["fName"] == null)
+                //if (Session["fName"] == null)
                 //{
                 //    return RedirectToAction("Index", "Login");
 

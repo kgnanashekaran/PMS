@@ -212,6 +212,7 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="images\edit.png" />
     <Content Include="images\sort_asc.png" />
     <Content Include="images\sort_both.png" />

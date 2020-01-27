@@ -29,10 +29,10 @@ namespace ProfileManagementSystem.Controllers
                     if (AuthenticateFromDB(model.UserName, encryptedPassword))
                     {
 
-                        //HttpContext.Session["fName"] = userFirstName;
+                        Session["fName"] = "sandeep";
                         //HttpContext.Session["lName"] = lastName;
                         //HttpContext.Session["role"] = role;
-                       // ViewBag.NotValidUser = "Valid";
+                        ViewBag.NotValidUser = "Valid";
                        // return RedirectToAction("Index", "Profile");
                         return View("Index");
                     }
@@ -85,25 +85,31 @@ namespace ProfileManagementSystem.Controllers
             string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
             //SQLiteConnection conn;
             SQLiteCommand cmd;
-
+            int i = 0;
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                 {
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = @"SELECT * from profileUser where  email='" + loginNAme.ToLower() + "'  and password ='" + Password + "' and role ='Administrator' ";
+                    cmd.CommandText = @"SELECT count(*) from profileUser where  email='" + loginNAme.ToLower() + "'  and password ='" + Password + "' and role ='Administrator'  and isActive =1";
                     cmd.Connection = conn;
                     conn.Open();
-                    SQLiteDataReader r = cmd.ExecuteReader();
-                    while (r.Read())
+                    i =Convert.ToInt32(  cmd.ExecuteScalar().ToString());
+                    if (i > 0)
                     {
-
-                        //userFirstName = r["firstname"].ToString();
-                        //lastName = r["lastName"].ToString();
-                        //role = r["role"].ToString();
-                        // conn.Close();
+                        conn.Close();
+                        //userFirstName = "sandeep";
                         return true;
                     }
+                    //while (r.Read())
+                    //{
+                    //    co
+                    //    //userFirstName = r["firstname"].ToString();
+                    //    //lastName = r["lastName"].ToString();
+                    //    //role = r["role"].ToString();
+                    //    // conn.Close();
+                    //    return true;
+                    //}
                 }
             }
             catch (Exception ex)
