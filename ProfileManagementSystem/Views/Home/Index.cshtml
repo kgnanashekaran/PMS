@@ -6,93 +6,69 @@
 
 
 
-<div class="row" id="scroller1">
+<div class="scroller" id="divProfile">
+    <ul>
 
-    <div class="row col-12 profile-row" id="user-profiles">
         @{
             var _lstUserProfiles = ViewData["UserProfiles"] as List<profileUser>;
-            foreach (var item in _lstUserProfiles)
+            for (int i = 0; i < _lstUserProfiles.Count; i += 4)
             {
-                var picname = item.photo + ".jpg";
-                <div class="col-sm-12 col-lg-6 col-xl-3">
-                    <div class="mb-3 profile-responsive card">
-                        <div class="dropdown-menu-header">
-                            <div class="dropdown-menu-header-inner bg-dark">
-                                <div class="menu-header-image opacity-2" style="background-image: url('assets/images/avatars/abstract2.jpg');"></div>
-                                <div class="menu-header-content btn-pane-right">
-                                    <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
-                                        <div class="avatar-icon rounded"><img src="~/assets/images/avatars/@picname" alt="@item.name"></div>
-                                    </div>
-                                    <div>
-                                        <h5 class="menu-header-title">@item.name </h5>
-                                        <h6 class="menu-header-subtitle1">Emp.No# @item.empno</h6>
-                                        <h6 class="menu-header-subtitle">@item.designation</h6>
-                                    </div>
-                                    @*<div class="menu-header-btn-pane">
-                                            <button class="btn btn-success">View Profile</button>
-                                        </div>*@
-                                </div>
-                            </div>
-                        </div>
+                <li>
+                    <div class="row col-12 profile-row" id="user-profiles">
+                        @{ var items = _lstUserProfiles.Skip(i).Take(4).ToList();
+                            foreach (var item in items)
+                            {
+                                var picname = item.photo + ".jpg";
 
+                                <div class="col-sm-12 col-lg-6 col-xl-3">
+                                    <div class="mb-3 profile-responsive card">
+                                        <div class="dropdown-menu-header">
+                                            <div class="dropdown-menu-header-inner bg-dark">
+                                                <div class="menu-header-image opacity-2" style="background-image: url('../assets/images/avatars/abstract2.jpg');"></div>
+                                                <div class="menu-header-content btn-pane-right">
+                                                    <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                                        <div class="avatar-icon rounded"><img src="../assets/images/avatars/@picname" alt="@item.firstname @item.lastname"></div>
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="menu-header-title">@item.firstname @item.lastname</h5>
+                                                        <h6 class="menu-header-subtitle1">Emp.No# @item.empno</h6>
+                                                        <h6 class="menu-header-subtitle">@item.designation</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
-                </div>
+                </li>
+
             }
         }
 
-    </div>
-
-</div>
-
-<div class="row" id="scroller2">
-
-    <div class="row col-12 profile-row" id="sops">
-        <div class="col-md-12">
-            <div class="main-card mb-3 card">
-                <div class="card-header">
-                    SOP's
-                </div>
-                <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-
-                        <tbody>
-
-
-                            @{
-                                var _lstSOP = ViewData["SOP"] as List<SOP>;
-                                foreach (var item in _lstSOP)
-                                {
-                                  
-                                    <tr>
-                                        <td class="text-center text-muted">
-                                            @item.name
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center text-muted">
-                                            <img src="~/assets/images/SOP/@item.filename" />
-                                        </td>
-
-                                    </tr>
-
-                                }
-                            }
-
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
+    </ul>
 </div>
 
 
+<div class="scroller" id="divSOP">
+    <ul>
 
+        @{
+            var _lstSOP = ViewData["SOP"] as List<SOP>;
+            foreach (var item in _lstSOP)
+            {
+                var picname = item.filename + ".jpg";
+                <li>
+                    <div class="row col-12 profile-row" id="sops">
+                        <div class="col-md-12" style="text-align:center">
+                            <img src="../assets/images/SOP/@picname" />
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
 

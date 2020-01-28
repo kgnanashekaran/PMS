@@ -30,6 +30,18 @@ namespace ProfileManagementSystem
                     "~/assets/styles/main.css",
                     "~/assets/styles/jquery.simplyscroll.css"
                     /*"~/assets/font_awesome/css/font-awesome.min.css"*/));
+
+            bundles.Add(new ScriptBundle("~/bundles/bottomScripts").Include(
+                       "~/Scripts/main.js",
+                       "~/Scripts/jquery-3.3.1.min.js",
+                       "~/Scripts/jquery.easy-ticker.min.js"
+                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/topScripts").Include(
+                        "~/Scripts/jquery.easing.min.js"
+                        ));
+
+
         }
     }
 }

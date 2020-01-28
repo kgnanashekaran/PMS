@@ -337,6 +337,13 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\SOP\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="App.config" />
+    <Content Include="App.Debug.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
+    <Content Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\profiles\Profile_thumb\" />

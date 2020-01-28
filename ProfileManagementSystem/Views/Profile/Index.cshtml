@@ -248,8 +248,8 @@
                                                 <th>Designation</th>
                                                 <th>Employee Code</th>
                                                 <th>Role </th>
-                                                <th>Status</th>
-                                                <th>Display</th>
+                                                <th>Active?</th>
+                                                <th>Display in Portal?</th>
                                                 <th>Action</th>
 
                                             </tr>
@@ -346,7 +346,7 @@
                     if (obj.status == 1)
                         status = 'Yes';
 
-                    htmlText += "<tr><td>" + obj.name + "</td><td>" + obj.lastName + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display+  "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
+                    htmlText += "<tr><td>" + obj.firstname + "</td><td>" + obj.lastname + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display+  "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
                 });
                 $("#tbldata").html(htmlText);
 

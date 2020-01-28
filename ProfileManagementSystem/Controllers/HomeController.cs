@@ -16,6 +16,7 @@ namespace ProfileManagementSystem.Controllers
         {
             try
             {
+                var a = Utility.Utility.Decrypt("txnLZNQg1lzddjjocxNILw==");
                 ViewData["UserProfiles"] = GetUserProfileList();
                 ViewData["SOP"] = GetSOPList();
 
@@ -78,7 +79,7 @@ namespace ProfileManagementSystem.Controllers
 
             conn = new SQLiteConnection(connectString);
             cmd = new SQLiteCommand();
-            cmd.CommandText = @"SELECT * from profileUser";
+            cmd.CommandText = @"SELECT * from profileUser where isActive=1 and isDisplay=1";
             cmd.Connection = conn;
             conn.Open();
 
@@ -87,7 +88,8 @@ namespace ProfileManagementSystem.Controllers
             while (r.Read())
             {
                 profileUser _profileUser = new profileUser();
-                _profileUser.name = r["firstname"].ToString();
+                _profileUser.firstname = r["firstname"].ToString();
+                _profileUser.lastname = r["lastname"].ToString();
                 _profileUser.designation = r["designation"].ToString();
                 _profileUser.empno = r["empno"].ToString();
                 _profileUser.photo = r["photo"].ToString();
@@ -109,7 +111,7 @@ namespace ProfileManagementSystem.Controllers
 
             conn = new SQLiteConnection(connectString);
             cmd = new SQLiteCommand();
-            cmd.CommandText = @"SELECT * from sop order by sortorder";
+            cmd.CommandText = @"SELECT * from sop where isActive=1 order by sortorder";
             cmd.Connection = conn;
             conn.Open();
 
@@ -119,7 +121,7 @@ namespace ProfileManagementSystem.Controllers
             {
                 SOP _sop = new SOP();
                 _sop.name = r["name"].ToString();
-                _sop.filename = r["filename"].ToString();
+                _sop.filename = r["id"].ToString();
                 _lstSOP.Add(_sop);
             }
 
@@ -144,7 +146,7 @@ namespace ProfileManagementSystem.Controllers
                     while (r.Read())
                     {
                         profileUser _profileUser = new profileUser();
-                        _profileUser.name = r["name"].ToString();
+                        _profileUser.firstname = r["name"].ToString();
                         _profileUser.designation = r["designation"].ToString();
                         _profileUser.empno = r["empno"].ToString();
                         _profileUser.photo = r["photo"].ToString();

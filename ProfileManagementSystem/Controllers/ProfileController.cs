@@ -55,7 +55,8 @@ namespace ProfileManagementSystem.Controllers
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                 {
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = @"SELECT * from profileUser where id >= 264";
+                    //cmd.CommandText = @"SELECT * from profileUser where id >= 264";
+                    cmd.CommandText = @"SELECT * from profileUser";
                     cmd.Connection = conn;
                     conn.Open();
                     SQLiteDataReader r = cmd.ExecuteReader();
@@ -64,7 +65,7 @@ namespace ProfileManagementSystem.Controllers
                     {
                         profileUser _profileUser = new profileUser();
                         _profileUser.ID = r["id"].ToString();
-                        _profileUser.name = r["firstname"].ToString();
+                        _profileUser.firstname = r["firstname"].ToString();
                         _profileUser.email = r["email"].ToString();
                         _profileUser.designation = r["designation"].ToString();
                         _profileUser.empno = r["empno"].ToString();
@@ -72,7 +73,7 @@ namespace ProfileManagementSystem.Controllers
                         _profileUser.role = r["role"].ToString();
                         _profileUser.status = Convert.ToInt32(r["isActive"].ToString());
                         _profileUser.display = Convert.ToInt32(r["isDisplay"].ToString());
-                        _profileUser.lastName = r["lastName"].ToString();
+                        _profileUser.lastname = r["lastName"].ToString();
                         _lstProfileUser.Add(_profileUser);
                     }
                 }
