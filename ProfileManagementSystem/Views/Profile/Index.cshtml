@@ -401,6 +401,23 @@
     $("#btnSave").click(function () {
 
         //Validations
+
+
+        if ($("#txtDesignation").val() == '') {
+            alert('Please provide designation !');
+            return;
+        }
+
+        if ($("#txtFirstName").val() == '') {
+            alert('Please provide first name !');
+            return;
+        }
+
+        if ($("#txtEmpCode").val() == '') {
+            alert('Please provide employee code !');
+            return;
+        }
+
         if ($('#select_Role option:selected').text() == 'Administrator') {
             if ($("#txtPassword").val() == '') {
                 alert('Please provide a password !');
@@ -417,7 +434,8 @@
         }
         var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!expr.test($("#txtUserEmail").val())) {
-                alert('Invalid email');
+            alert('Invalid email');
+            return;
         }
 
         var data = new FormData();
@@ -465,6 +483,23 @@
     });
 
     $("#btnUpdate").click(function () {
+
+        if ($("#txtDesignation").val() == '') {
+            alert('Please provide designation !');
+            return;
+        }
+
+        if ($("#txtFirstName").val() == '') {
+            alert('Please provide first name !');
+            return;
+        }
+
+        if ($("#txtEmpCode").val() == '') {
+            alert('Please provide employee code !');
+            return;
+        }
+
+
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
         if (files.length > 0) {
@@ -495,9 +530,9 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    ShowStatusMsg(response);
-                    showNotificationError(response);
-                    //alert(response);
+                    //ShowStatusMsg(response);
+                    //showNotificationError(response);
+                    alert(response);
                     LoadProfileData();
                     clearAll();
                 },

@@ -187,6 +187,14 @@
                     return;
                 }
             }
+            if ($("#txtFirstName").val() == '') {
+                alert('Please provide SOP name !');
+                return;
+            }
+            if ($("#txtsortOrder").val() == '') {
+                alert('Please provide sort order !');
+                return;
+            }
 
             if (files.length > 0) {
                 //var fileSize = files[0].size / 1024;
@@ -209,8 +217,8 @@
                     success: function (response) {
                         //alert('saved');
                         clearAll();
-                        ShowStatusMsg(response);
-                        //alert(response);
+                        //ShowStatusMsg(response);
+                        alert(response);
                         //code after success
                         //$("#txtImg").val(response);
                         //$("#imgPreview").attr('src', '/Upload/' + response);
@@ -222,7 +230,15 @@
             }
         });
 
-        $("#btnUpdateSOP").click(function () {
+    $("#btnUpdateSOP").click(function () {
+        if ($("#txtFirstName").val() == '') {
+            alert('Please provide SOP name !');
+            return;
+        }
+        if ($("#txtsortOrder").val() == '') {
+            alert('Please provide sort order !');
+            return;
+        }
             var data = new FormData();
             var files = $("#idUpload").get(0).files;
             //if (files.length > 0) {
@@ -250,9 +266,9 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    //alert('Updated');
+                    alert(response);
                     clearAll();
-                    ShowStatusMsg(response);
+                    //ShowStatusMsg(response);
                     //code after success
                     //$("#txtImg").val(response);
                     //$("#imgPreview").attr('src', '/Upload/' + response);

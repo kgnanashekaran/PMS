@@ -38,6 +38,7 @@ namespace ProfileManagementSystem
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/topScripts").Include(
+                        "~/Scripts/jquery-3.3.1.min.js",
                         "~/Scripts/jquery.easing.min.js"
                         ));
 
