@@ -23,78 +23,96 @@
 </head>
 <body>
     <div class="container">
+        <div class="title_left">
+            <h3>
+                <span id="PageTitle">SOP management</span>
+            </h3>
+
+            <div id="divCancelButton" class="form-group row">
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="btnAdd" class=" btn btn-primary">Add SOP</button>
+                </div>
+
+            </div>
+
+        </div>
+
         <form id="form-input" class="form-horizontal">
-            @Html.AntiForgeryToken()
-            <br>
-            <br>
-            <div class="form-group">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
-                    Name <span class="required" style="color: red;">*</span>
-                </label>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+            <div id="addData" style="display:none;">
+                @Html.AntiForgeryToken()
+                <br>
+                <br>
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
+                        Name <span class="required" style="color: red;">*</span>
+                    </label>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+                        SOP <span style="color: red;">*</span>
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtsortOrder">
+                        Sort Order <span class="required" style="color: red;">*</span>
+                    </label>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
+                        Active <span style="color: red;">*</span>
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <select id="IsActive" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
+                    </div>
+                </div>
+                <br>
+                <div class="ln_solid"></div>
+                <div class="form-group row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                        <button type="submit" id="btnSaveSOP" class="btn btn-primary">Save</button>
+                        <button type="submit" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
+                        <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                        <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
+                        <input type="hidden" id="editid">
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="form-group row">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
-                    SOP <span style="color: red;">*</span>
-                </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
-                </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtsortOrder">
-                    Sort Order <span class="required" style="color: red;">*</span>
-                </label>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12">
-                </div>
-            </div>
-            <br>
-            <div class="form-group row">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
-                    Active <span style="color: red;">*</span>
-                </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <select id="IsActive" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
-                </div>
-            </div>
-            <br>
-            <div class="ln_solid"></div>
-            <div class="form-group row">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
-                    <button type="submit" id="btnSaveSOP" class="btn btn-primary">Save</button>
-                    <button type="submit" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
-                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
-                    <input type="hidden" id="editid">
-                </div>
-            </div>
-            <div class="ln_solid"></div>
-            <div class="form-group row">
-                <div class="control-group">
-                    <table id="tblDisplaySOPS"
-                           class="table table-striped table-bordered" cellspacing="0">
-                        <thead class="or-thead" style="background-color: #004b8d; color: white;">
-                            <tr>
-                                <th>Name</th>
-                                <th>SOP</th>
-                                <th>Sort Order</th>
-                                <th>Active</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                <div class="ln_solid"></div>
+                <div class="form-group row">
+                    <div class="control-group">
+                        <table id="tblDisplaySOPS"
+                               class="table table-striped table-bordered" cellspacing="0">
+                            <thead class="or-thead" style="background-color: #004b8d; color: white;">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>SOP</th>
+                                    <th>Sort Order</th>
+                                    <th>Active</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                        <tbody id="tbldata" class="appendData"></tbody>
+                            <tbody id="tbldata" class="appendData"></tbody>
 
-                    </table>
+                        </table>
+
+                    </div>
 
                 </div>
-
-            </div>
-
+         
         </form>
     </div>
 </body>
@@ -106,6 +124,14 @@
     $(document).ready(function () {
 
         loadData();
+        ShowStatusMsg('loaded');
+        //toastr.options
+        //{
+        //    close: true;
+        //    progressBar: true;
+        //    showMethod: 'slideDown';
+        //};
+        //toastr.success('loaded');
 
     });
 
@@ -114,123 +140,79 @@
         $.ajax({
             type: "POST",
             url: "/SOP/GetSOPList",
-                /**/
-                data: null,
-                dataType: "json",
-                success: function (msg) {
-                    // alert('hello');
-                    $("#tblDisplaySOPS").DataTable().destroy();
+            /**/
+            data: null,
+            dataType: "json",
+            success: function (msg) {
+                // alert('hello');
+                $("#tblDisplaySOPS").DataTable().destroy();
 
-                    $("#tbldata").html("");
-                    $.each(msg, function (index, obj) {
-                        var status = 'No';
-                        if (obj.status == 1)
-                            status = 'Yes';
+                $("#tbldata").html("");
+                $.each(msg, function (index, obj) {
+                    var status = 'No';
+                    if (obj.status == 1)
+                        status = 'Yes';
 
-                        htmlText += "<tr><td>" + obj.name + "</td><td>" + obj.filename + "</td><td>" + obj.sortOrder + "</td><td>" + status + "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this," + obj.id + ")' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
-                    });
-                    $("#tbldata").html(htmlText);
-                    $("#tblDisplaySOPS").DataTable({
-
-                        paging: true,
-                        'bPaginate': true,
-                        'iDisplayLength': 10,
-                        columnDefs: [
-                            { orderable: false, "targets": [4] }
-                        ],
-                        "dom": 'T<"clear">lfrtip',
-                        destroy: true,
-                        "bDestroy": true,
-
-                    });
-                },
-
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-
-            });
-
-        }
-
-        function EditRecord(d, id) {
-            var tr = $(d).parent().parent();
-            var td = tr.find('td');
-            $("#txtFirstName").val($(td[0]).html());
-            $("#txtsortOrder").val($(td[2]).html());
-            $("#IsActive").val($(td[3]).html());
-            $("#editid").val(id);
-            $("#btnSaveSOP").hide();
-            $("#btnUpdateSOP").show();
-            $("#txtFirstName").prop("readonly", true);
-            //DomainMetricListdata('Edit');
-            //SLADetailsGrid('Edit');
-        }
-        $("#idUpload").change(function () {
-            var data = new FormData();
-            var files = $("#idUpload").get(0).files;
-            if (files.length > 0) {
-                if($("#txtFirstName").val() =='')
-                {
-                    $("#txtFirstName").val(files[0].name);
-                }
-            }
-        });
-        $("#btnSaveSOP").click(function () {
-            var data = new FormData();
-            var files = $("#idUpload").get(0).files;
-
-            if (files.length > 0) {
-                var fileSize = files[0].size / 1024;
-                if (fileSize > 260) {
-                    alert('File size shold not be greater than 260 KB');
-                    return;
-                }
-            }
-            if ($("#txtFirstName").val() == '') {
-                alert('Please provide SOP name !');
-                return;
-            }
-            if ($("#txtsortOrder").val() == '') {
-                alert('Please provide sort order !');
-                return;
-            }
-
-            if (files.length > 0) {
-                //var fileSize = files[0].size / 1024;
-                //if (fileSize > 60) {
-                //    alert('File size shold not be greater than 60 KB');
-                //    return;
-                //}
-              
-                data.append("MyImages", files[0]);
-                data.append("Name", $("#txtFirstName").val());
-                data.append("IsActive", $('#IsActive option:selected').text());
-                data.append("SortOrder", $("#txtsortOrder").val());
-                //alert(files[0].name)
-                $.ajax({
-                    url: "/SOP/UploadFiles",
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    data: data,
-                    success: function (response) {
-                        //alert('saved');
-                        clearAll();
-                        //ShowStatusMsg(response);
-                        alert(response);
-                        //code after success
-                        //$("#txtImg").val(response);
-                        //$("#imgPreview").attr('src', '/Upload/' + response);
-                    },
-                    error: function (er) {
-                        showNotificationError('Error in Processing');
-                    }
+                    htmlText += "<tr><td>" + obj.name + "</td><td>" + obj.filename + "</td><td>" + obj.sortOrder + "</td><td>" + status + "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this," + obj.id + ")' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
                 });
+                $("#tbldata").html(htmlText);
+                $("#tblDisplaySOPS").DataTable({
+
+                    paging: true,
+                    'bPaginate': true,
+                    'iDisplayLength': 10,
+                    columnDefs: [
+                        { orderable: false, "targets": [4] }
+                    ],
+                    "dom": 'T<"clear">lfrtip',
+                    destroy: true,
+                    "bDestroy": true,
+
+                });
+            },
+
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError);
             }
+
         });
 
-    $("#btnUpdateSOP").click(function () {
+    }
+
+    function EditRecord(d, id) {
+        $("#addData").show();
+        var tr = $(d).parent().parent();
+        var td = tr.find('td');
+        $("#txtFirstName").val($(td[0]).html());
+        $("#txtsortOrder").val($(td[2]).html());
+        $("#IsActive").val($(td[3]).html());
+        $("#editid").val(id);
+        $("#btnSaveSOP").hide();
+        $("#btnUpdateSOP").show();
+        $("#txtFirstName").prop("readonly", true);
+        //DomainMetricListdata('Edit');
+        //SLADetailsGrid('Edit');
+    }
+    $("#idUpload").change(function () {
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+        if (files.length > 0) {
+            if ($("#txtFirstName").val() == '') {
+                $("#txtFirstName").val(files[0].name);
+            }
+        }
+    });
+    $("#btnSaveSOP").click(function () {
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+
+        if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+            if (fileSize > 260) {
+                alert('File size shold not be greater than 260 KB');
+                return;
+            }
+        }
         if ($("#txtFirstName").val() == '') {
             alert('Please provide SOP name !');
             return;
@@ -239,36 +221,30 @@
             alert('Please provide sort order !');
             return;
         }
-            var data = new FormData();
-            var files = $("#idUpload").get(0).files;
-            //if (files.length > 0) {
+
+        if (files.length > 0) {
+            //var fileSize = files[0].size / 1024;
+            //if (fileSize > 60) {
+            //    alert('File size shold not be greater than 60 KB');
+            //    return;
+            //}
+
             data.append("MyImages", files[0]);
-            if (files.length > 0) {
-                var fileSize = files[0].size / 1024;
-                if (fileSize > 260) {
-                    alert('File size shold not be greater than 260 KB');
-                    return;
-                }
-            }
-            //}
-            //else {
-            //    data.append("MyImages", null);
-            //}
             data.append("Name", $("#txtFirstName").val());
             data.append("IsActive", $('#IsActive option:selected').text());
             data.append("SortOrder", $("#txtsortOrder").val());
-            data.append("Id", $("#editid").val());
             //alert(files[0].name)
             $.ajax({
-                url: "/SOP/UpdateSOP",
+                url: "/SOP/UploadFiles",
                 type: "POST",
                 processData: false,
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    alert(response);
+                    //alert('saved');
                     clearAll();
                     //ShowStatusMsg(response);
+                    alert(response);
                     //code after success
                     //$("#txtImg").val(response);
                     //$("#imgPreview").attr('src', '/Upload/' + response);
@@ -277,12 +253,82 @@
                     showNotificationError('Error in Processing');
                 }
             });
+        }
+    });
+
+    $("#btnUpdateSOP").click(function () {
+        if ($("#txtFirstName").val() == '') {
+            alert('Please provide SOP name !');
+            return;
+        }
+        if ($("#txtsortOrder").val() == '') {
+            //alert('Please provide sort order !');
+            showNotificationError('File size shold not be greater than 260 KB');
+            return;
+        }
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+        //if (files.length > 0) {
+        data.append("MyImages", files[0]);
+        if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+            if (fileSize > 10) {
+               // toastr.options
+               // {
+               //     close: true;
+               //     progressBar: true;
+               //     showMethod: 'slideDown';
+               //     timeOut: 50000;
+               // };
+               //toastr.error('File size shold not be greater than 260 KB');
+               // showNotificationError('File size shold not be greater than 260 KB');
+                //alert('File size shold not be greater than 10 KB');
+                return;
+            }
+        }
+        //}
+        //else {
+        //    data.append("MyImages", null);
+        //}
+        data.append("Name", $("#txtFirstName").val());
+        data.append("IsActive", $('#IsActive option:selected').text());
+        data.append("SortOrder", $("#txtsortOrder").val());
+        data.append("Id", $("#editid").val());
+        //alert(files[0].name)
+        $.ajax({
+            url: "/SOP/UpdateSOP",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                alert(response);
+                clearAll();
+                //ShowStatusMsg(response);
+                //code after success
+                //$("#txtImg").val(response);
+                //$("#imgPreview").attr('src', '/Upload/' + response);
+            },
+            error: function (er) {
+                //showNotificationError('Error in Processing');
+            }
+        });
 
     });
 
     $("#btnClear").click(function () {
         clearAll();
     });
+
+    $("#btnAdd").click(function () {
+        $("#addData").show();
+        clearAll();
+    });
+    $("#btnCancel").click(function () {
+        $("#addData").hide();
+        clearAll();
+    });
+
     function clearAll() {
 
         $("#IsActive").val('Yes');

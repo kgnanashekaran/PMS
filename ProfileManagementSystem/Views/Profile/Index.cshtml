@@ -56,215 +56,229 @@
 
                                 <h3>
 
-                                    <i class="fa fa-th-large main_icon" style="padding-left:5px;"></i>
+                                    @*<i class="fa fa-th-large main_icon" style="padding-left:5px;"></i>*@
 
                                     <span id="PageTitle">Profile management</span>
 
                                 </h3>
+
+                                <div id="divCancelButton" class="form-group row">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <button type="button" id="btnAdd" class=" btn btn-primary">Add Profile</button>
+                                    </div>
+
+                                </div>
 
                             </div>
 
                         </div>
 
                         <br />
+                        @*<div id="addData" style="display:none;">*@
 
                         <form id="form-input" class="form-horizontal" style="padding-top:50px;">
 
                             @Html.AntiForgeryToken()
-                            <br>
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
-                                    First Name <span class="required" style="color: red;">*</span>
-                                </label>
-
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <br>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtLastName">
-                                    Last Name
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" id="txtLastName" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <br>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtUserEmail">
-                                    Email <span class="required" style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                                <div id="msgUserEmail" style="color:red"></div>
-                            </div>
-
-                            <br>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtDesignation">
-                                    Designation <span class="required" style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <br>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtEmpCode">
-                                    Employee Code <span class="required" style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <br>
-
-                            <div class="form-group row">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
-                                    Role <span style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="Role" id="select_Role" class="form-control col-md-7 col-xs-12">
-                                        <option value="User">User</option>
-                                        <option value="Administrator">Administrator</option>
-                                    </select>
-                                </div>
-                                <div style="padding-bottom: 1px;">&nbsp</div>
-                            </div>
-                            <div class="form-group" id="pass" style="display:none">
+                            <div id="addData" style="display:none;">
                                 <br>
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtPassword">
-                                    Password <span class="required" style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
+                                        First Name <span class="required" style="color: red;">*</span>
+                                    </label>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group" id="conPass" style="display:none">
+
                                 <br>
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="ConTxtPassword">
-                                    Confirm Password <span class="required" style="color: red;">*</span>
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group row">
 
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
-
-                                    Active <span style="color: red;">*</span>
-
-                                </label>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-
-                                    <select id="IsActive" class="form-control m-b">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtLastName">
+                                        Last Name
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="text" id="txtLastName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
                                 </div>
 
-                            </div>
-                            <br>
-                            <div class="form-group row">
+                                <br>
 
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="isDisplay">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtUserEmail">
+                                        Email <span class="required" style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                    <div id="msgUserEmail" style="color:red"></div>
+                                </div>
 
-                                    Display <span style="color: red;">*</span>
+                                <br>
 
-                                </label>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtDesignation">
+                                        Designation <span class="required" style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
 
-                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                <br>
 
-                                    <select id="isDisplay" class="form-control m-b">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtEmpCode">
+                                        Employee Code <span class="required" style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="form-group row">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
+                                        Role <span style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <select name="Role" id="select_Role" class="form-control col-md-7 col-xs-12">
+                                            <option value="User">User</option>
+                                            <option value="Administrator">Administrator</option>
+                                        </select>
+                                    </div>
+                                    <div style="padding-bottom: 1px;">&nbsp</div>
+                                </div>
+                                <div class="form-group" id="pass" style="display:none">
+                                    <br>
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtPassword">
+                                        Password <span class="required" style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="conPass" style="display:none">
+                                    <br>
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="ConTxtPassword">
+                                        Confirm Password <span class="required" style="color: red;">*</span>
+                                    </label>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
+
+                                        Active <span style="color: red;">*</span>
+
+                                    </label>
+
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+
+                                        <select id="IsActive" class="form-control m-b">
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div class="form-group row">
+
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="isDisplay">
+
+                                        Display <span style="color: red;">*</span>
+
+                                    </label>
+
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+
+                                        <select id="isDisplay" class="form-control m-b">
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <br>
+
+                                <div class="form-group row">
+
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+
+                                        Picture <span style="color: red;">*</span>
+
+                                    </label>
+
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+
+                                        <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+
+                                    </div>
+
+                                </div>
+                                <br />
+
+                                <div class="ln_solid"></div>
+
+                                <div id="divbuttons" class="form-group row">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                        <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
+                                        <button type="submit" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
+                                        <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                                        <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
+                                        <input type="hidden" id="editid">
+                                    </div>
 
                                 </div>
 
                             </div>
-                            <br>
 
-                            <div class="form-group row">
+                                <div class="form-group row">
 
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+                                    <div class="control-group">
 
-                                    Picture <span style="color: red;">*</span>
+                                        @*<label class="Lablecolor">Data</label>*@
 
-                                </label>
+                                        <table id="tblDisplayProfiles"
+                                               class="table table-striped table-bordered" cellspacing="0">
 
-                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <thead class="or-thead" style="background-color: #004b8d; color: white;">
 
-                                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+                                                <tr>
 
-                                </div>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Designation</th>
+                                                    <th>Employee Code</th>
+                                                    <th>Role </th>
+                                                    <th>Active?</th>
+                                                    <th>Display in Portal?</th>
+                                                    <th>Action</th>
 
-                            </div>
-                            <br />
+                                                </tr>
 
-                            <div class="ln_solid"></div>
+                                            </thead>
 
-                            <div id="divbuttons" class="form-group row">
+                                            <tbody id="tbldata" class="appendData"></tbody>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
-                                    <button type="submit" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
-                                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
-                                    <input type="hidden" id="editid">
-                                </div>
+                                        </table>
 
-                            </div>
-
-                            <div class="form-group row">
-
-                                <div class="control-group">
-
-                                    @*<label class="Lablecolor">Data</label>*@
-
-                                    <table id="tblDisplayProfiles"
-                                           class="table table-striped table-bordered" cellspacing="0">
-
-                                        <thead class="or-thead" style="background-color: #004b8d; color: white;">
-
-                                            <tr>
-
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Designation</th>
-                                                <th>Employee Code</th>
-                                                <th>Role </th>
-                                                <th>Active?</th>
-                                                <th>Display in Portal?</th>
-                                                <th>Action</th>
-
-                                            </tr>
-
-                                        </thead>
-
-                                        <tbody id="tbldata" class="appendData"></tbody>
-
-                                    </table>
+                                    </div>
 
                                 </div>
-
-                            </div>
 
                         </form>
+                        @*</div>*@
 
                     </div>
 
@@ -381,6 +395,7 @@
     }
 
     function EditRecord(d) {
+        $("#addData").show();
         var tr = $(d).parent().parent();
         var td = tr.find('td');
 
@@ -396,7 +411,7 @@
         $("#btnUpdate").show();
         $("#btnSave").hide();
         $("#editid").val('editRec');
-        
+
     }
     $("#btnSave").click(function () {
 
@@ -404,37 +419,37 @@
 
 
         if ($("#txtDesignation").val() == '') {
-            alert('Please provide designation !');
+            showNotificationError('Please provide designation !');
             return;
         }
 
-        if ($("#txtFirstName").val() == '') {
-            alert('Please provide first name !');
+        if ($("#txtFirstName").val() == '') {;
+            showNotificationError('Please provide first name !');
             return;
         }
 
         if ($("#txtEmpCode").val() == '') {
-            alert('Please provide employee code !');
+            showNotificationError('Please provide employee code !');
             return;
         }
 
         if ($('#select_Role option:selected').text() == 'Administrator') {
             if ($("#txtPassword").val() == '') {
-                alert('Please provide a password !');
+                showNotificationError('Please provide a password !');
                 return;
             }
             if ($("#ConTxtPassword").val() != $("#txtPassword").val()) {
-                alert('Password and Confirm password should be same !');
+                showNotificationError('Password and Confirm password should be same !');
                 return;
             }
         }
         if ($("#txtUserEmail").val() == '') {
-            alert('Please provide email !');
+            showNotificationError('Please provide email !');
             return;
         }
         var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!expr.test($("#txtUserEmail").val())) {
-            alert('Invalid email');
+            showNotificationError('Invalid email');
             return;
         }
 
@@ -444,10 +459,10 @@
 
             var fileSize = files[0].size / 1024;
             if (fileSize > 60) {
-                alert('File size shold not be greater than 60 KB');
+                showNotificationError('File size shold not be greater than 60 KB');
                 return;
             }
-          
+
             data.append("MyImages", files[0]);
             data.append("firstName", $("#txtFirstName").val());
             data.append("lastName", $("#txtLastName").val());
@@ -467,18 +482,24 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    alert(response);
+
+                    if (response.status == true) {
+                        ShowStatusMsg(response.message);
+                    }
+                    else {
+                        showNotificationError(response.message);
+                    }
                     LoadProfileData();
                     clearAll();
-                   // alert();
-                    //code after success
-                    //$("#txtImg").val(response);
-                    //$("#imgPreview").attr('src', '/Upload/' + response);
                 },
                 error: function (er) {
-                    alert(er);
+                    showNotificationError(er);
+                    //alert(er);
                 }
             });
+        }
+        else {
+            showNotificationError('Please select a profile pic !');
         }
     });
 
@@ -530,23 +551,37 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    //ShowStatusMsg(response);
-                    //showNotificationError(response);
-                    alert(response);
-                    LoadProfileData();
-                    clearAll();
+                    if (response.status == true) {
+                        alert('hi');
+                        alert(response.message);
+                        ShowStatusMsg(response.message);
+                    }
+                    else {
+                        alert('bye');
+                        showNotificationError(response.message);
+                    }
+                    //LoadProfileData();
+                    //clearAll();
                 },
                 error: function (er) {
-                    alert(er);
+                    showNotificationError(er);
                 }
             });
         //}
-    });   
+    });
 
     $("#btnClear").click(function () {
         clearAll();
     });
-
+    $("#btnAdd").click(function () {
+        $("#addData").show();
+        clearAll();
+    });
+    $("#btnCancel").click(function () {
+        $("#addData").hide();
+        clearAll();
+    });
+    
     function clearAll() {
 
         $("#txtFirstName").val('');
@@ -573,9 +608,9 @@
         setTimeout(function () {
             toastr.options = {
                 closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 3000
+              //  progressBar: true,
+                //showMethod: 'slideDown',
+                timeOut: 6000
             };
             toastr.success(msg, 'Notification');
         }, 1300);

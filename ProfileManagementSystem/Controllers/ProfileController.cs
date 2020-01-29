@@ -7,11 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using ProfileManagementSystem.Models;
 namespace ProfileManagementSystem.Controllers
 {
     public class ProfileController : Controller
     {
         string user = string.Empty;
+        Alert alert;
         public ActionResult Index()
         {
             //try
@@ -89,6 +91,7 @@ namespace ProfileManagementSystem.Controllers
         [HttpPost]
         public ActionResult UploadProfiles(FormCollection collection, profileUser puser)
         {
+            alert = new Alert();
             try
             {
 
@@ -187,28 +190,39 @@ namespace ProfileManagementSystem.Controllers
                             }
                             else
                             {
-                                return Json(Convert.ToString("Record already exist !"), JsonRequestBehavior.AllowGet);
+                                alert.message = "Record already exist !";
+                                alert.status = false;
+                                return Json(alert, JsonRequestBehavior.AllowGet);
                             }
                         }
                         else
                         {
-                            return Json(Convert.ToString("Formate not supported"), JsonRequestBehavior.AllowGet);
+                            alert.message = "Formate not supported !";
+                            alert.status = false;
+                            return Json(alert, JsonRequestBehavior.AllowGet);
                         }
                     }
                     else
                     {
-                        return Json(Convert.ToString("Please choose the picture to upload !"), JsonRequestBehavior.AllowGet);
+
+                        alert.message = "Please choose the picture to upload !";
+                        alert.status = false;
+                        return Json(alert, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return Json(Convert.ToString("Please choose the picture to upload !"), JsonRequestBehavior.AllowGet);
+                    alert.message = "Please choose the picture to upload  !";
+                    alert.status = false;
+                    return Json(alert, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-               Utility.Utility.StoreError("Profile_UploadProfiles", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                alert.message = "Request not processed !";
+                alert.status = false;
+                Utility.Utility.StoreError("Profile_UploadProfiles", ex.Message);
+                return Json(alert, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -216,6 +230,7 @@ namespace ProfileManagementSystem.Controllers
         [HttpPost]
         public ActionResult UpdateProfile(FormCollection collection, profileUser puser)
         {
+            alert = new Alert();
             try
             {
 
@@ -290,11 +305,15 @@ namespace ProfileManagementSystem.Controllers
                             img.Resize(200, 200);
                         img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + _ext);
                         // end resize
-                        return Json(Convert.ToString("Profile updated !"), JsonRequestBehavior.AllowGet);
+                        alert.message = "Profile updated !";
+                        alert.status = true;
+                        return Json(alert, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return Json(Convert.ToString("Formate not supported"), JsonRequestBehavior.AllowGet);
+                        alert.message = "Formate not supported !";
+                        alert.status = false;
+                        return Json(alert, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
@@ -308,7 +327,10 @@ namespace ProfileManagementSystem.Controllers
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         //conn.Close();
-                        return Json(Convert.ToString("Profile updated !"), JsonRequestBehavior.AllowGet);
+
+                        alert.message = "Profile updated  !";
+                        alert.status = true;
+                        return Json(alert, JsonRequestBehavior.AllowGet);
                     }
                 }
                 //return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
@@ -316,8 +338,10 @@ namespace ProfileManagementSystem.Controllers
             }
             catch (Exception ex)
             {
+                alert.message = "Request not processed !";
+                alert.status = false;
                 Utility.Utility.StoreError("Profile_UpdateProfiles", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                return Json(alert, JsonRequestBehavior.AllowGet);
             }
         }
 
