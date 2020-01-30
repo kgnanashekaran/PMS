@@ -7,13 +7,20 @@ using System.Data.SQLite;
 using System.Data;
 using ProfileManagementSystem.Models;
 using System.Configuration;
+using System.Web.SessionState;
 
 namespace ProfileManagementSystem.Controllers
 {
+    [SessionState(SessionStateBehavior.Default)]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            if (Session["fName"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 var a = Utility.Utility.Decrypt("txnLZNQg1lzddjjocxNILw==");

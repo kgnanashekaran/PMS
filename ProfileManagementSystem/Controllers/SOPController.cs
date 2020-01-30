@@ -5,9 +5,11 @@ using System.IO;
 using System.Configuration;
 using System.Data.SQLite;
 using ProfileManagementSystem.Models;
+using System.Web.SessionState;
 
 namespace ProfileManagementSystem.Controllers
 {
+    [SessionState(SessionStateBehavior.Default)]
     public class SOPController : Controller
     {
         string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
@@ -17,20 +19,20 @@ namespace ProfileManagementSystem.Controllers
         // GET: SOP
         public ActionResult Index()
         {
-            //try
-            //{
-            //    if (Session["fName"] == null || string.IsNullOrEmpty(user))
-            //    {
-            //        return RedirectToAction("Index", "Login");
+            try
+            {
+                if (Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utility.Utility.StoreError("SOP_Index", ex.Message);
-            //    return RedirectToAction("Index", "Login");
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.Utility.StoreError("SOP_Index", ex.Message);
+                return RedirectToAction("Index", "Login");
 
-            //}
+            }
             return View();
         }
 
@@ -40,11 +42,11 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (Session["fName"] == null)
-                //{
-                //    return RedirectToAction("Index", "Login");
+                if (Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-                //}
+                }
                 string _imgname = string.Empty;
                 var userPicName = collection["Name"];
                 var isActive = collection["IsActive"];
@@ -126,11 +128,11 @@ namespace ProfileManagementSystem.Controllers
         {
             try
             {
-                //if (Session["fName"] == null)
-                //{
-                //    return RedirectToAction("Index", "Login");
+                if (Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-                //}
+                }
                 string _imgname = string.Empty;
                 //if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
                 //{
@@ -219,11 +221,11 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (Session["fName"] == null)
-                //{
-                //    return RedirectToAction("Index", "Login");
+                if (Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-                //}
+                }
                 var result = GetSOPListFromDB();
                 return Json(result, JsonRequestBehavior.AllowGet);
             }

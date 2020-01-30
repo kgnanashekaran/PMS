@@ -3,100 +3,105 @@ using System.Configuration;
 using System.Data.SQLite;
 using System.Web.Mvc;
 using ProfileManagementSystem.Models;
+using System.Web.SessionState;
+using System.Data;
+
 namespace ProfileManagementSystem.Controllers
 {
+    [SessionState(SessionStateBehavior.Default)]
     public class LoginController : Controller
     {
         private static string userFirstName;
         private static string lastName;
         private static string role;
+        private static int id;
 
         // GET: Login
         public ActionResult Index()
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult Index(LoginModel model)
+        public JsonResult CheckValidUser(LoginModel model)
         {
+            string result = "Fail";
+            string username = model.Email;
+            string password = model.Password;
             try
             {
                 string encryptedPassword = string.Empty;
-                if (!string.IsNullOrEmpty(model.UserName) && !string.IsNullOrEmpty(model.Password))
+                if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
                 {
                     encryptedPassword = Utility.Utility.Encrypt(model.Password);
-                    if (AuthenticateFromDB(model.UserName, encryptedPassword))
+                    if (AuthenticateFromDB(username, encryptedPassword))
                     {
 
-                        Session["fName"] = "sandeep";
-                        //HttpContext.Session["lName"] = lastName;
-                        //HttpContext.Session["role"] = role;
-                        ViewBag.NotValidUser = "Valid";
-                       // return RedirectToAction("Index", "Profile");
-                        return View("Index");
+                        Session["fName"] = userFirstName;
+                        Session["lName"] = lastName;
+                        Session["role"] = role;
+                        Session["id"] = id + "_thumb.jpg";
+                        HttpContext.Session["lName"] = lastName;                      
+                        result = "Success";
+                        return Json(result, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        ViewBag.NotValidUser = "Invalid user";
-                        return View("Index");
-                        // return View("Index");
+
+                        return Json(result, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    ViewBag.NotValidUse = "User name or password should not be empty";
-                    return View("Index");
-                    //return Json(Convert.ToString("User Name or password should not be blank !"), JsonRequestBehavior.AllowGet);
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
                 Utility.Utility.StoreError("Login_Index", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
-        //[HttpPost]
-        //public JsonResult Authenticate(string userName, String Password)
-        //{
-        //    //var userName = collection["userName"];
-        //    ////var Password = collection["Password"];
-        //    //return Json(Convert.ToString(""), JsonRequestBehavior.AllowGet);
-        //    string encryptedPassword = string.Empty;
-        //    if (userName != "" && Password != "")
-        //    {
-        //        encryptedPassword= Utility.Utility.Encrypt(Password);
-        //        if (AuthenticateFromDB(userName, encryptedPassword))
-        //        {
-        //            //return RedirectToAction("Index", "Profile");
-        //            //return Json(Convert.ToString("Successfull Login"), JsonRequestBehavior.AllowGet);
-        //            return Json(new { Result = "Suc", Message = "hello" });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return Json(Convert.ToString("User Name or password should not be blank !"), JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(Convert.ToString("User Name or password is not correct !"), JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult AfterLogin()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
         private static bool AuthenticateFromDB(string loginNAme, String Password)
         {
             string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
             //SQLiteConnection conn;
             SQLiteCommand cmd;
-            int i = 0;
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                 {
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = @"SELECT count(*) from profileUser where  email='" + loginNAme.ToLower() + "'  and password ='" + Password + "' and role ='Administrator'  and isActive =1";
+                    cmd.CommandText = @"SELECT * from profileUser where  email='" + loginNAme.ToLower() + "'  and password ='" + Password + "' and role ='Administrator'  and isActive =1 ";
                     cmd.Connection = conn;
                     conn.Open();
-                    i =Convert.ToInt32(  cmd.ExecuteScalar().ToString());
-                    if (i > 0)
+                    DataSet userdetail = new DataSet();
+                    SQLiteDataAdapter adp = new SQLiteDataAdapter(cmd);
+                    adp.Fill(userdetail);
+                   // i =Convert.ToInt32(  cmd.ExecuteScalar().ToString());
+                    if (userdetail !=null)
                     {
+                        userFirstName = userdetail.Tables[0].Rows[0]["firstName"].ToString();
+                        lastName = userdetail.Tables[0].Rows[0]["lastName"].ToString();
+                        id = int.Parse( userdetail.Tables[0].Rows[0]["id"].ToString());
+                        role = userdetail.Tables[0].Rows[0]["role"].ToString();
                         conn.Close();
                         //userFirstName = "sandeep";
                         return true;

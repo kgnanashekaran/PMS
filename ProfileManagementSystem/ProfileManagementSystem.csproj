@@ -178,12 +178,15 @@
     <Content Include="assets\images\excel.png" />
     <Content Include="assets\images\logo-inverse.png" />
     <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\others\BackGround_Image.JPG" />
+    <Content Include="assets\images\others\BackGround_Image.PNG" />
     <Content Include="assets\images\others\edit.png" />
     <Content Include="assets\images\others\sort_asc.png" />
     <Content Include="assets\images\others\sort_both.png" />
     <Content Include="assets\images\others\sort_desc.png" />
     <Content Include="assets\images\pdf.png" />
     <Content Include="assets\images\pp.png" />
+    <Content Include="assets\images\profiles\264_thumb.jpg" />
     <Content Include="assets\images\sop1.png" />
     <Content Include="assets\images\SOP\Slide1.JPG" />
     <Content Include="assets\images\SOP\Slide10.JPG" />

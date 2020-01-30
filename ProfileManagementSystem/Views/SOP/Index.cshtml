@@ -262,7 +262,7 @@
             return;
         }
         if ($("#txtsortOrder").val() == '') {
-            //alert('Please provide sort order !');
+            alert('Please provide sort order !');
             showNotificationError('File size shold not be greater than 260 KB');
             return;
         }
@@ -273,14 +273,14 @@
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > 10) {
-               // toastr.options
-               // {
-               //     close: true;
-               //     progressBar: true;
-               //     showMethod: 'slideDown';
-               //     timeOut: 50000;
-               // };
-               //toastr.error('File size shold not be greater than 260 KB');
+                toastr.options
+                {
+                    close: true;
+                    progressBar: true;
+                    showMethod: 'slideDown';
+                    timeOut: 50000;
+                };
+               toastr.error('File size shold not be greater than 260 KB');
                // showNotificationError('File size shold not be greater than 260 KB');
                 //alert('File size shold not be greater than 10 KB');
                 return;

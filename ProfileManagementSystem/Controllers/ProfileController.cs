@@ -7,35 +7,36 @@ using System.IO;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using ProfileManagementSystem.Models;
+using System.Web.SessionState;
 namespace ProfileManagementSystem.Controllers
 {
+    [SessionState(SessionStateBehavior.Default)]
     public class ProfileController : Controller
     {
         string user = string.Empty;
         Alert alert;
         public ActionResult Index()
         {
-            //try
-            //{
-            //    if (HttpContext.Session["fName"] == null)
-            //    {
-                   // return RedirectToAction("Index", "Login");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utility.Utility.StoreError("Profile_Index", ex.Message);
-            //}
+            try
+            {
+                if (Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.Utility.StoreError("Profile_Index", ex.Message);
+            }
             return View();
         }
         public ActionResult GetProfileList()
         {
-            //if (HttpContext.Session["fName"] == null)
-            //{
-            //    return RedirectToAction("Index", "Login");
+            if (HttpContext.Session["fName"] == null)
+            {
+                return RedirectToAction("Index", "Login");
 
-            //}
+            }
             var result = GetProfileListFromDB();
             return Json(result, JsonRequestBehavior.AllowGet);
 
@@ -95,11 +96,11 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (HttpContext.Session["fName"] == null)
-                //{
-                //    return RedirectToAction("Index", "Login");
+                if (HttpContext.Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-                //}
+                }
                 string _dbImgname = string.Empty;
                 string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
               //  SQLiteConnection conn;
@@ -184,7 +185,7 @@ namespace ProfileManagementSystem.Controllers
                                 // thumb.Save(Path.ChangeExtension(_savePath, "thumb"));
                                 if (img.Width > 200)
                                     img.Resize(200, 200);
-                                img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + _ext);
+                                img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
                                 // end resize
                                 return Json(Convert.ToString("Profile Saved !"), JsonRequestBehavior.AllowGet);
                             }
@@ -234,11 +235,11 @@ namespace ProfileManagementSystem.Controllers
             try
             {
 
-                //if (HttpContext.Session["fName"] == null)
-                //{
-                //    return RedirectToAction("Index", "Login");
+                if (HttpContext.Session["fName"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
 
-                //}
+                }
                 string _imgname = string.Empty;
                 string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
                // SQLiteConnection conn;
@@ -303,7 +304,7 @@ namespace ProfileManagementSystem.Controllers
                         
                         if (img.Width > 200)
                             img.Resize(200, 200);
-                        img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + _ext);
+                        img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + ".jpg");
                         // end resize
                         alert.message = "Profile updated !";
                         alert.status = true;

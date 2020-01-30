@@ -1,141 +1,82 @@
-﻿@model ProfileManagementSystem.Models.LoginModel
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    @*<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="~/Content/bootstrap.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
-        <script src="~/Scripts/jquery.js"></script>
-        <script src="~/Scripts/bootstrap.js"></script>*@
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Himatsingka - Profile Management System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
-    <meta name="msapplication-tap-highlight" content="no">
-    <link href='@Styles.Url("~/bundles/style")' rel="stylesheet" type="text/css" />
-    @*<script src="~/Scripts/jquery.easing.min.js"></script>*@
-    @*<script src="~/Scripts/jquery.js"></script>*@
-    @*<script src='@Scripts.Url("~/bundles/jquery")'></script>*@
-    <script src='@Scripts.Url("~/bundles/topScripts")'></script>
-    @*<link href="~/Content/Login.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
-    <style type="text/css">
-        .bs-example {
-            height: 220px;
-        }
-
-        .centerlook {
-            padding-left: 400px;
-            font-weight: bold;
-            width: 1000px;
-        }
-
-        .error {
-            padding-left: 400px;
-            font-weight: bold;
-            width: 1000px;
-            color: red;
-        }
-
-        .loginbtn {
-            padding-left: 500px;
-        }
-    </style>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Login.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow">
-            <div class="app-header__logo">
-                <div class="logo-src"></div>
-            </div>
+    <header>
+        <div id="topHeader">
+            <div class="container-fluid">
+                @*style="background-color:#e43612;"*@
+                <nav class="navbar navbar-dark navbar-expand-md" style="background-color:#fff;">
+                    <a class="navbar-brand" href="">
+                        <img src="../assets/images/brand-logo.svg" width="180px" height="43px" alt="">
+                    </a>
+                </nav>
 
-            <div class="app-header__menu">
-                <span>
-                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
             </div>
         </div>
-        <div class="app-main">
-            @*<div class="app-main__outer">*@
-            <header class="app-main__inner">
-                <div class="app-page-title">
-                    <div class="page-title-wrapper">
-                        <div class="page-title-heading">
-                            <div class="page-title-icon">
-                                <i class="pe-7s-user icon-gradient bg-mean-fruit">
-                                </i>
-                            </div>
-                            <div>
-                                Profile Management System
-                                <div class="page-title-subheading">
-                                    This Portal displays who has access/Authorization to the Finished Goods area in Hassan location.
-                                </div>
-                            </div>
+    </header>
+    <div class="container" style="margin-top:10%">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 alert alert-info">
+                <h3 class="text-center">Login</h3>
+                <form id="loginForm">
+                    <div id="msg"><ul style="color:red;"> Invalid Username Or Password</ul></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input class="form-control" type="email" name="Email" id="logEmail" placeholder="Email" />
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input class="form-control" type="password" name="Password" id="logPssword" placeholder="Password" />
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-info form-control" type="submit" onclick="Login()"><i class="glyphicon glyphicon-log-in"></i> Login</button>
                 </div>
-
-                @using (Html.BeginForm())
-                {
-                    <div class="row pull-right">
-                        <div class="form-group">
-                            <div class="col-lg-4 col-lg-offset-4 pull-left">
-                                <b>  @Html.LabelFor(m => m.UserName, new { @class = "col-lg-4 control-label" })</b>
-
-                            </div>
-                            <div class="col-lg-4">
-                                @Html.EditorFor(model => model.UserName)
-                                @Html.ValidationMessageFor(model => model.UserName)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-4 col-lg-offset-4 pull-left">
-                                <b>  @Html.LabelFor(m => m.Password, new { @class = "col-lg-4 control-label" })</b>
-                            </div>
-                            <div class="col-lg-4">
-                                @*<label>Password </label>*@
-                                @Html.EditorFor(model => model.Password)
-                                @Html.ValidationMessageFor(model => model.Password)
-                            </div>
-                            <br />
-                            <br />                       
-
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-4 p-4">
-                                <input type="submit" value="Login" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="row">
-                            <label style="color:red">@ViewBag.NotValidUser </label>
-                        </div>*@
-                    <div class="form-group error">
-                        @if (@ViewBag.NotValidUser == "Valid")
-                        {
-
-                            Response.Redirect("~/Profile/Index");
-                        }
-                    </div>
-
-                }
-
-            </header>
-
+                <div class="form-group">
+                    <a style="float:left">Forget Password ? </a>
+                </div>
+            </div>
         </div>
     </div>
-
-
 </body>
-</html>   
+</html>
+<script>
+    var Login = function () {
+        var data = $("#loginForm").serialize();
+        $.ajax({
+            type: "post",
+            url: "/Login/CheckValidUser",
+            data: data,
+            success: function (result) {
+                if (result == "Fail") {
+                    $("#loginForm")[0].reset();
+                    $("#msg").show();
+                }
+                
+                else {
+                    window.location.href = "/Profile/Index";
+                    $("#msg").hide();
+                }
+            }
+        })
+    }
+        </script>
+
