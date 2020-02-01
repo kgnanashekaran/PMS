@@ -1,31 +1,35 @@
 ﻿
+@using System.Configuration;
 @{
-    ViewBag.Title = "Himatsingka - Profile Management System";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var sopFileSize = int.Parse(ConfigurationManager.AppSettings["sopFileSize"].ToString());
 }
-
-<html>
-<head>
-    <meta charset="utf-8">
-    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="~/Scripts/jquery.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/toastr.min.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Content/toastr.css" rel="stylesheet" />
-
-</head>
-<body>
-    <div class="container">
+    
+    @*<div class="modal" tabindex="-1" role="dialog" id="ConfirmSaveModelPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <p>Modal body text goes here.</p>
+            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="showNotificationError('saved');" data-dismiss="modal">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>*@
+    <div>
         <div class="title_left">
+            <br />
+
             <h3>
-                <span id="PageTitle">SOP management</span>
+                @*<span id="PageTitle">SOP management</span>*@
             </h3>
 
             <div id="divCancelButton" class="form-group row">
@@ -39,10 +43,10 @@
         </div>
 
         <form id="form-input" class="form-horizontal">
+            @*@Html.AntiForgeryToken()*@
             <div id="addData" style="display:none;">
-                @Html.AntiForgeryToken()
-                <br>
-                <br>
+
+
                 <div class="form-group">
                     <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
                         Name <span class="required" style="color: red;">*</span>
@@ -81,58 +85,52 @@
                 <br>
                 <div class="ln_solid"></div>
                 <div class="form-group row">
+
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
-                        <button type="submit" id="btnSaveSOP" class="btn btn-primary">Save</button>
-                        <button type="submit" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
+                        <button type="button" id="btnSaveSOP" class="btn btn-primary">Save</button>
+                        <button type="button" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
                         <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
                         <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
                         <input type="hidden" id="editid">
                     </div>
                 </div>
             </div>
-                <div class="ln_solid"></div>
-                <div class="form-group row">
-                    <div class="control-group">
-                        <table id="tblDisplaySOPS"
-                               class="table table-striped table-bordered" cellspacing="0">
-                            <thead class="or-thead" style="background-color: #004b8d; color: white;">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>SOP</th>
-                                    <th>Sort Order</th>
-                                    <th>Active</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+            <div class="ln_solid"></div>
+            <div class="form-group row">
+                @*<div class="control-group">*@
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <table id="tblDisplaySOPS"
+                           class="table table-striped table-bordered" cellspacing="0">
+                        <thead class="or-thead" style="background-color: #004b8d; color: white;">
+                            <tr>
+                                <th>Name</th>
+                                <th>SOP</th>
+                                <th>Sort Order</th>
+                                <th>Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
-                            <tbody id="tbldata" class="appendData"></tbody>
+                        <tbody id="tbldata" class="appendData"></tbody>
 
-                        </table>
-
-                    </div>
+                    </table>
+                </div>
+                    @*</div>*@
 
                 </div>
-         
-        </form>
-    </div>
-</body>
 
-</html>
+</form>
+    </div>
+
+
+
 <script>
 
 
     $(document).ready(function () {
 
         loadData();
-        ShowStatusMsg('loaded');
-        //toastr.options
-        //{
-        //    close: true;
-        //    progressBar: true;
-        //    showMethod: 'slideDown';
-        //};
-        //toastr.success('loaded');
-
+       
     });
 
     function loadData() {
@@ -153,9 +151,10 @@
                     if (obj.status == 1)
                         status = 'Yes';
 
-                    htmlText += "<tr><td>" + obj.name + "</td><td>" + obj.filename + "</td><td>" + obj.sortOrder + "</td><td>" + status + "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this," + obj.id + ")' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
+                    htmlText += "<tr><td>" + obj.name + "</td><td>" + obj.filename + "</td><td>" + obj.sortOrder + "</td><td>" + status + "</td><td><img class='edit' id='btneditSOP'  style='cursor:pointer;' onclick='EditRecord(this," + obj.id + ")' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
                 });
                 $("#tbldata").html(htmlText);
+
                 $("#tblDisplaySOPS").DataTable({
 
                     paging: true,
@@ -169,8 +168,7 @@
                     "bDestroy": true,
 
                 });
-            },
-
+            },           
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError);
             }
@@ -190,36 +188,41 @@
         $("#btnSaveSOP").hide();
         $("#btnUpdateSOP").show();
         $("#txtFirstName").prop("readonly", true);
+        $("#btnAdd").hide();
+        
         //DomainMetricListdata('Edit');
         //SLADetailsGrid('Edit');
+       
     }
-    $("#idUpload").change(function () {
-        var data = new FormData();
-        var files = $("#idUpload").get(0).files;
-        if (files.length > 0) {
-            if ($("#txtFirstName").val() == '') {
-                $("#txtFirstName").val(files[0].name);
-            }
-        }
-    });
+    //$("#idUpload").change(function () {
+    //    var data = new FormData();
+    //    var files = $("#idUpload").get(0).files;
+    //    if (files.length > 0) {
+    //        if ($("#txtFirstName").val() == '') {
+    //            $("#txtFirstName").val(files[0].name);
+    //        }
+    //    }
+    //});
     $("#btnSaveSOP").click(function () {
-        var data = new FormData();
-        var files = $("#idUpload").get(0).files;
-
-        if (files.length > 0) {
-            var fileSize = files[0].size / 1024;
-            if (fileSize > 260) {
-                alert('File size shold not be greater than 260 KB');
-                return;
-            }
-        }
+      
         if ($("#txtFirstName").val() == '') {
-            alert('Please provide SOP name !');
+            alert('Please provide SOP name!');
+            showNotificationError('Please provide SOP name !');
             return;
         }
         if ($("#txtsortOrder").val() == '') {
             alert('Please provide sort order !');
             return;
+        }
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+
+        if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+            if (fileSize > @sopFileSize) {
+                alert('File size shold not be greater than  @sopFileSize KB');
+                return;
+            }
         }
 
         if (files.length > 0) {
@@ -254,6 +257,9 @@
                 }
             });
         }
+        else {
+            showNotificationError('Please select a SOP !');
+        }
     });
 
     $("#btnUpdateSOP").click(function () {
@@ -272,7 +278,7 @@
         data.append("MyImages", files[0]);
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
-            if (fileSize > 10) {
+            if (fileSize > @sopFileSize) {
                 toastr.options
                 {
                     close: true;
@@ -280,8 +286,8 @@
                     showMethod: 'slideDown';
                     timeOut: 50000;
                 };
-               toastr.error('File size shold not be greater than 260 KB');
-               // showNotificationError('File size shold not be greater than 260 KB');
+                toastr.error('File size shold not be greater than 60 KB');
+                // showNotificationError('File size shold not be greater than 260 KB');
                 //alert('File size shold not be greater than 10 KB');
                 return;
             }
@@ -290,6 +296,7 @@
         //else {
         //    data.append("MyImages", null);
         //}
+       
         data.append("Name", $("#txtFirstName").val());
         data.append("IsActive", $('#IsActive option:selected').text());
         data.append("SortOrder", $("#txtsortOrder").val());
@@ -302,15 +309,19 @@
             contentType: false,
             data: data,
             success: function (response) {
-                alert(response);
-                clearAll();
-                //ShowStatusMsg(response);
-                //code after success
-                //$("#txtImg").val(response);
-                //$("#imgPreview").attr('src', '/Upload/' + response);
+                if (response.status == true) {
+                   
+                    //alert('hi');
+                    //alert(response.message);
+                    ShowStatusMsg(response.message);
+                }
+                else {
+                    //alert('bye');
+                    showNotificationError(response.message);
+                }
             },
             error: function (er) {
-                //showNotificationError('Error in Processing');
+                showNotificationError(er);
             }
         });
 
@@ -322,10 +333,16 @@
 
     $("#btnAdd").click(function () {
         $("#addData").show();
+        $("#btnUpdateSOP").hide();
+        $("#btnAdd").hide();
+        $("#btnSaveSOP").show();
+        $("#txtFirstName").prop("readonly", false);
+        
         clearAll();
     });
     $("#btnCancel").click(function () {
         $("#addData").hide();
+        $("#btnAdd").show();
         clearAll();
     });
 
@@ -337,20 +354,21 @@
         $("#idUpload").val('');
 
     }
-
     function ShowStatusMsg(msg) {
-        debugger;
+       // alert(msg);
         setTimeout(function () {
             toastr.options = {
                 closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
+                //  progressBar: true,
+                //showMethod: 'slideDown',
                 timeOut: 3000
             };
             toastr.success(msg, 'Notification');
         }, 1300);
 
     }
+
+
 
     /////Validation Failure status............
 

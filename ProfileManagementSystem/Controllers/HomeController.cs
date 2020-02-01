@@ -16,10 +16,10 @@ namespace ProfileManagementSystem.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["fName"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            //if (Session["fName"] == null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
 
             try
             {

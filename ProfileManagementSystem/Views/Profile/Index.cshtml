@@ -1,321 +1,231 @@
-﻿@{
-    /**/
-
-    ViewBag.Title = "Himatsingka - Profile Management System";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-
+﻿
+@using System.Configuration;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var ProfilePicSize = int.Parse(ConfigurationManager.AppSettings["ProfilePicSize"].ToString());
 }
-<!DOCTYPE html>
+<div>
+    <style>
+        nav ul li a  {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+
+        }
+    </style>
+    <div class="title_left">
+
+        <div id="divCancelButton" class="form-group row" style="padding-left:4px">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button type="button" id="btnAdd" class=" btn btn-primary">Add Profile</button>
+            </div>
+
+        </div>
+        <br />
+    </div>
+    <form id="form-input" class="form-horizontal">
+
+        @Html.AntiForgeryToken()
+        <div id="addData" style="display:none;">
+            <br>
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
+                    First Name <span class="required" style="color: red;">*</span>
+                </label>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtLastName">
+                    Last Name
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtLastName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtUserEmail">
+                    Email <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+                <div id="msgUserEmail" style="color:red"></div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtDesignation">
+                    Designation <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtEmpCode">
+                    Employee Code <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
+                    Role <span style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select name="Role" id="select_Role" class="form-control col-md-7 col-xs-12">
+                        <option value="User">User</option>
+                        <option value="Administrator">Administrator</option>
+                    </select>
+                </div>
+                <div style="padding-bottom: 1px;">&nbsp</div>
+            </div>
+            <div class="form-group" id="pass" style="display:none">
+                <br>
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtPassword">
+                    Password <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+            <div class="form-group" id="conPass" style="display:none">
+                <br>
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="ConTxtPassword">
+                    Confirm Password <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
 
-<html>
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
 
-<head>
-    <meta charset="utf-8">
-    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/toastr.min.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-    @*<link href="~/Content/toastr.css" rel="stylesheet" />*@
-    <link href="~/Content/toastr.min.css" rel="stylesheet" />
-    @*<meta name="viewport" content="width=device-width" />*@
+                    Active <span style="color: red;">*</span>
 
-    <title>Index</title>
+                </label>
 
-    @*<style>
+                <div class="col-md-4 col-sm-4 col-xs-12">
 
-            #tblDisplayProfiles_filter {
-                padding-right: 52px;
-            }
-        </style>*@
+                    <select id="IsActive" class="form-control m-b">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
 
-</head>
+                </div>
 
-<body>
- 
-    <div class="">
+            </div>
+            <br>
+            <div class="form-group row">
 
-        <div class="clearfix"></div>
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="isDisplay">
 
-        <div class="row">
+                    Display <span style="color: red;">*</span>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="padding-left:100px; padding-right:100px;">
+                </label>
 
-                <div class="x_panel">
+                <div class="col-md-4 col-sm-4 col-xs-12">
 
-                    <div class="x_content">
+                    <select id="isDisplay" class="form-control m-b">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
 
-                        <div class="page-title">
+                </div>
 
-                            <div class="title_left">
+            </div>
+            <br>
 
-                                <h3>
-
-                                    @*<i class="fa fa-th-large main_icon" style="padding-left:5px;"></i>*@
-
-                                    <span id="PageTitle">Profile management</span>
-
-                                </h3>
-
-                                <div id="divCancelButton" class="form-group row">
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <button type="button" id="btnAdd" class=" btn btn-primary">Add Profile</button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <br />
-                        @*<div id="addData" style="display:none;">*@
-
-                        <form id="form-input" class="form-horizontal" style="padding-top:50px;">
-
-                            @Html.AntiForgeryToken()
-                            <div id="addData" style="display:none;">
-                                <br>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
-                                        First Name <span class="required" style="color: red;">*</span>
-                                    </label>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                        <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtLastName">
-                                        Last Name
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="text" id="txtLastName" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-
-                                <br>
+            <div class="form-group row">
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtUserEmail">
-                                        Email <span class="required" style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                    <div id="msgUserEmail" style="color:red"></div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtDesignation">
-                                        Designation <span class="required" style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtEmpCode">
-                                        Employee Code <span class="required" style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
-                                        Role <span style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <select name="Role" id="select_Role" class="form-control col-md-7 col-xs-12">
-                                            <option value="User">User</option>
-                                            <option value="Administrator">Administrator</option>
-                                        </select>
-                                    </div>
-                                    <div style="padding-bottom: 1px;">&nbsp</div>
-                                </div>
-                                <div class="form-group" id="pass" style="display:none">
-                                    <br>
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtPassword">
-                                        Password <span class="required" style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group" id="conPass" style="display:none">
-                                    <br>
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="ConTxtPassword">
-                                        Confirm Password <span class="required" style="color: red;">*</span>
-                                    </label>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group row">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
 
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
+                    Picture <span style="color: red;">*</span>
 
-                                        Active <span style="color: red;">*</span>
+                </label>
 
-                                    </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
 
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
 
-                                        <select id="IsActive" class="form-control m-b">
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
+                </div>
 
-                                    </div>
+            </div>
+            <br />
 
-                                </div>
-                                <br>
-                                <div class="form-group row">
+            <div class="ln_solid"></div>
 
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="isDisplay">
+            <div class="form-group row">
 
-                                        Display <span style="color: red;">*</span>
-
-                                    </label>
-
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-
-                                        <select id="isDisplay" class="form-control m-b">
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                                <br>
-
-                                <div class="form-group row">
-
-                                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
-
-                                        Picture <span style="color: red;">*</span>
-
-                                    </label>
-
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-
-                                        <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
-
-                                    </div>
-
-                                </div>
-                                <br />
-
-                                <div class="ln_solid"></div>
-
-                                <div id="divbuttons" class="form-group row">
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                        <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
-                                        <button type="submit" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
-                                        <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
-                                        <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
-                                        <input type="hidden" id="editid">
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group row">
-
-                                <div class="control-group">
-
-                                    @*<label class="Lablecolor">Data</label>*@
-
-                                    <table id="tblDisplayProfiles"
-                                           class="table table-striped table-bordered" cellspacing="0">
-
-                                        <thead class="or-thead" style="background-color: #004b8d; color: white;">
-
-                                            <tr>
-
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Designation</th>
-                                                <th>Employee Code</th>
-                                                <th>Role </th>
-                                                <th>Active?</th>
-                                                <th>Display in Portal?</th>
-                                                <th>Action</th>
-
-                                            </tr>
-
-                                        </thead>
-
-                                        <tbody id="tbldata" class="appendData"></tbody>
-
-                                    </table>
-
-                                </div>
-
-                            </div>
-
-                        </form>
-                        @*</div>*@
-
-                    </div>
-
-
-
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                    <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
+                    <button type="button" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
+                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                    <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
+                    <input type="hidden" id="editid">
                 </div>
 
             </div>
 
         </div>
+        <div class="ln_solid"></div>
+        <div class="form-group row">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                @*<div class="control-group">*@
 
-    </div>
+                @*<label class="Lablecolor">Data</label>*@
 
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                </div>
-                <div class="modal-body">
-                    <strong>Are you sure about deleting this item ?</strong>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn_DeleteCancel" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="btn_Delete_MenuMaster" class="btn btn-danger danger" data-dismiss="modal">OK</button>
-                </div>
+                <table id="tblDisplayProfiles"
+                       class="table table-striped table-bordered" cellspacing="0">
+
+                    <thead class="or-thead" style="background-color: #004b8d; color: white;">
+
+                        <tr>
+
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Designation</th>
+                            <th>Employee Code</th>
+                            <th>Role </th>
+                            <th>Active?</th>
+                            <th>Display in Portal?</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tbldata" class="appendData"></tbody>
+
+                </table>
             </div>
         </div>
-    </div>
 
-</body>
+    </form>
 
-</html>
+</div>
 
-
-
+@*</div>*@
 <script>
 
 
@@ -360,7 +270,7 @@
                     if (obj.status == 1)
                         status = 'Yes';
 
-                    htmlText += "<tr><td>" + obj.firstname + "</td><td>" + obj.lastname + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display+  "</td><td><img class='edit' id='btneditMenuMaster'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
+                    htmlText += "<tr><td>" + obj.firstname + "</td><td>" + obj.lastname + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display+  "</td><td><img class='edit' id='btneditProfile'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
                 });
                 $("#tbldata").html(htmlText);
 
@@ -411,6 +321,7 @@
         $("#btnUpdate").show();
         $("#btnSave").hide();
         $("#editid").val('editRec');
+        $("#btnAdd").hide();
 
     }
     $("#btnSave").click(function () {
@@ -458,7 +369,7 @@
         if (files.length > 0) {
 
             var fileSize = files[0].size / 1024;
-            if (fileSize > 60) {
+            if (fileSize > @ProfilePicSize) {
                 showNotificationError('File size shold not be greater than 60 KB');
                 return;
             }
@@ -482,7 +393,8 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-
+                    alert(response.message);
+                    alert(response.status);
                     if (response.status == true) {
                         ShowStatusMsg(response.message);
                     }
@@ -525,7 +437,7 @@
         var files = $("#idUpload").get(0).files;
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
-            if (fileSize > 60) {
+            if (fileSize > @ProfilePicSize) {
                 alert('File size shold not be greater than 60 KB');
                 return;
             }
@@ -551,13 +463,14 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
+
                     if (response.status == true) {
-                        alert('hi');
-                        alert(response.message);
+                        //alert('hi');
+                        //alert(response.message);
                         ShowStatusMsg(response.message);
                     }
                     else {
-                        alert('bye');
+                        //alert('bye');
                         showNotificationError(response.message);
                     }
                     //LoadProfileData();
@@ -575,13 +488,18 @@
     });
     $("#btnAdd").click(function () {
         $("#addData").show();
+        $("#btnUpdate").hide();
+        $("#btnAdd").hide();
+        $("#btnSave").show();
+
         clearAll();
     });
     $("#btnCancel").click(function () {
         $("#addData").hide();
+        $("#btnAdd").show();
         clearAll();
     });
-    
+
     function clearAll() {
 
         $("#txtFirstName").val('');
@@ -604,13 +522,12 @@
     }
 
     function ShowStatusMsg(msg) {
-        debugger;
         setTimeout(function () {
             toastr.options = {
                 closeButton: true,
               //  progressBar: true,
                 //showMethod: 'slideDown',
-                timeOut: 6000
+                timeOut: 3000
             };
             toastr.success(msg, 'Notification');
         }, 1300);
@@ -620,7 +537,7 @@
     /////Validation Failure status............
 
     function showNotificationError(msg) {
-
+        alert(msg);
         setTimeout(function () {
 
             toastr.options = {

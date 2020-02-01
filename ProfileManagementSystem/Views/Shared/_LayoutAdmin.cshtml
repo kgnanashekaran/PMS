@@ -1,0 +1,96 @@
+﻿
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Himatsingka - Profile Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/LayoutCss.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+</head>
+<body class="nav-sm container-fluid body" style="background-color:#bdc3c7">
+    <div class="container" id="main_container">
+        <!-- top navigation -->
+        <div class="top_nav row" style="margin-left:0px;padding-left:0px">
+            <div class="nav_menu col-sm-12" style="background-color:#fff;height:65px; margin-left:0px;padding-left:0px">
+                <nav>
+                    <div class="col-sm-6">
+                        <div style="height:100%; width:50%;display: inline-block; vertical-align: middle; padding-top:10px;padding-right:3px">
+                            <img src="../assets/images/brand-logo.svg" width="180px" height="43px" alt="">
+
+                        </div>
+
+                    </div>
+                    @*<div style="height:50%; width:30%;display: inline-block; vertical-align:bottom; padding-top:0px;padding-left:100px">
+                            <button class="body"> Click me</button>
+                        </div>*@
+                    <div class="col-sm-6" style="padding-top:7px;">
+                        <div class="nav navbar-nav navbar-right visible-lg visible-sm visible-md visible-sm visible-xs" style="float: right;text-align:left; width: 100%; font-weight: 600; font-size: 22px; margin-top: 0px;padding-right:3px; color: #010101;">
+                            @*<div class="nav navbar-nav navbar-right visible-xs" style="width: 90%; font-weight: 600; font-size: 16px; margin-left: 0 !important; margin-top: 1px; color: #010101; height: 25px;">
+                                    <a class="mybtn btn btn-link btn-xs" href="@Url.Action("Index", "Home")" style="padding-left:20px; padding-top:5px;"><i class="fa fa-home" style="font-size:20px;color:#5A738E"></i></a>
+                                </div>*@
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float:right;">
+
+                                        <img src="../assets/images/profiles/@HttpContext.Current.Session["id"].ToString()" alt="">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                        @char.ToUpper(HttpContext.Current.Session["fName"].ToString()[0])@HttpContext.Current.Session["fName"].ToString().Substring(1).ToLower()
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        <li><a href="javascript:;">Logged as @HttpContext.Current.Session["role"].ToString()</a></li>
+                                        <li><a href="@Url.Action("Logout", "Login")"> Change Password </a></li>
+                                        <li><a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="row pull-right" style="padding-left:6px;">
+            <nav class="navbar navbar-light">
+                <form class="form-inline">
+                    @*<button class="btn btn-outline-success" type="button">Main button</button>*@
+                    <button class="btn btn-sm btn-outline-secondary" onclick=onButtonclick(1); type="button" on>Manage SOP</button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick=onButtonclick(2); type="button">Manage Profile</button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick=onButtonclick(3); type="button">Home</button>
+                </form>
+            </nav>
+
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
+<script>
+    function onButtonclick(id) {
+        if (id == 1) {
+            location.href = '@Url.Action("Index","SOP")';
+        }
+         if (id == 2) {
+            location.href = '@Url.Action("Index","Profile")';
+        }
+         if (id == 3) {
+            location.href = '@Url.Action("Index","Home")';
+        }
+    }
+</script>

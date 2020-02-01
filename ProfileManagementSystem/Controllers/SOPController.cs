@@ -12,6 +12,7 @@ namespace ProfileManagementSystem.Controllers
     [SessionState(SessionStateBehavior.Default)]
     public class SOPController : Controller
     {
+        Alert alert;
         string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
         SQLiteConnection conn;
         SQLiteCommand cmd;
@@ -39,6 +40,7 @@ namespace ProfileManagementSystem.Controllers
         [HttpPost]
         public ActionResult UpdateSOP(FormCollection collection)
         {
+            alert = new Alert();
             try
             {
 
@@ -88,11 +90,16 @@ namespace ProfileManagementSystem.Controllers
                         var _comPath = Server.MapPath("/assets/images/SOP/") + picname + _ext;
                         var path = _comPath;
                         pic.SaveAs(path);
-                        return Json(Convert.ToString("SOP details has been updated"), JsonRequestBehavior.AllowGet);
+                        alert.status = true;
+                        alert.message = "SOP details has been updated !";
+                        return Json(alert, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return Json(Convert.ToString("Formate not supported"), JsonRequestBehavior.AllowGet);
+                        alert.status = false;
+                        alert.message = "Formate not supported !";
+                        return Json(alert, JsonRequestBehavior.AllowGet);
+         
                     }
                 }
                 else
@@ -109,8 +116,10 @@ namespace ProfileManagementSystem.Controllers
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         conn.Close();
-                   // }
-                    return Json(Convert.ToString("SOP details has been updated"), JsonRequestBehavior.AllowGet);
+                   // }                 
+                    alert.status = true;
+                    alert.message = "SOP details has been updated !";
+                    return Json(alert, JsonRequestBehavior.AllowGet);
                 }
                 // return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
             }
@@ -118,14 +127,18 @@ namespace ProfileManagementSystem.Controllers
             catch (Exception ex)
             {
                 Utility.Utility.StoreError("SOP_UpdateSOP", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                alert.status = false;
+                alert.message = "Request not processed !";
+                return Json(alert, JsonRequestBehavior.AllowGet);
+               
             }
 
         }
 
         [HttpPost]
-        public ActionResult UploadFiles(FormCollection collection)
+        public ActionResult UploadFiles(FormCollection collection,SOP puser)
         {
+            alert = new Alert();
             try
             {
                 if (Session["fName"] == null)
@@ -189,35 +202,51 @@ namespace ProfileManagementSystem.Controllers
                             var path = _comPath;
                             // Saving Image in Original Mode
                             pic.SaveAs(path);
-                            return Json(Convert.ToString("SOP Saved !"), JsonRequestBehavior.AllowGet);
+                         
+                            alert.status = true;
+                            alert.message = "SOP Saved !";
+                            return Json(alert, JsonRequestBehavior.AllowGet);
                         }
                         else
                         {
-                            return Json(Convert.ToString("SOP already exist !"), JsonRequestBehavior.AllowGet);
+                            alert.status = false;
+                            alert.message = "SOP already exist !";
+                            return Json(alert, JsonRequestBehavior.AllowGet);
+                      
 
                         }
                     }
                     else
                     {
-                        return Json(Convert.ToString("Formate not supported"), JsonRequestBehavior.AllowGet);
+                        alert.status = false;
+                        alert.message = "Formate not supported !";
+                        return Json(alert, JsonRequestBehavior.AllowGet);
+                   
                     }
                 }
                 else
                 {
-                    return Json(Convert.ToString("Please choose file to upload !"), JsonRequestBehavior.AllowGet);
+                    alert.status = false;
+                    alert.message = "Please choose file to upload !";
+                    return Json(alert, JsonRequestBehavior.AllowGet);
+                   
                 }
 
             }
             catch (Exception ex)
             {
                 Utility.Utility.StoreError("SOP_UploadFiles", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                alert.status = false;
+                alert.message = "Request not processed !";
+                return Json(alert, JsonRequestBehavior.AllowGet);
+
             }
 
         }
 
         public ActionResult GetSOPList()
         {
+            alert = new Alert();
             try
             {
 
@@ -232,7 +261,10 @@ namespace ProfileManagementSystem.Controllers
             catch (Exception ex)
             {
                 Utility.Utility.StoreError("SOP_GetSopList", ex.Message);
-                return Json(Convert.ToString("Request not processed"), JsonRequestBehavior.AllowGet);
+                alert.status = false;
+                alert.message = "Request not processed !";
+                return Json(alert, JsonRequestBehavior.AllowGet);
+           
             }
         }
         private static List<SOP> GetSOPListFromDB()

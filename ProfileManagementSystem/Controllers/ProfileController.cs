@@ -187,7 +187,9 @@ namespace ProfileManagementSystem.Controllers
                                     img.Resize(200, 200);
                                 img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
                                 // end resize
-                                return Json(Convert.ToString("Profile Saved !"), JsonRequestBehavior.AllowGet);
+                                alert.message = "Profile Saved !";
+                                alert.status = true;
+                                return Json(alert, JsonRequestBehavior.AllowGet);
                             }
                             else
                             {
