@@ -4,123 +4,139 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     var sopFileSize = int.Parse(ConfigurationManager.AppSettings["sopFileSize"].ToString());
 }
-    
-    @*<div class="modal" tabindex="-1" role="dialog" id="ConfirmSaveModelPopup">
+@*save confirm*@
+<div class="modal" tabindex="-1" role="dialog" id="ConfirmSaveModelPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">          
+            <div class="modal-body">
+                <p><b>  Do you want to continue ? </b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="SaveSOP();" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*update confirm*@
+<div class="modal" tabindex="-1" role="dialog" id="ConfirmUpdateModelPopup">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            @*<div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
+            </div>*@
+            <div class="modal-body">
+              <p><b>  Do you want to continue ? </b></p>
             </div>
-        <div class="modal-body">
-            <p>Modal body text goes here.</p>
-            </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="showNotificationError('saved');" data-dismiss="modal">Save changes</button>
-            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateSOP();" data-dismiss="modal">Save changes</button>
             </div>
         </div>
-        </div>*@
-    <div>
-        <div class="title_left">
-            <br />
+    </div>
+</div>
 
-            <h3>
-                @*<span id="PageTitle">SOP management</span>*@
-            </h3>
 
-            <div id="divCancelButton" class="form-group row">
+<div>
+    <div class="title_left">
+        <br />
 
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <button type="button" id="btnAdd" class=" btn btn-primary">Add SOP</button>
-                </div>
+        <h3>
+            @*<span id="PageTitle">SOP management</span>*@
+        </h3>
 
+        <div id="divCancelButton" class="form-group row">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button type="button" id="btnAdd" class=" btn btn-primary">Add SOP</button>
             </div>
 
         </div>
 
-        <form id="form-input" class="form-horizontal">
-            @*@Html.AntiForgeryToken()*@
-            <div id="addData" style="display:none;">
+    </div>
+
+    <form id="form-input" class="form-horizontal">
+        @*@Html.AntiForgeryToken()*@
+        <div id="addData" style="display:none;">
 
 
-                <div class="form-group">
-                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
-                        Name <span class="required" style="color: red;">*</span>
-                    </label>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <br>
-                <div class="form-group row">
-                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
-                        SOP <span style="color: red;">*</span>
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtsortOrder">
-                        Sort Order <span class="required" style="color: red;">*</span>
-                    </label>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <br>
-                <div class="form-group row">
-                    <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
-                        Active <span style="color: red;">*</span>
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <select id="IsActive" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
-                    </div>
-                </div>
-                <br>
-                <div class="ln_solid"></div>
-                <div class="form-group row">
-
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
-                        <button type="button" id="btnSaveSOP" class="btn btn-primary">Save</button>
-                        <button type="button" id="btnUpdateSOP" class="btn btn-primary" style="display:none">Update</button>
-                        <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
-                        <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
-                        <input type="hidden" id="editid">
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
+                    Name <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
                 </div>
             </div>
+            <br>
+            <div class="form-group row">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+                    SOP <span style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtsortOrder">
+                    Sort Order <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="IsActive">
+                    Active <span style="color: red;">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="IsActive" class="form-control m-b"><option value="Yes">Yes</option><option value="No">No</option></select>
+                </div>
+            </div>
+            <br>
             <div class="ln_solid"></div>
             <div class="form-group row">
-                @*<div class="control-group">*@
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                    <table id="tblDisplaySOPS"
-                           class="table table-striped table-bordered" cellspacing="0">
-                        <thead class="or-thead" style="background-color: #004b8d; color: white;">
-                            <tr>
-                                <th>Name</th>
-                                <th>SOP</th>
-                                <th>Sort Order</th>
-                                <th>Active</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
 
-                        <tbody id="tbldata" class="appendData"></tbody>
-
-                    </table>
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                    <button type="button" id="btnSaveSOP" class="btn btn-primary" data-toggle="modal" data-target="#ConfirmSaveModelPopup">Save</button>
+                    <button type="button" id="btnUpdateSOP" class="btn btn-primary" style="display:none" data-toggle="modal" data-target="#ConfirmUpdateModelPopup">Update</button>
+                    <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
+                    <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
+                    <input type="hidden" id="editid">
                 </div>
-                    @*</div>*@
+            </div>
+        </div>
+        <div class="ln_solid"></div>
+        <div class="form-group row">
+            @*<div class="control-group">*@
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <table id="tblDisplaySOPS"
+                       class="table table-striped table-bordered" cellspacing="0">
+                    <thead class="or-thead" style="background-color: #004b8d; color: white;">
+                        <tr>
+                            <th>Name</th>
+                            <th>SOP</th>
+                            <th>Sort Order</th>
+                            <th>Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-                </div>
+                    <tbody id="tbldata" class="appendData"></tbody>
 
-</form>
-    </div>
+                </table>
+            </div>
+            @*</div>*@
+
+        </div>
+
+    </form>
+</div>
 
 
 
@@ -130,7 +146,7 @@
     $(document).ready(function () {
 
         loadData();
-       
+
     });
 
     function loadData() {
@@ -168,9 +184,9 @@
                     "bDestroy": true,
 
                 });
-            },           
+            },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError);
+                showNotificationError(thrownError);
             }
 
         });
@@ -189,29 +205,30 @@
         $("#btnUpdateSOP").show();
         $("#txtFirstName").prop("readonly", true);
         $("#btnAdd").hide();
-        
+
         //DomainMetricListdata('Edit');
         //SLADetailsGrid('Edit');
-       
+
     }
-    //$("#idUpload").change(function () {
-    //    var data = new FormData();
-    //    var files = $("#idUpload").get(0).files;
-    //    if (files.length > 0) {
-    //        if ($("#txtFirstName").val() == '') {
-    //            $("#txtFirstName").val(files[0].name);
-    //        }
-    //    }
-    //});
-    $("#btnSaveSOP").click(function () {
-      
+    $("#idUpload").change(function () {
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+        if (files.length > 0) {
+            if ($("#txtFirstName").val() == '') {
+                $("#txtFirstName").val(files[0].name);
+            }
+        }
+    });
+    //$("#btnSaveSOP").click(
+
+        function SaveSOP(){
+
         if ($("#txtFirstName").val() == '') {
-            alert('Please provide SOP name!');
             showNotificationError('Please provide SOP name !');
             return;
         }
         if ($("#txtsortOrder").val() == '') {
-            alert('Please provide sort order !');
+            showNotificationError('Please provide sort order !');
             return;
         }
         var data = new FormData();
@@ -220,7 +237,7 @@
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > @sopFileSize) {
-                alert('File size shold not be greater than  @sopFileSize KB');
+                showNotificationError('File size shold not be greater than  @sopFileSize KB');
                 return;
             }
         }
@@ -244,13 +261,17 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    //alert('saved');
-                    clearAll();
-                    //ShowStatusMsg(response);
-                    alert(response);
-                    //code after success
-                    //$("#txtImg").val(response);
-                    //$("#imgPreview").attr('src', '/Upload/' + response);
+                    if (response.status == true) {
+                        showNotificationSuccess(response.message);
+                        clearAll();
+                        loadData();
+                        $("#addData").hide();
+                        $("#btnAdd").show();
+
+                    }
+                    else {
+                        showNotificationError(response.message);
+                    }
                 },
                 error: function (er) {
                     showNotificationError('Error in Processing');
@@ -260,9 +281,12 @@
         else {
             showNotificationError('Please select a SOP !');
         }
-    });
+    }
+    //);
 
-    $("#btnUpdateSOP").click(function () {
+    //$("#btnUpdateSOP").click(
+
+    function UpdateSOP() {
         if ($("#txtFirstName").val() == '') {
             alert('Please provide SOP name !');
             return;
@@ -279,29 +303,15 @@
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > @sopFileSize) {
-                toastr.options
-                {
-                    close: true;
-                    progressBar: true;
-                    showMethod: 'slideDown';
-                    timeOut: 50000;
-                };
-                toastr.error('File size shold not be greater than 60 KB');
-                // showNotificationError('File size shold not be greater than 260 KB');
-                //alert('File size shold not be greater than 10 KB');
+
+                showNotificationError('File size shold not be greater than @sopFileSize KB');
                 return;
             }
         }
-        //}
-        //else {
-        //    data.append("MyImages", null);
-        //}
-       
         data.append("Name", $("#txtFirstName").val());
         data.append("IsActive", $('#IsActive option:selected').text());
         data.append("SortOrder", $("#txtsortOrder").val());
         data.append("Id", $("#editid").val());
-        //alert(files[0].name)
         $.ajax({
             url: "/SOP/UpdateSOP",
             type: "POST",
@@ -310,13 +320,13 @@
             data: data,
             success: function (response) {
                 if (response.status == true) {
-                   
-                    //alert('hi');
-                    //alert(response.message);
-                    ShowStatusMsg(response.message);
+                    showNotificationSuccess(response.message);
+                    clearAll();
+                    loadData();
+                    $("#addData").hide();
+                    $("#btnAdd").show();
                 }
                 else {
-                    //alert('bye');
                     showNotificationError(response.message);
                 }
             },
@@ -325,7 +335,9 @@
             }
         });
 
-    });
+    }
+
+    //);
 
     $("#btnClear").click(function () {
         clearAll();
@@ -337,7 +349,7 @@
         $("#btnAdd").hide();
         $("#btnSaveSOP").show();
         $("#txtFirstName").prop("readonly", false);
-        
+
         clearAll();
     });
     $("#btnCancel").click(function () {
@@ -352,15 +364,15 @@
         $("#txtFirstName").val('');
         $("#txtsortOrder").val('');
         $("#idUpload").val('');
+        $("#txtFirstName").prop("readonly", false);
 
     }
-    function ShowStatusMsg(msg) {
-       // alert(msg);
+    function showNotificationSuccess(msg) {
         setTimeout(function () {
             toastr.options = {
                 closeButton: true,
-                //  progressBar: true,
-                //showMethod: 'slideDown',
+                  progressBar: true,
+                showMethod: 'slideDown',
                 timeOut: 3000
             };
             toastr.success(msg, 'Notification');
@@ -370,7 +382,7 @@
 
 
 
-    /////Validation Failure status............
+    ///// Failure status............
 
     function showNotificationError(msg) {
 

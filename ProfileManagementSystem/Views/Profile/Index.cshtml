@@ -4,12 +4,47 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     var ProfilePicSize = int.Parse(ConfigurationManager.AppSettings["ProfilePicSize"].ToString());
 }
+
+@*save confirm*@
+<div class="modal" tabindex="-1" role="dialog" id="ConfirmSaveModelPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><b>  Do you want to continue ? </b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="SaveProfile();" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*update confirm*@
+<div class="modal" tabindex="-1" role="dialog" id="ConfirmUpdateModelPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body">
+                <p><b>  Do you want to continue ? </b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateProfile();" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     <style>
         nav ul li a  {
-                        font-size: 1.1rem;
-                        font-weight: 600;
-
+            font-size: 1.1rem;
+            font-weight: 600;
         }
     </style>
     <div class="title_left">
@@ -177,8 +212,8 @@
             <div class="form-group row">
 
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
-                    <button type="button" id="btnSave" class=" btn btn-primary">Save</button>
-                    <button type="button" id="btnUpdate" class="btn btn-primary" style="display:none">Update</button>
+                    <button type="button" id="btnSave" class=" btn btn-primary" data-toggle="modal" data-target="#ConfirmSaveModelPopup">Save</button>
+                    <button type="button" id="btnUpdate" class="btn btn-primary" style="display:none" data-toggle="modal" data-target="#ConfirmUpdateModelPopup">Update</button>
                     <button type="button" id="btnClear" class=" btn btn-primary">Clear</button>
                     <button type="button" id="btnCancel" class=" btn btn-primary">Cancel</button>
                     <input type="hidden" id="editid">
@@ -231,7 +266,6 @@
 
 
     $(document).ready(function () {
-        //$("#edit").val('');
         LoadProfileData();
 
     });
@@ -297,7 +331,7 @@
             },
 
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError)
+                showNotificationError(thrownError)
             }
 
         });
@@ -324,7 +358,9 @@
         $("#btnAdd").hide();
 
     }
-    $("#btnSave").click(function () {
+    //$("#btnSave").click(
+
+        function SaveProfile() {
 
         //Validations
 
@@ -370,7 +406,7 @@
 
             var fileSize = files[0].size / 1024;
             if (fileSize > @ProfilePicSize) {
-                showNotificationError('File size shold not be greater than 60 KB');
+                showNotificationError('File size shold not be greater than @ProfilePicSize KB');
                 return;
             }
 
@@ -393,10 +429,11 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    alert(response.message);
-                    alert(response.status);
                     if (response.status == true) {
-                        ShowStatusMsg(response.message);
+                        showNotificationSuccess(response.message);
+                        //clearAll();
+                        $("#addData").hide();
+                        $("#btnAdd").show();
                     }
                     else {
                         showNotificationError(response.message);
@@ -406,39 +443,39 @@
                 },
                 error: function (er) {
                     showNotificationError(er);
-                    //alert(er);
                 }
             });
         }
         else {
             showNotificationError('Please select a profile pic !');
         }
-    });
+    }
+    //);
 
-    $("#btnUpdate").click(function () {
+    //$("#btnUpdate").click(
+
+    function UpdateProfile() {
 
         if ($("#txtDesignation").val() == '') {
-            alert('Please provide designation !');
+            showNotificationError('Please provide designation !');
             return;
         }
 
         if ($("#txtFirstName").val() == '') {
-            alert('Please provide first name !');
+            showNotificationError('Please provide first name !');
             return;
         }
 
         if ($("#txtEmpCode").val() == '') {
-            alert('Please provide employee code !');
+            showNotificationError('Please provide employee code !');
             return;
         }
-
-
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
         if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > @ProfilePicSize) {
-                alert('File size shold not be greater than 60 KB');
+                showNotificationError('File size shold not be greater than @ProfilePicSize KB');
                 return;
             }
         }
@@ -463,25 +500,26 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-
                     if (response.status == true) {
-                        //alert('hi');
-                        //alert(response.message);
-                        ShowStatusMsg(response.message);
+                        showNotificationSuccess(response.message);
+                        //LoadProfileData();
+                        //clearAll();
+                        $("#addData").hide();
+                        $("#btnAdd").show();
                     }
                     else {
-                        //alert('bye');
                         showNotificationError(response.message);
                     }
-                    //LoadProfileData();
-                    //clearAll();
+                    LoadProfileData();
+                    clearAll();
                 },
                 error: function (er) {
                     showNotificationError(er);
                 }
             });
         //}
-    });
+    }
+    //);
 
     $("#btnClear").click(function () {
         clearAll();
@@ -491,7 +529,6 @@
         $("#btnUpdate").hide();
         $("#btnAdd").hide();
         $("#btnSave").show();
-
         clearAll();
     });
     $("#btnCancel").click(function () {
@@ -517,16 +554,14 @@
         $("#pass").hide();
         $("#conPass").hide();
         $("#editid").val('');
-        //$("#btnUpdate").show();
-        //$("#btnSave").hide();
     }
 
-    function ShowStatusMsg(msg) {
+    function showNotificationSuccess(msg) {
         setTimeout(function () {
             toastr.options = {
                 closeButton: true,
-              //  progressBar: true,
-                //showMethod: 'slideDown',
+                progressBar: true,
+                showMethod: 'slideDown',
                 timeOut: 3000
             };
             toastr.success(msg, 'Notification');
@@ -534,26 +569,17 @@
 
     }
 
-    /////Validation Failure status............
+    /////Failure status............
 
     function showNotificationError(msg) {
-        alert(msg);
         setTimeout(function () {
-
             toastr.options = {
-
                 closeButton: true,
-
                 progressBar: true,
-
                 showMethod: 'slideDown',
-
                 timeOut: 3000
-
             };
-
             toastr.error(msg, 'Notification');
-
         }, 1300);
 
     }
