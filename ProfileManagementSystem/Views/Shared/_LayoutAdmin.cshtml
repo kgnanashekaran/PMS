@@ -39,7 +39,7 @@
                             <button class="body"> Click me</button>
                         </div>*@
                     <div class="col-sm-6" style="padding-top:7px;">
-                        <div class="nav navbar-nav navbar-right visible-lg visible-sm visible-md visible-sm visible-xs" style="float: right;text-align:left; width: 100%; font-weight: 600; font-size: 22px; margin-top: 0px;padding-right:3px; color: #010101;">
+                        <div class="nav navbar-nav navbar-right visible-lg visible-sm visible-md visible-sm visible-xs" style="float: right;text-align:left; width: 100%; font-weight: 600; font-size: 15px; margin-top: 0px;padding-right:3px;font-weight: bold;opacity: .8;height: 100px;">
                             @*<div class="nav navbar-nav navbar-right visible-xs" style="width: 90%; font-weight: 600; font-size: 16px; margin-left: 0 !important; margin-top: 1px; color: #010101; height: 25px;">
                                     <a class="mybtn btn btn-link btn-xs" href="@Url.Action("Index", "Home")" style="padding-left:20px; padding-top:5px;"><i class="fa fa-home" style="font-size:20px;color:#5A738E"></i></a>
                                 </div>*@
@@ -47,7 +47,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
 
-                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float:right;">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="float:right;padding-bottom: 5px;">
 
                                         <img src="../assets/images/profiles/@HttpContext.Current.Session["id"].ToString()" alt="">
                                         <i class="glyphicon glyphicon-menu-down"></i>
@@ -92,5 +92,8 @@
          if (id == 3) {
             location.href = '@Url.Action("Index","Home")';
         }
+    }
+       function onDropdown(id) {
+    
     }
 </script>
