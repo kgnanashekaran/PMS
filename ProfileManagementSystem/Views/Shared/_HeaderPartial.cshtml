@@ -55,7 +55,7 @@
                             @*<h6 tabindex="-1" class="dropdown-header">Header</h6>*@
                             @*<button type="button" tabindex="0" class="dropdown-item">Actions</button>*@
                             <div tabindex="-1" class="dropdown-divider"></div>
-                            <button type="button" tabindex="0" class="dropdown-item">Logout</button>
+                            <button type="button" tabindex="0" class="dropdown-item" onclick=onButtonclick(2);>Logout</button>
                         </div>
                         }
                     </div>
@@ -92,6 +92,9 @@
     function onButtonclick(id) {
         if (id == 1) {
             location.href = '@Url.Action("Index","SOP")';
+        }
+         if (id == 2) {
+            location.href = '@Url.Action("Logout", "Login")';
         }
     }
     </script>
