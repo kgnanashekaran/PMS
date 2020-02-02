@@ -348,6 +348,33 @@ namespace ProfileManagementSystem.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult CheckDuplicateProfile(FormCollection collection)
+        {
+            alert = new Alert();
+            string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
+            var resultCount = "";
+            SQLiteCommand cmd;
+            string email = collection["email"];
+            using (SQLiteConnection conn = new SQLiteConnection(connectString))
+            {
+                cmd = new SQLiteCommand();
+                cmd.CommandText = @"select max(id) from profileUser where email ='" + email + "'";
+                cmd.Connection = conn;
+                conn.Open();
+                resultCount = cmd.ExecuteScalar().ToString();
+            }
+            if (resultCount == null || resultCount == "")
+            {
+                alert.message = "0";
+            }
+            else
+            {
+                alert.message = "1";
+            }
+            alert.status = true;
+            return Json(alert, JsonRequestBehavior.AllowGet);
+        }
 
     }
 

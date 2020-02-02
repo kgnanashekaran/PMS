@@ -300,9 +300,11 @@
                 $("#txtEmailMessage").html('Invalid email.');
                 $("#txtUserEmail").css('border-color', 'red');
             }
-            else {
+            else { 
                 $("#txtEmailMessage").html('');
                 $("#txtUserEmail").css('border-color', '');
+
+                CheckDuplicateEmailName();
             }
         }
     }
@@ -804,6 +806,40 @@
         }
         }
         return isFileValid;
+    }
+
+    function CheckDuplicateEmailName() {
+        var data = new FormData();
+        //var retval;
+        data.append("email", $("#txtUserEmail").val());
+        $.ajax({
+            url: "/Profile/CheckDuplicateProfile",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                if (response.status == true) {
+
+                    retval = response.message;
+                    if (retval == 1) {
+                        $("#txtEmailMessage").html('Email already exist.');
+                        $("#txtUserEmail").css('border-color', 'red');
+                    }
+                    else {
+                        $("#txtEmailMessage").html('');
+                        $("#txtUserEmail").css('border-color', '');
+                    }
+                }
+                else {
+                    retval = response.message;
+                }
+            },
+            error: function (er) {
+                showNotificationError(er);
+            }
+        });
+        //return retval;
     }
 
     function showNotificationSuccess(msg) {
