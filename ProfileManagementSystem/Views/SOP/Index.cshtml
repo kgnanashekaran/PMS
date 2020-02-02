@@ -283,7 +283,10 @@
         $("#txtsortOrder").val($(td[2]).html());
         $("#IsActive").val($(td[3]).html());
         $("#editid").val(id);
+        $("#idUpload").val('');
         $("#btnSaveSOP").hide();
+        $("#btnClear").hide();
+        
         $("#btnUpdateSOP").show();
         $("#txtFirstName").prop("readonly", true);
         $("#btnAdd").hide();
@@ -293,7 +296,7 @@
         $("#inputFileMessage").html('');
         $("#txtSOMessage").html('');
         $("#txtNameMessage").html('');
-
+        //ValidateAllControls();
         //DomainMetricListdata('Edit');
         //SLADetailsGrid('Edit');
 
@@ -527,6 +530,7 @@
         $("#idUpload").val('');
         $("#txtFirstName").prop("readonly", false);
         $("#editid").val('');
+        ValidateAllControls();
 
     }
     function showNotificationSuccess(msg) {

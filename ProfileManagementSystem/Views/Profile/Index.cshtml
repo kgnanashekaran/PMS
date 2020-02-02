@@ -69,8 +69,9 @@
                 </label>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckName()" onblur="ValCheckName()">
                 </div>
+                <div id="txtNameMessage" style="color:red ; padding-top:4px"> </div>
             </div>
 
             <br>
@@ -91,9 +92,9 @@
                     Email <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtUserEmail" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckEmail()" onblur="ValCheckEmail()">
                 </div>
-                <div id="msgUserEmail" style="color:red"></div>
+                <div id="txtEmailMessage" style="color:red ; padding-top:4px"> </div>
             </div>
 
             <br>
@@ -103,8 +104,9 @@
                     Designation <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtDesignation" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckDesignation()" onblur="ValCheckDesignation()">
                 </div>
+                <div id="txtDesMessage" style="color:red ; padding-top:4px"> </div>
             </div>
 
             <br>
@@ -114,8 +116,27 @@
                     Employee Code <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtEmpCode" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckEmpCode()" onblur="ValCheckEmpCode()">
                 </div>
+                <div id="txtEcodeMessage" style="color:red ; padding-top:4px"> </div>
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
+
+                    Picture <span style="color: red;">*</span>
+
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+
+                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckInputFile()" onblur="ValCheckInputFile()">
+
+                </div>
+                <div id="txtPictureMessage" style="color:red ; padding-top:4px"> </div>
             </div>
 
             <br>
@@ -130,7 +151,6 @@
                         <option value="Administrator">Administrator</option>
                     </select>
                 </div>
-                <div style="padding-bottom: 1px;">&nbsp</div>
             </div>
             <div class="form-group" id="pass" style="display:none">
                 <br>
@@ -138,8 +158,9 @@
                     Password <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="password" id="txtPassword" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckPassword()" onblur="ValCheckPassword()">
                 </div>
+                <div id="txtPassMessage" style="color:red ; padding-top:4px"> </div>
             </div>
             <div class="form-group" id="conPass" style="display:none">
                 <br>
@@ -147,8 +168,9 @@
                     Confirm Password <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="password" id="ConTxtPassword" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckConPassword()" onblur="ValCheckConPassword()">
                 </div>
+                <div id="txtConPassMessage" style="color:red ; padding-top:4px"> </div>
             </div>
             <br>
             <div class="form-group row">
@@ -184,23 +206,6 @@
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
-
-                </div>
-
-            </div>
-            <br>
-
-            <div class="form-group row">
-
-                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="idUpload">
-
-                    Picture <span style="color: red;">*</span>
-
-                </label>
-
-                <div class="col-md-4 col-sm-4 col-xs-12">
-
-                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
 
                 </div>
 
@@ -264,6 +269,182 @@
 <script>
 
 
+    $("#idUpload").change(function () {
+        var data = new FormData();
+        var files = $("#idUpload").get(0).files;
+        if (files.length > 0) {           
+           // if ($("#editid").val() != '') {
+                ValidateFileExtension();
+            //}
+        }
+    });
+
+    function ValCheckName() {
+        if ($("#txtFirstName").val().length < 1) {
+            $("#txtNameMessage").html('This field is required.');
+            $("#txtFirstName").css('border-color', 'red');
+        }    
+        else {
+            $("#txtNameMessage").html('');
+            $("#txtFirstName").css('border-color', '');
+        }
+    }
+    function ValCheckEmail() {
+        if ($("#txtUserEmail").val().length < 1) {
+            $("#txtEmailMessage").html('This field is required.');
+            $("#txtUserEmail").css('border-color', 'red');
+        }
+        else {
+            var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if (!expr.test($("#txtUserEmail").val())) {
+                $("#txtEmailMessage").html('Invalid email.');
+                $("#txtUserEmail").css('border-color', 'red');
+            }
+            else {
+                $("#txtEmailMessage").html('');
+                $("#txtUserEmail").css('border-color', '');
+            }
+        }
+    }
+    function ValCheckDesignation() {
+        if ($("#txtDesignation").val().length < 1) {
+            $("#txtDesMessage").html('This field is required.');
+            $("#txtDesignation").css('border-color', 'red');
+        }
+        else {
+            $("#txtDesMessage").html('');
+            $("#txtDesignation").css('border-color', '');
+        }
+    }
+    function ValCheckEmpCode() {
+        if ($("#txtEmpCode").val().length < 1) {
+            $("#txtEcodeMessage").html('This field is required.');
+            $("#txtEmpCode").css('border-color', 'red');
+        }
+        else {
+            $("#txtEcodeMessage").html('');
+            $("#txtEmpCode").css('border-color', '');
+        }
+    }
+
+    function ValCheckPassword() {
+      
+        if ($("#txtPassword").val().length < 1) {
+            $("#txtPassMessage").html('This field is required.');
+            $("#txtPassword").css('border-color', 'red');
+        }
+       else if ($("#txtPassword").val().length < 5) {
+            $("#txtPassMessage").html('password should be minimum 5 characters.');
+            $("#txtPassword").css('border-color', 'red');
+        }
+        else {
+            $("#txtPassMessage").html('');
+            $("#txtPassword").css('border-color', '');
+        }
+    }
+    function ValCheckConPassword() {
+       // alert($("#txtPassword").val());
+       // alert($("#ConTxtPassword").val());
+        if ($("#ConTxtPassword").val().length < 1) {
+            $("#txtConPassMessage").html('This field is required.');
+            $("#ConTxtPassword").css('border-color', 'red');
+        }
+        else {
+           // alert($("#ConTxtPassword").val());
+            if ($("#txtPassword").val() != $("#ConTxtPassword").val()) {
+                $("#txtConPassMessage").html('Password and confirm password should match.');
+                $("#ConTxtPassword").css('border-color', 'red');
+            }
+            else {
+               // alert($("#ConTxtPassword").val());
+                $("#txtConPassMessage").html('');
+                $("#ConTxtPassword").css('border-color', '');
+            }
+        }
+    }
+
+
+
+
+
+
+    function ValidateAllControls() {
+        var isValid = 1;
+        if ($("#txtFirstName").val().length < 1) {
+            $("#txtNameMessage").html('This field is required.');
+            $("#txtFirstName").css('border-color', 'red');
+            isValid = 0;
+        }
+
+        if ($("#txtUserEmail").val().length < 1) {
+            $("#txtEmailMessage").html('This field is required.');
+            $("#txtUserEmail").css('border-color', 'red');
+            isValid = 0;
+        }
+
+        if ($("#txtDesignation").val().length < 1) {
+            $("#txtDesMessage").html('This field is required.');
+            $("#txtDesignation").css('border-color', 'red');
+            isValid = 0;
+        }
+
+        if ($("#txtEmpCode").val().length < 1) {
+            $("#txtEcodeMessage").html('This field is required.');
+            $("#txtEmpCode").css('border-color', 'red');
+            isValid = 0;
+        }
+
+        if ($("#idUpload").val().length < 1 && ($("#editid").val() == '')) {
+            $("#txtPictureMessage").html('This field is required.');
+            $("#idUpload").css('border-color', 'red');
+            isValid = 0;
+        }
+        if ($("#select_Role").val() == 'Administrator') {
+
+            if ($("#txtPassword").val().length < 1) {
+                $("#txtPassMessage").html('This field is required.');
+                $("#txtPassword").css('border-color', 'red');
+                isValid = 0;
+             }
+
+            if ($("#ConTxtPassword").val().length < 1) {
+                $("#txtConPassMessage").html('This field is required.');
+                $("#ConTxtPassword").css('border-color', 'red');
+                isValid = 0;
+            }
+
+        }
+        if ($("#select_Role").val() == 'User') {
+
+            $("#txtPassMessage").html('');
+            $("#txtPassword").css('border-color', '');
+
+            $("#txtConPassMessage").html('');
+            $("#ConTxtPassword").css('border-color', '');
+
+        }
+        if ($("#idUpload").val().length > 1 && ValidateFileExtension() == 0) {
+            isValid = 0;
+        }
+        return isValid;
+    }
+
+    function ValCheckInputFile() {
+        if ($("#editid").val() == '') {
+
+            if ($("#idUpload").val().length < 1) {
+
+                $("#txtPictureMessage").html('This field is required.');
+                $("#idUpload").css('border-color', 'red');
+            }
+            else {
+
+                ValidateFileExtension();
+            }
+        }
+
+    }
+
 
     $(document).ready(function () {
         $("#ManageProfile").hide();
@@ -276,11 +457,26 @@
             if ($("#editid").val() != 'editRec') {
                 $("#pass").show();
                 $("#conPass").show();
+                if ($("#txtPassword").val().length < 1) {
+                    $("#txtPassMessage").html('This field is required.');
+                    $("#txtPassword").css('border-color', 'red');                  
+                }
+
+                if ($("#ConTxtPassword").val().length < 1) {
+                    $("#txtConPassMessage").html('This field is required.');
+                    $("#ConTxtPassword").css('border-color', 'red');              
+                }
             }
         }
         if ($("#select_Role").val() == 'User') {
             $("#pass").hide();
             $("#conPass").hide();
+
+            $("#txtPassMessage").html('');
+            $("#txtPassword").css('border-color', '');
+
+            $("#txtConPassMessage").html('');
+            $("#ConTxtPassword").css('border-color', '');
         }
     });
     function LoadProfileData() {
@@ -354,62 +550,83 @@
         $("#isDisplay").val($(td[7]).html());
         $("#txtUserEmail").prop("readonly", true);
         $("#btnUpdate").show();
+        $("#btnClear").hide();
         $("#btnSave").hide();
         $("#editid").val('editRec');
         $("#btnAdd").hide();
 
+        $("#idUpload").val('');
+
+
+        $("#txtFirstName").css('border-color', '');
+        $("#txtUserEmail").css('border-color', '');
+        $("#txtDesignation").css('border-color', '');
+        $("#txtEmpCode").css('border-color', '');
+        $("#idUpload").css('border-color', '');
+        $("#txtPassword").css('border-color', '');
+        $("#ConTxtPassword").css('border-color', '');
+
+        $("#txtNameMessage").html('');
+        $("#txtEmailMessage").html('');
+        $("#txtDesMessage").html('');
+        $("#txtEcodeMessage").html('');
+        $("#txtPictureMessage").html('');
+        $("#txtPassMessage").html('');
+        $("#txtConPassMessage").html('');
+        //ValidateAllControls();
     }
     //$("#btnSave").click(
 
         function SaveProfile() {
-
         //Validations
-
-
-        if ($("#txtDesignation").val() == '') {
-            showNotificationError('Please provide designation !');
-            return;
-        }
-
-        if ($("#txtFirstName").val() == '') {;
-            showNotificationError('Please provide first name !');
-            return;
-        }
-
-        if ($("#txtEmpCode").val() == '') {
-            showNotificationError('Please provide employee code !');
-            return;
-        }
-
-        if ($('#select_Role option:selected').text() == 'Administrator') {
-            if ($("#txtPassword").val() == '') {
-                showNotificationError('Please provide a password !');
+            if (ValidateAllControls() == 0) {
+               // alert(ValidateAllControls());
                 return;
             }
-            if ($("#ConTxtPassword").val() != $("#txtPassword").val()) {
-                showNotificationError('Password and Confirm password should be same !');
-                return;
-            }
-        }
-        if ($("#txtUserEmail").val() == '') {
-            showNotificationError('Please provide email !');
-            return;
-        }
-        var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        if (!expr.test($("#txtUserEmail").val())) {
-            showNotificationError('Invalid email');
-            return;
-        }
+        //if ($("#txtDesignation").val() == '') {
+        //    showNotificationError('Please provide designation !');
+        //    return;
+        //}
+
+        //if ($("#txtFirstName").val() == '') {;
+        //    showNotificationError('Please provide first name !');
+        //    return;
+        //}
+
+        //if ($("#txtEmpCode").val() == '') {
+        //    showNotificationError('Please provide employee code !');
+        //    return;
+        //}
+
+        //if ($('#select_Role option:selected').text() == 'Administrator') {
+        //    if ($("#txtPassword").val() == '') {
+        //        showNotificationError('Please provide a password !');
+        //        return;
+        //    }
+        //    if ($("#ConTxtPassword").val() != $("#txtPassword").val()) {
+        //        showNotificationError('Password and Confirm password should be same !');
+        //        return;
+        //    }
+        //}
+        //if ($("#txtUserEmail").val() == '') {
+        //    showNotificationError('Please provide email !');
+        //    return;
+        //}
+        //var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        //if (!expr.test($("#txtUserEmail").val())) {
+        //    showNotificationError('Invalid email');
+        //    return;
+        //}
 
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
         if (files.length > 0) {
 
             var fileSize = files[0].size / 1024;
-            if (fileSize > @ProfilePicSize) {
+            @*if (fileSize > @ProfilePicSize) {
                 showNotificationError('File size shold not be greater than @ProfilePicSize KB');
                 return;
-            }
+            }*@
 
             data.append("MyImages", files[0]);
             data.append("firstName", $("#txtFirstName").val());
@@ -456,30 +673,33 @@
     //$("#btnUpdate").click(
 
     function UpdateProfile() {
-
-        if ($("#txtDesignation").val() == '') {
-            showNotificationError('Please provide designation !');
+        if (ValidateAllControls() == 0) {
+            //alert(ValidateAllControls());
             return;
         }
+        //if ($("#txtDesignation").val() == '') {
+        //    showNotificationError('Please provide designation !');
+        //    return;
+        //}
 
-        if ($("#txtFirstName").val() == '') {
-            showNotificationError('Please provide first name !');
-            return;
-        }
+        //if ($("#txtFirstName").val() == '') {
+        //    showNotificationError('Please provide first name !');
+        //    return;
+        //}
 
-        if ($("#txtEmpCode").val() == '') {
-            showNotificationError('Please provide employee code !');
-            return;
-        }
+        //if ($("#txtEmpCode").val() == '') {
+        //    showNotificationError('Please provide employee code !');
+        //    return;
+        //}
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
-        if (files.length > 0) {
+        @*if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > @ProfilePicSize) {
                 showNotificationError('File size shold not be greater than @ProfilePicSize KB');
                 return;
             }
-        }
+        }*@
         data.append("MyImages", files[0]);
         data.append("firstName", $("#txtFirstName").val());
         data.append("lastName", $("#txtLastName").val());
@@ -530,6 +750,7 @@
         $("#btnUpdate").hide();
         $("#btnAdd").hide();
         $("#btnSave").show();
+        ValidateAllControls();
         clearAll();
     });
     $("#btnCancel").click(function () {
@@ -555,6 +776,34 @@
         $("#pass").hide();
         $("#conPass").hide();
         $("#editid").val('');
+        ValidateAllControls();
+    }
+
+
+    function ValidateFileExtension() {
+        //alert('hi');
+        var isFileValid = 0;
+        var extension = $('#idUpload').val().split('.').pop().toLowerCase();
+        if ($.inArray(extension, ['jpg', 'jpeg']) == -1) {
+            $("#txtPictureMessage").html('Invalid file type , please upload .jpg/.jpeg files only.');
+            $("#idUpload").css('border-color', 'red');
+        }
+        else {
+         var files = $("#idUpload").get(0).files;
+         if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+             if (fileSize > @ProfilePicSize) {
+                 $("#txtPictureMessage").html('File size shold not be greater than  @ProfilePicSize KB');
+                 $("#idUpload").css('border-color', 'red');
+             }
+             else {
+                 $("#txtPictureMessage").html('');
+                 $("#idUpload").css('border-color', '');
+                 isFileValid = 1;
+             }
+        }
+        }
+        return isFileValid;
     }
 
     function showNotificationSuccess(msg) {
