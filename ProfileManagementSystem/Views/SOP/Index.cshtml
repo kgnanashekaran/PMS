@@ -7,7 +7,7 @@
 @*save confirm*@
 <div class="modal" tabindex="-1" role="dialog" id="ConfirmSaveModelPopup">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">          
+        <div class="modal-content">
             <div class="modal-body">
                 <p><b>  Do you want to continue ? </b></p>
             </div>
@@ -23,13 +23,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             @*<div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>*@
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
             <div class="modal-body">
-              <p><b>  Do you want to continue ? </b></p>
+                <p><b>  Do you want to continue ? </b></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,15 +61,14 @@
     <form id="form-input" class="form-horizontal">
         @*@Html.AntiForgeryToken()*@
         <div id="addData" style="display:none;">
-
-
             <div class="form-group">
                 <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtFirstName">
                     Name <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtFirstName" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckName()" onblur="ValCheckName()">
                 </div>
+                <div id="txtNameMessage" style="color:red ; padding-top:4px"> </div>
             </div>
             <br>
             <div class="form-group row">
@@ -77,8 +76,9 @@
                     SOP <span style="color: red;">*</span>
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="file" id="idUpload" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckInputFile()" onblur="ValCheckInputFile()">
                 </div>
+                <div id="inputFileMessage" style="color:red; padding-top:4px"> </div>
             </div>
             <br>
             <div class="form-group">
@@ -86,8 +86,9 @@
                     Sort Order <span class="required" style="color: red;">*</span>
                 </label>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12">
+                    <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckSortOrder()" onblur="ValCheckSortOrder()" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                 </div>
+                <div id="txtSOMessage" style="color:red; padding-top:4px"> </div>
             </div>
             <br>
             <div class="form-group row">
@@ -141,6 +142,87 @@
 
 
 <script>
+  var  retval = '';
+    function ValidateAllControls() {
+        var isValid = 1;
+        if ($("#txtFirstName").val().length < 1) {
+            $("#txtNameMessage").html('This field is required.');
+            $("#txtFirstName").css('border-color', 'red');
+            isValid = 0;
+        }
+
+        if ($("#idUpload").val().length < 1 &&  ($("#editid").val() == '')) {
+            $("#inputFileMessage").html('This field is required.');
+            $("#idUpload").css('border-color', 'red');
+            isValid = 0;
+        }
+        if ($("#txtsortOrder").val().length < 1) {
+            $("#txtSOMessage").html('This field is required (numbers only).');
+            $("#txtsortOrder").css('border-color', 'red');
+            isValid = 0;
+        }
+        if ($("#idUpload").val().length > 1 && ValidateFileExtension()==0) {       
+            isValid = 0;
+        }
+        return isValid;
+    }
+
+
+    function ValCheckName() {
+
+        if ($("#txtFirstName").val().length < 1) {
+
+            $("#txtNameMessage").html('This field is required.');
+            $("#txtFirstName").css('border-color', 'red');
+        }
+        else {
+            CheckDuplicateSOPName();
+           // alert(retval);
+            //if (retval == 0)
+            //{
+
+            //    $("#txtNameMessage").html('');
+            //    $("#txtFirstName").css('border-color', '');
+            //}
+            //else if (retval == 1) {
+            //   alert(retval);
+            //    $("#txtNameMessage").html('SOP name already exist.');
+            //    $("#txtFirstName").css('border-color', 'red');
+            //}
+        }
+
+    }
+
+    function ValCheckSortOrder() {
+
+        if ($("#txtsortOrder").val().length < 1) {
+
+            $("#txtSOMessage").html('This field is required (numbers only).');
+            $("#txtsortOrder").css('border-color', 'red');
+        }
+        else {
+            $("#txtSOMessage").html('');
+            $("#txtsortOrder").css('border-color', '');
+        }
+
+    }
+
+    function ValCheckInputFile() {
+        if ($("#editid").val() == '') {
+
+            if ($("#idUpload").val().length < 1) {
+
+                $("#inputFileMessage").html('This field is required.');
+                $("#idUpload").css('border-color', 'red');
+            }
+            else {
+
+                ValidateFileExtension();
+            }
+        }
+
+    }
+
 
 
     $(document).ready(function () {
@@ -205,6 +287,12 @@
         $("#btnUpdateSOP").show();
         $("#txtFirstName").prop("readonly", true);
         $("#btnAdd").hide();
+        $("#idUpload").css('border-color', '');
+        $("#txtsortOrder").css('border-color', '');
+        $("#txtFirstName").css('border-color', '');
+        $("#inputFileMessage").html('');
+        $("#txtSOMessage").html('');
+        $("#txtNameMessage").html('');
 
         //DomainMetricListdata('Edit');
         //SLADetailsGrid('Edit');
@@ -217,30 +305,38 @@
             if ($("#txtFirstName").val() == '') {
                 $("#txtFirstName").val(files[0].name);
             }
+            //alert($("#editid").val());
+            if ($("#editid").val() != '') {
+                ValidateFileExtension();
+            }
+           // ValidateFileExtension();
         }
     });
     //$("#btnSaveSOP").click(
 
-        function SaveSOP(){
+    function SaveSOP() {
+        if (ValidateAllControls() == 0) {
+            return;
+        }
 
-        if ($("#txtFirstName").val() == '') {
-            showNotificationError('Please provide SOP name !');
-            return;
-        }
-        if ($("#txtsortOrder").val() == '') {
-            showNotificationError('Please provide sort order !');
-            return;
-        }
+        //if ($("#txtFirstName").val() == '') {
+        //    showNotificationError('Please provide SOP name !');
+        //    return;
+        //}
+        //if ($("#txtsortOrder").val() == '') {
+        //    showNotificationError('Please provide sort order !');
+        //    return;
+        //}
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
 
-        if (files.length > 0) {
+        @*if (files.length > 0) {
             var fileSize = files[0].size / 1024;
             if (fileSize > @sopFileSize) {
                 showNotificationError('File size shold not be greater than  @sopFileSize KB');
                 return;
             }
-        }
+        }*@
 
         if (files.length > 0) {
             //var fileSize = files[0].size / 1024;
@@ -287,15 +383,18 @@
     //$("#btnUpdateSOP").click(
 
     function UpdateSOP() {
-        if ($("#txtFirstName").val() == '') {
-            alert('Please provide SOP name !');
+        if (ValidateAllControls() == 0) {
             return;
         }
-        if ($("#txtsortOrder").val() == '') {
-            alert('Please provide sort order !');
-            showNotificationError('File size shold not be greater than 260 KB');
-            return;
-        }
+        //if ($("#txtFirstName").val() == '') {
+        //    alert('Please provide SOP name !');
+        //    return;
+        //}
+        //if ($("#txtsortOrder").val() == '') {
+        //    alert('Please provide sort order !');
+        //    showNotificationError('File size shold not be greater than 260 KB');
+        //    return;
+        //}
         var data = new FormData();
         var files = $("#idUpload").get(0).files;
         //if (files.length > 0) {
@@ -304,7 +403,7 @@
             var fileSize = files[0].size / 1024;
             if (fileSize > @sopFileSize) {
 
-                showNotificationError('File size shold not be greater than @sopFileSize KB');
+                //showNotificationError('File size shold not be greater than @sopFileSize KB');
                 return;
             }
         }
@@ -337,7 +436,69 @@
 
     }
 
+
+    function ValidateFileExtension() {
+        //alert('hi');
+        var isFileValid = 0;
+        var extension = $('#idUpload').val().split('.').pop().toLowerCase();     
+        if ($.inArray(extension, ['jpg', 'jpeg']) == -1) {
+            $("#inputFileMessage").html('Invalid file type , please upload .jpg/.jpeg files only.');
+            $("#idUpload").css('border-color', 'red');
+        }
+        else {
+         var files = $("#idUpload").get(0).files;
+         if (files.length > 0) {
+            var fileSize = files[0].size / 1024;
+             if (fileSize > @sopFileSize) {
+                 $("#inputFileMessage").html('File size shold not be greater than  @sopFileSize KB');
+                 $("#idUpload").css('border-color', 'red');
+             }
+             else {
+                 $("#inputFileMessage").html('');
+                 $("#idUpload").css('border-color', '');
+                 isFileValid = 1;
+             }
+        }
+        }
+        return isFileValid;
+    }
+
     //);
+    function CheckDuplicateSOPName() {
+        var data = new FormData();
+        //var retval;
+        data.append("Name", $("#txtFirstName").val());
+        $.ajax({
+            url: "/SOP/CheckDuplicateSOP",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                if (response.status == true) {
+
+                    retval = response.message;
+                    if (retval == 1) {
+                        $("#txtNameMessage").html('Name already exist.');
+                        $("#txtFirstName").css('border-color', 'red');
+                    }
+                    else {
+                        $("#txtNameMessage").html('');
+                        $("#txtFirstName").css('border-color', '');
+                    }
+                }
+                else {
+                    retval = response.message;
+                }
+            },
+            error: function (er) {
+                showNotificationError(er);
+            }
+        });
+        //return retval;
+    }
+
+
 
     $("#btnClear").click(function () {
         clearAll();
@@ -349,8 +510,8 @@
         $("#btnAdd").hide();
         $("#btnSaveSOP").show();
         $("#txtFirstName").prop("readonly", false);
-
         clearAll();
+        ValidateAllControls();
     });
     $("#btnCancel").click(function () {
         $("#addData").hide();
@@ -365,6 +526,7 @@
         $("#txtsortOrder").val('');
         $("#idUpload").val('');
         $("#txtFirstName").prop("readonly", false);
+        $("#editid").val('');
 
     }
     function showNotificationSuccess(msg) {

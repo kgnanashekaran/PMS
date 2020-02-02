@@ -64,7 +64,7 @@ namespace ProfileManagementSystem.Controllers
                 {
                     var fileName = Path.GetFileName(pic.FileName);
                     var _ext = Path.GetExtension(pic.FileName);
-                    var uploadedfilename = fileName ;
+                    var uploadedfilename = fileName;
                     if (_ext.ToLower() == ".jpg" || _ext.ToLower() == ".jpeg")
                     {
                         using (SQLiteConnection conn = new SQLiteConnection(connectString))
@@ -99,7 +99,7 @@ namespace ProfileManagementSystem.Controllers
                         alert.status = false;
                         alert.message = "Formate not supported !";
                         return Json(alert, JsonRequestBehavior.AllowGet);
-         
+
                     }
                 }
                 else
@@ -108,15 +108,15 @@ namespace ProfileManagementSystem.Controllers
                     cmd = new SQLiteCommand();
                     //if (conn.State == System.Data.ConnectionState.Open)
                     //    conn.Close();
-                   // SQLiteConnection.ClearAllPools();
+                    // SQLiteConnection.ClearAllPools();
                     //using (SQLiteConnection conn = new SQLiteConnection(connectString))
                     //{
-                        cmd.CommandText = @"update sop set sortorder='" + sortOrder + "' ,isActive='" + flag + "' where name = '" + userPicName.ToLower() + "' ";
-                        cmd.Connection = conn;
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                   // }                 
+                    cmd.CommandText = @"update sop set sortorder='" + sortOrder + "' ,isActive='" + flag + "' where name = '" + userPicName.ToLower() + "' ";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    // }                 
                     alert.status = true;
                     alert.message = "SOP details has been updated !";
                     return Json(alert, JsonRequestBehavior.AllowGet);
@@ -130,13 +130,13 @@ namespace ProfileManagementSystem.Controllers
                 alert.status = false;
                 alert.message = "Request not processed !";
                 return Json(alert, JsonRequestBehavior.AllowGet);
-               
+
             }
 
         }
 
         [HttpPost]
-        public ActionResult UploadFiles(FormCollection collection,SOP puser)
+        public ActionResult UploadFiles(FormCollection collection, SOP puser)
         {
             alert = new Alert();
             try
@@ -170,18 +170,18 @@ namespace ProfileManagementSystem.Controllers
                         using (SQLiteConnection conn = new SQLiteConnection(connectString))
                         {
                             cmd = new SQLiteCommand();
-                            cmd.CommandText = @" select max(id) from sop where name = '" + pic.FileName.ToLower() + "'";
+                            cmd.CommandText = @" select max(id) from sop where name = '" + userPicName.ToLower() + "'";
                             cmd.Connection = conn;
                             conn.Open();
                             picname = cmd.ExecuteScalar().ToString();
-                           // conn.Close();
+                            // conn.Close();
                         }
                         if (picname == null || picname == "")
                         {
                             using (SQLiteConnection conn = new SQLiteConnection(connectString))
                             {
                                 cmd = new SQLiteCommand();
-                                cmd.CommandText = @"insert into sop (name,filename,sortorder,isActive) VALUES('" + userPicName.ToLower() + "','" + userPicName.ToLower() + "' ,'" + sortOrder + "',  '" + flag + "')";
+                                cmd.CommandText = @"insert into sop (name,filename,sortorder,isActive) VALUES('" + userPicName.ToLower() + "','" + fileName.ToLower() + "' ,'" + sortOrder + "',  '" + flag + "')";
                                 cmd.Connection = conn;
                                 conn.Open();
                                 cmd.ExecuteNonQuery();
@@ -190,7 +190,7 @@ namespace ProfileManagementSystem.Controllers
                             using (SQLiteConnection conn = new SQLiteConnection(connectString))
                             {
                                 cmd = new SQLiteCommand();
-                                cmd.CommandText = @"select max(id) from sop";
+                                cmd.CommandText = @"select max(id) from sop where name ='" + userPicName.ToLower() + "'";
                                 cmd.Connection = conn;
                                 conn.Open();
                                 _imgname = cmd.ExecuteScalar().ToString();
@@ -202,7 +202,7 @@ namespace ProfileManagementSystem.Controllers
                             var path = _comPath;
                             // Saving Image in Original Mode
                             pic.SaveAs(path);
-                         
+
                             alert.status = true;
                             alert.message = "SOP Saved !";
                             return Json(alert, JsonRequestBehavior.AllowGet);
@@ -212,7 +212,7 @@ namespace ProfileManagementSystem.Controllers
                             alert.status = false;
                             alert.message = "SOP already exist !";
                             return Json(alert, JsonRequestBehavior.AllowGet);
-                      
+
 
                         }
                     }
@@ -221,7 +221,7 @@ namespace ProfileManagementSystem.Controllers
                         alert.status = false;
                         alert.message = "Formate not supported !";
                         return Json(alert, JsonRequestBehavior.AllowGet);
-                   
+
                     }
                 }
                 else
@@ -229,7 +229,7 @@ namespace ProfileManagementSystem.Controllers
                     alert.status = false;
                     alert.message = "Please choose file to upload !";
                     return Json(alert, JsonRequestBehavior.AllowGet);
-                   
+
                 }
 
             }
@@ -264,7 +264,7 @@ namespace ProfileManagementSystem.Controllers
                 alert.status = false;
                 alert.message = "Request not processed !";
                 return Json(alert, JsonRequestBehavior.AllowGet);
-           
+
             }
         }
         private static List<SOP> GetSOPListFromDB()
@@ -273,7 +273,7 @@ namespace ProfileManagementSystem.Controllers
             {
                 List<SOP> _lstSOP = new List<SOP>();
                 string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
-               // SQLiteConnection conn;
+                // SQLiteConnection conn;
                 SQLiteCommand cmd;
                 SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
@@ -299,7 +299,7 @@ namespace ProfileManagementSystem.Controllers
                     }
                 }
 
-               // conn.Close();
+                // conn.Close();
 
                 return _lstSOP;
             }
@@ -330,5 +330,31 @@ namespace ProfileManagementSystem.Controllers
 
         //    return _lstProfileUser;
         //}
+
+        [HttpPost]
+        public ActionResult CheckDuplicateSOP(FormCollection collection)
+        {
+            alert = new Alert();
+            var resultCount = "";
+            string sopName = collection["Name"];
+            using (SQLiteConnection conn = new SQLiteConnection(connectString))
+            {
+                cmd = new SQLiteCommand();
+                cmd.CommandText = @"select max(id) from sop where name ='" + sopName.ToLower() + "'";
+                cmd.Connection = conn;
+                conn.Open();
+                resultCount = cmd.ExecuteScalar().ToString();
+            }
+            if (resultCount == null || resultCount == "")
+            {
+                alert.message = "0";
+            }
+            else
+            {
+                alert.message = "1";
+            }
+            alert.status = true;
+            return Json(alert, JsonRequestBehavior.AllowGet);
+        }
     }
 }
