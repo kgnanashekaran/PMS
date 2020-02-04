@@ -336,7 +336,7 @@ body {
     color: #495057;
     text-align: left;
     background-color: #fff;
-    /*overflow:hidden;*/
+    overflow:hidden;
 }
 
 [tabindex="-1"]:focus {

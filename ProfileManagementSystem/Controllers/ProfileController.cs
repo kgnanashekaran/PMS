@@ -183,8 +183,8 @@ namespace ProfileManagementSystem.Controllers
                                 // Image image = Image.FromFile(_savePath);
                                 // Image thumb = image.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
                                 // thumb.Save(Path.ChangeExtension(_savePath, "thumb"));
-                                if (img.Width > 200)
-                                    img.Resize(200, 200);
+                                if (img.Width > 64)
+                                    img.Resize(64, 64,true);
                                 img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
                                 // end resize
                                 alert.message = "Profile Saved !";

@@ -23,7 +23,8 @@ namespace ProfileManagementSystem.Controllers
 
             try
             {
-                var a = Utility.Utility.Decrypt("txnLZNQg1lzddjjocxNILw==");
+                //var a = Utility.Utility.Decrypt("txnLZNQg1lzddjjocxNILw==");
+                //var b = Utility.Utility.Encrypt("admin");
                 ViewData["UserProfiles"] = GetUserProfileList();
                 ViewData["SOP"] = GetSOPList();
 
@@ -86,7 +87,7 @@ namespace ProfileManagementSystem.Controllers
 
             conn = new SQLiteConnection(connectString);
             cmd = new SQLiteCommand();
-            cmd.CommandText = @"SELECT * from profileUser where isActive=1 and isDisplay=1";
+            cmd.CommandText = @"SELECT * from profileUser where isActive=1 and isDisplay=1 order by firstname, lastname";
             cmd.Connection = conn;
             conn.Open();
 
@@ -99,7 +100,7 @@ namespace ProfileManagementSystem.Controllers
                 _profileUser.lastname = r["lastname"].ToString();
                 _profileUser.designation = r["designation"].ToString();
                 _profileUser.empno = r["empno"].ToString();
-                _profileUser.photo = r["photo"].ToString();
+                _profileUser.photo = r["id"].ToString();
                 _lstProfileUser.Add(_profileUser);
             }
 
