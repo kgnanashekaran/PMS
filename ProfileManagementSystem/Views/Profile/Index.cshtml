@@ -141,6 +141,17 @@
 
             <br>
 
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="txtsortOrder">
+                    Sort Order <span class="required" style="color: red;">*</span>
+                </label>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <input type="text" id="txtsortOrder" maxlength="100" class="form-control col-md-7 col-xs-12" onkeypress="ValCheckSortOrder()" onblur="ValCheckSortOrder()" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                </div>
+                <div id="txtSOMessage" style="color:red; padding-top:4px"> </div>
+            </div>
+            <br>
+
             <div class="form-group row">
                 <label class="control-label col-md-4 col-sm-4 col-xs-12" for="select_Role">
                     Role <span style="color: red;">*</span>
@@ -249,6 +260,7 @@
                             <th>Role </th>
                             <th>Active?</th>
                             <th>Display in Portal?</th>
+                            <th>Sort Order</th>
                             <th>Action</th>
 
                         </tr>
@@ -278,6 +290,21 @@
             //}
         }
     });
+
+
+    function ValCheckSortOrder() {
+
+        if ($("#txtsortOrder").val().length < 1) {
+
+            $("#txtSOMessage").html('This field is required (numbers only).');
+            $("#txtsortOrder").css('border-color', 'red');
+        }
+        else {
+            $("#txtSOMessage").html('');
+            $("#txtsortOrder").css('border-color', '');
+        }
+
+    }
 
     function ValCheckName() {
         if ($("#txtFirstName").val().length < 1) {
@@ -375,6 +402,11 @@
         if ($("#txtFirstName").val().length < 1) {
             $("#txtNameMessage").html('This field is required.');
             $("#txtFirstName").css('border-color', 'red');
+            isValid = 0;
+        }
+        if ($("#txtsortOrder").val().length < 1) {
+            $("#txtSOMessage").html('This field is required (numbers only).');
+            $("#txtsortOrder").css('border-color', 'red');
             isValid = 0;
         }
 
@@ -503,7 +535,7 @@
                     if (obj.status == 1)
                         status = 'Yes';
 
-                    htmlText += "<tr><td>" + obj.firstname + "</td><td>" + obj.lastname + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display+  "</td><td><img class='edit' id='btneditProfile'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
+                    htmlText += "<tr><td>" + obj.firstname + "</td><td>" + obj.lastname + "</td><td>" + obj.email + "</td><td>" + obj.designation + "</td><td>" + obj.empno + "</td><td>" + obj.role + "</td><td>" + status + "</td><td>" + display + "</td><td>" + obj.sortOrder +  "</td><td><img class='edit' id='btneditProfile'  style='cursor:pointer;' onclick='EditRecord(this)' title='Edit this record' src='../assets/images/others/edit.png')/></td></tr>";
                 });
                 $("#tbldata").html(htmlText);
 
@@ -550,6 +582,7 @@
         $("#select_Role").val($(td[5]).html());
         $("#IsActive").val($(td[6]).html());
         $("#isDisplay").val($(td[7]).html());
+        $("#txtsortOrder").val($(td[8]).html());
         $("#txtUserEmail").prop("readonly", true);
         $("#btnUpdate").show();
         $("#btnClear").hide();
@@ -641,6 +674,7 @@
             data.append("designation", $("#txtDesignation").val());
             data.append("empCode", $("#txtEmpCode").val());
             data.append("Role", $('#select_Role option:selected').text());
+            data.append("SortOrder", $("#txtsortOrder").val());
             //alert(files[0].name)
             $.ajax({
                 url: "/Profile/UploadProfiles",
@@ -713,6 +747,7 @@
         data.append("designation", $("#txtDesignation").val());
         data.append("empCode", $("#txtEmpCode").val());
         data.append("Role", $('#select_Role option:selected').text());
+        data.append("SortOrder", $("#txtsortOrder").val());
 
         //if (files.length > 0) {
             //alert(files[0].name)
@@ -780,6 +815,8 @@
         $("#pass").hide();
         $("#conPass").hide();
         $("#editid").val('');
+        $("#txtsortOrder").val('');
+
         ValidateAllControls();
     }
 

@@ -73,7 +73,8 @@ namespace ProfileManagementSystem.Controllers
                         _profileUser.role = r["role"].ToString();
                         _profileUser.status = Convert.ToInt32(r["isActive"].ToString());
                         _profileUser.display = Convert.ToInt32(r["isDisplay"].ToString());
-                        _profileUser.lastname = r["lastName"].ToString();
+                        _profileUser.lastname = r["lastName"].ToString(); 
+                        _profileUser.sortOrder = r["sortorder"].ToString();
                         _lstProfileUser.Add(_profileUser);
                     }
                 }
@@ -113,6 +114,7 @@ namespace ProfileManagementSystem.Controllers
                     var designation = collection["designation"];
                     var empCode = collection["empCode"];
                     var isDisplay = collection["isDisplay"];
+                    var sortOrder = collection["SortOrder"];
                     string encryptedPassword = string.Empty;
                     int flag = 0;
                     if (isActive == "Yes")
@@ -152,7 +154,7 @@ namespace ProfileManagementSystem.Controllers
                                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                                 {
                                     cmd = new SQLiteCommand();
-                                    cmd.CommandText = @"insert into profileUser (firstName,lastName,email,designation,empno,photo,password,role,isDisplay,isActive)  values('" + fname + "','" + lname + "','" + email.ToLower() + "','" + designation + "','" + empCode + "','" + fileName + "','" + encryptedPassword + "','" + role + "','" + flagDisplay + "','" + flag + "')";
+                                    cmd.CommandText = @"insert into profileUser (firstName,lastName,email,designation,empno,photo,password,role,isDisplay,isActive,sortorder)  values('" + fname + "','" + lname + "','" + email.ToLower() + "','" + designation + "','" + empCode + "','" + fileName + "','" + encryptedPassword + "','" + role + "','" + flagDisplay + "','" + flag + "','"+ sortOrder + "')";
                                     cmd.Connection = conn;
                                     conn.Open();
                                     cmd.ExecuteNonQuery();
@@ -247,6 +249,7 @@ namespace ProfileManagementSystem.Controllers
                 var designation = collection["designation"];
                 var empCode = collection["empCode"];
                 var isDisplay = collection["isDisplay"];
+                var sortOrder = collection["SortOrder"];
                 int flag = 0;
                 if (isActive == "Yes")
                 {
@@ -269,7 +272,7 @@ namespace ProfileManagementSystem.Controllers
                         using (SQLiteConnection conn = new SQLiteConnection(connectString))
                         {
                             cmd = new SQLiteCommand();
-                            cmd.CommandText = @" update profileUser set firstName='" + fname + "',lastName='" + lname + "', designation='" + designation + "',empno='" + empCode + "',photo='" + fileName + "',role='" + role + "',isDisplay='" + flagDisplay + "',isActive='" + flag + "' where email ='" + email.ToLower() + "'";
+                            cmd.CommandText = @" update profileUser set firstName='" + fname + "',lastName='" + lname + "', designation='" + designation + "',empno='" + empCode + "',photo='" + fileName + "',role='" + role + "',isDisplay='" + flagDisplay + "',isActive='" + flag + "' ,sortorder='" + sortOrder + "' where email ='" + email.ToLower() + "'";
                             cmd.Connection = conn;
                             conn.Open();
                             cmd.ExecuteNonQuery();
@@ -315,7 +318,7 @@ namespace ProfileManagementSystem.Controllers
                     {
                         // conn = new SQLiteConnection(connectString);
                         cmd = new SQLiteCommand();
-                        cmd.CommandText = @" update profileUser set firstName='" + fname + "',lastName='" + lname + "', designation='" + designation + "',empno='" + empCode + "',role='" + role + "',isDisplay='" + flagDisplay + "',isActive='" + flag + "' where email ='" + email.ToLower() + "'";
+                        cmd.CommandText = @" update profileUser set firstName='" + fname + "',lastName='" + lname + "', designation='" + designation + "',empno='" + empCode + "',role='" + role + "',isDisplay='" + flagDisplay + "',isActive='" + flag + "' ,sortorder='" + sortOrder + "' where email ='" + email.ToLower() + "'";
                         cmd.Connection = conn;
                         conn.Open();
                         cmd.ExecuteNonQuery();

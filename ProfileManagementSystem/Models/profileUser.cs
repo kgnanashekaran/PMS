@@ -18,6 +18,7 @@ namespace ProfileManagementSystem.Models
         public int display { get; set; }
         public string photo { get; set; }
         public string lastname { get; set; }
+        public string sortOrder { get; set; }
 
     }
 }
