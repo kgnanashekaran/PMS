@@ -51,14 +51,11 @@ namespace ProfileManagementSystem.Controllers
             {
 
                 string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
-                //SQLiteConnection conn;
                 SQLiteCommand cmd;
 
-                // conn = new SQLiteConnection(connectString);
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                 {
                     cmd = new SQLiteCommand();
-                    //cmd.CommandText = @"SELECT * from profileUser where id >= 264";
                     cmd.CommandText = @"SELECT * from profileUser";
                     cmd.Connection = conn;
                     conn.Open();
@@ -103,7 +100,6 @@ namespace ProfileManagementSystem.Controllers
                 }
                 string _dbImgname = string.Empty;
                 string connectString = ConfigurationManager.AppSettings["SQliteConnectionString"].ToString();
-              //  SQLiteConnection conn;
                 SQLiteCommand cmd;
                 if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
                 {
@@ -141,7 +137,6 @@ namespace ProfileManagementSystem.Controllers
                         var _ext = Path.GetExtension(pic.FileName);
                         if (_ext.ToLower() == ".jpg" || _ext.ToLower() == ".jpeg")
                         {
-                            // conn = new SQLiteConnection(connectString);
                             string profile = "";
                             using (SQLiteConnection conn = new SQLiteConnection(connectString))
                             {
@@ -152,7 +147,6 @@ namespace ProfileManagementSystem.Controllers
                                 profile = cmd.ExecuteScalar().ToString();
                                 conn.Close();
                             }
-                            //string picname = fileName + _ext;
                             if (profile == null || profile == "")
                             {
                                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
@@ -171,18 +165,14 @@ namespace ProfileManagementSystem.Controllers
                                     conn.Open();
                                     _dbImgname = cmd.ExecuteScalar().ToString();
                                 }                             
-                                //_imgname = picname;
                                 var _savePath = Server.MapPath("/assets/images/profiles/") + _dbImgname + _ext;
-                               // ViewBag.Msg = _savePath;
-                                // var path = _comPath;
+                               
                                 // Saving Image in Original Mode
                                 pic.SaveAs(_savePath);
                                 // resizing image
                                 MemoryStream ms = new MemoryStream();
                                 WebImage img = new WebImage(_savePath);
-                                // Image image = Image.FromFile(_savePath);
-                                // Image thumb = image.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
-                                // thumb.Save(Path.ChangeExtension(_savePath, "thumb"));
+                               
                                 if (img.Width > 64)
                                     img.Resize(64, 64,true);
                                 img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");

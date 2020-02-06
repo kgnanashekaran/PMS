@@ -87,7 +87,7 @@ namespace ProfileManagementSystem.Controllers
 
             conn = new SQLiteConnection(connectString);
             cmd = new SQLiteCommand();
-            cmd.CommandText = @"SELECT * from profileUser where isActive=1 and isDisplay=1 order by firstname, lastname";
+            cmd.CommandText = @"SELECT * from profileUser where isActive=1 and isDisplay=1 order by sortorder";
             cmd.Connection = conn;
             conn.Open();
 
