@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web.Helpers;
@@ -167,17 +168,24 @@ namespace ProfileManagementSystem.Controllers
                                     conn.Open();
                                     _dbImgname = cmd.ExecuteScalar().ToString();
                                 }                             
-                                var _savePath = Server.MapPath("/assets/images/profiles/") + _dbImgname + _ext;
-                               
+                                var _savePath = Server.MapPath("/assets/images/profiles/") + _dbImgname + _ext;                               
                                 // Saving Image in Original Mode
                                 pic.SaveAs(_savePath);
+
                                 // resizing image
-                                MemoryStream ms = new MemoryStream();
-                                WebImage img = new WebImage(_savePath);
-                               
+                                //MemoryStream ms = new MemoryStream();
+                                //WebImage img = new WebImage(_savePath);
+
+
+                                //change thubnail
+                                string tumbnailPath = Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg";
+                                Image image = Image.FromFile(_savePath);
+                                Image thumb = image.GetThumbnailImage(64, 64, () => false, IntPtr.Zero);
+                                thumb.Save(Path.ChangeExtension(tumbnailPath, "jpeg"));
+
                                 //if (img.Width > 64)
-                                img.Resize(64, 64);
-                                img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
+                                //img.Resize(64, 64);
+                                //img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
                                 // end resize
                                 alert.message = "Profile Saved !";
                                 alert.status = true;
@@ -296,19 +304,29 @@ namespace ProfileManagementSystem.Controllers
                         // resizing image 1
                         //MemoryStream ms0 = new MemoryStream();
                         //WebImage img0 = new WebImage(path);
-                     
+
                         //img0.Resize(64, 64);
                         //img0.Save(Server.MapPath(path));
                         // end resize
 
                         // resizing image 2
-                        MemoryStream ms = new MemoryStream();
-                        WebImage img = new WebImage(path);
-                        
-                        //if (img.Width > 200)
-                        img.Resize(64, 64);
-                        img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + ".jpg");
+                        //MemoryStream ms = new MemoryStream();
+                        //WebImage img = new WebImage(path);
+
+
+                        //img.Resize(64, 64);
+                        //img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + ".jpg");
                         // end resize
+                        
+                        //change thubnail
+                        string tumbnailPath = Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + ".jpg";
+                        Image image = Image.FromFile(path);
+                        Image thumb = image.GetThumbnailImage(64, 64, () => false, IntPtr.Zero);
+                        thumb.Save(Path.ChangeExtension(tumbnailPath, "jpeg"));
+
+
+
+
                         alert.message = "Profile updated !";
                         alert.status = true;
                         return Json(alert, JsonRequestBehavior.AllowGet);
