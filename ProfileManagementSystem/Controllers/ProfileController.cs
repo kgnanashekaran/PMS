@@ -175,8 +175,8 @@ namespace ProfileManagementSystem.Controllers
                                 MemoryStream ms = new MemoryStream();
                                 WebImage img = new WebImage(_savePath);
                                
-                                if (img.Width > 64)
-                                    img.Resize(64, 64,true);
+                                //if (img.Width > 64)
+                                img.Resize(64, 64);
                                 img.Save(Server.MapPath("/assets/images/profiles/") + _dbImgname + "_thumb" + ".jpg");
                                 // end resize
                                 alert.message = "Profile Saved !";
@@ -293,12 +293,20 @@ namespace ProfileManagementSystem.Controllers
                         var path = _comPath;
                         pic.SaveAs(path);
 
-                        // resizing image
+                        // resizing image 1
+                        //MemoryStream ms0 = new MemoryStream();
+                        //WebImage img0 = new WebImage(path);
+                     
+                        //img0.Resize(64, 64);
+                        //img0.Save(Server.MapPath(path));
+                        // end resize
+
+                        // resizing image 2
                         MemoryStream ms = new MemoryStream();
                         WebImage img = new WebImage(path);
                         
-                        if (img.Width > 200)
-                            img.Resize(200, 200);
+                        //if (img.Width > 200)
+                        img.Resize(64, 64);
                         img.Save(Server.MapPath("/assets/images/profiles/") + picname + "_thumb" + ".jpg");
                         // end resize
                         alert.message = "Profile updated !";
