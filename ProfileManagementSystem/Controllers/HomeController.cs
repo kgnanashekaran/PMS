@@ -16,10 +16,6 @@ namespace ProfileManagementSystem.Controllers
     {
         public ActionResult Index()
         {
-            //if (Session["fName"] == null)
-            //{
-            //    return RedirectToAction("Index", "Login");
-            //}
 
             try
             {
@@ -27,10 +23,6 @@ namespace ProfileManagementSystem.Controllers
                 //var b = Utility.Utility.Encrypt("admin");
                 ViewData["UserProfiles"] = GetUserProfileList();
                 ViewData["SOP"] = GetSOPList();
-
-
-                //ViewData["UserProfiles"] = null;
-                //ViewData["SOP"] = null;
             }
             catch (Exception ex)
             {
@@ -38,44 +30,6 @@ namespace ProfileManagementSystem.Controllers
             }
             return View();
         }
-        public ActionResult Index1()
-        {
-            try
-            {
-                ViewData["UserProfiles"] = GetUserProfileList();
-                ViewData["SOP"] = GetSOPList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View();
-        }
-        public ActionResult Index2()
-        {
-            try
-            {
-                //ViewData["UserProfiles"] = GetUserProfileList1();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View();
-        }
-        public ActionResult Index3()
-        {
-            try
-            {
-                ViewData["UserProfiles"] = GetUserProfileList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View();
-        }
-       
 
         private static List<profileUser> GetUserProfileList()
         {
@@ -138,33 +92,6 @@ namespace ProfileManagementSystem.Controllers
             return _lstSOP;
         }
 
-        private static List<profileUser> GetUserProfileList_old()
-        {
-            List<profileUser> _lstProfileUser = new List<profileUser>();
-            using (SQLiteConnection connect = new SQLiteConnection(@"Data Source=D:\Shekar\Raju\PMS_Git\ProfileManagementSystem\App_Data\pmsdb.db;version=3"))
-            //using (SQLiteConnection connect = new SQLiteConnection(@"ConfigurationManager.AppSettings["SQliteConnectionString"].ToString()")
-            {
-                connect.Open();
-                using (SQLiteCommand fmd = connect.CreateCommand())
-                {
-                    fmd.CommandText = @"SELECT * from profileUser";
-                    fmd.CommandType = CommandType.Text;
-                    SQLiteDataReader r = fmd.ExecuteReader();
-
-                    while (r.Read())
-                    {
-                        profileUser _profileUser = new profileUser();
-                        _profileUser.firstname = r["name"].ToString();
-                        _profileUser.designation = r["designation"].ToString();
-                        _profileUser.empno = r["empno"].ToString();
-                        _profileUser.photo = r["photo"].ToString();
-                        _lstProfileUser.Add(_profileUser);
-                    }
-
-                    connect.Close();
-                }
-            }
-            return _lstProfileUser;
-        }
+       
     }
 }

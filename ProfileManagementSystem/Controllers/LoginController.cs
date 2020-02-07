@@ -38,7 +38,7 @@ namespace ProfileManagementSystem.Controllers
                         Session["fName"] = userFirstName;
                         Session["lName"] = lastName;
                         Session["role"] = role;
-                        Session["id"] = id + ".jpg";
+                        Session["id"] = id + "_thumb.jpeg";
                         HttpContext.Session["lName"] = lastName;                      
                         result = "Success";
                         return Json(result, JsonRequestBehavior.AllowGet);

@@ -57,7 +57,7 @@ namespace ProfileManagementSystem.Controllers
                 using (SQLiteConnection conn = new SQLiteConnection(connectString))
                 {
                     cmd = new SQLiteCommand();
-                    cmd.CommandText = @"SELECT * from profileUser";
+                    cmd.CommandText = @"SELECT * from profileUser where id not in (1)";
                     cmd.Connection = conn;
                     conn.Open();
                     SQLiteDataReader r = cmd.ExecuteReader();
