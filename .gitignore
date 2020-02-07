@@ -7,3 +7,5 @@
 /.vs
 /ProfileManagementSystem/obj/Release/ProfileManagementSystem.csproj.CoreCompileInputs.cache
 /ProfileManagementSystem/ProfileManagementSystem.csproj.user
+/ProfileManagementSystem/obj/Release
+/ProfileManagementSystem/Properties/PublishProfiles
