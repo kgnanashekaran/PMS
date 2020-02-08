@@ -10804,7 +10804,7 @@ a, button, .btn {
     width: 100%;
     bottom: 0;
     left: 0;
-    z-index: 7
+    z-index: 7;
 }
 
     .fixed-footer .app-footer .app-footer__inner {
