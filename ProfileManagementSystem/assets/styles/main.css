@@ -336,7 +336,7 @@ body {
     color: #495057;
     text-align: left;
     background-color: #fff;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 [tabindex="-1"]:focus {
@@ -811,19 +811,20 @@ pre {
     }
 }
 
-.container-fluid {
+/*.container-fluid {
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto
 }
-
+*/
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 100%
 }
 
 .no-gutters {
@@ -10804,7 +10805,7 @@ a, button, .btn {
     width: 100%;
     bottom: 0;
     left: 0;
-    z-index: 7;
+    z-index: 7
 }
 
     .fixed-footer .app-footer .app-footer__inner {

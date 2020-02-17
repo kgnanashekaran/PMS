@@ -11,34 +11,38 @@
 
         @{
             var _lstUserProfiles = ViewData["UserProfiles"] as List<profileUser>;
-            for (int i = 0; i < _lstUserProfiles.Count; i += 4)
+            for (int i = 0; i < _lstUserProfiles.Count; i += 9)
             {
-                <li>
-                    <div class="row col-12 profile-row" id="user-profiles">
-                        @{ var items = _lstUserProfiles.Skip(i).Take(4).ToList();
+                <li style="height:600px ;margin-bottom:20px;">
+                    <div class="row col-12" style="padding-left:0px;background-color:grey;padding-right:0px;" id="user-profiles">
+                        @{ var items = _lstUserProfiles.Skip(i).Take(9).ToList();
                             foreach (var item in items)
                             {
-                                var picname = item.photo + "_thumb.jpeg";
+                                var picname = item.photo + ".jpg";
 
-                                <div class="col-sm-12 col-lg-6 col-xl-3">
-                                    <div class="mb-3 profile-responsive card">
-                                        <div class="dropdown-menu-header">
-                                            <div class="dropdown-menu-header-inner bg-dark">
-                                                <div class="menu-header-image opacity-2" style="background-image: url('../assets/images/avatars/abstract2.jpg');"></div>
-                                                <div class="menu-header-content btn-pane-right">
-                                                    <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
-                                                        <div class="avatar-icon rounded"><img src="../assets/images/profiles/@picname" alt="@item.firstname @item.lastname"></div>
-                                                    </div>
-                                                    <div>
-                                                        <h5 class="menu-header-title">@item.firstname @item.lastname</h5>
-                                                        <h6 class="menu-header-subtitle1">Emp.No# @item.empno</h6>
-                                                        <h6 class="menu-header-subtitle">@item.designation</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                <div class="row col-sm-12 col-lg-4 col-xl-4 col-md-6" style="border:1px solid white;">
+                                    @*style="height:188px;border:1px solid white;margin-bottom:0px"
+                                        @*<div class="mb-3 profile-responsive card">*@
+                                    @*<div class="dropdown-menu-header">*@
+                                    @*<div class="dropdown-menu-header-inner bg-dark">*@
+                                    @*<div class="menu-header-image opacity-2" style="background-image: url('../assets/images/avatars/abstract2.jpg');"></div>*@
+                                    @*<div class="menu-header-content btn-pane-right">*@
+                                    <div class="col-sm-4 col-lg-4 col-xl-4 col-md-4 pull-left" style="padding-left:0px;margin-left:0px;margin-top:2px;margin-bottom:2px;">
+                                        <img src="../assets/images/profiles/@picname" alt="@item.firstname @item.lastname" height="180px" width="140px">
                                     </div>
+                                    <div class="col-sm-8 col-lg-8 col-xl-8 col-md-8 pull-left" style="padding-right:0px;margin-right:0px;margin-top:40px;">
+                                        <div style="color:white;font-weight: bold;"><strong>@item.firstname @item.lastname</strong> </div>
+                                        <br />
+                                        <div style="color:white;font-weight: normal;">Emp.No# @item.empno</div>
+                                        <div style="color:white;">@item.designation </div>
+                                        @*<h1 class="menu-header-title"><strong> @item.firstname @item.lastname</strong></h1>
+                                            <h6 class="menu-header-subtitle"><strong>Emp.No# @item.empno</strong></h6>
+                                            <h6 class="menu-header-subtitle"><strong>@item.designation</strong></h6>*@
+                                    </div>
+                                    @*</div>*@
+                                    @*</div>*@
+                                    @*</div>*@
+                                    @*</div>*@
                                 </div>
                             }
                         }
@@ -59,16 +63,37 @@
             var _lstSOP = ViewData["SOP"] as List<SOP>;
             foreach (var item in _lstSOP)
             {
+
                 var picname = item.filename + ".jpg";
-                <li>
+                <li style="height:600px ;margin-bottom:20px;">
+                    @*<div>@_lstSOP.Count</div>*@
                     <div class="row col-12 profile-row" id="sops">
-                        <div class="col-md-12" style="text-align:center">
-                            <img src="../assets/images/SOP/@picname" />
+                        <div class="col-12" style="text-align:center;">
+                            <img src="../assets/images/SOP/@picname" style="max-height:550px;max-width:800px;" />
                         </div>
                     </div>
+                    <br />
                 </li>
             }
         }
     </ul>
+    @*<div class="scroller" id="divSOP">
+        <ul>
+
+            @{
+                var _lstSOP = ViewData["SOP"] as List<SOP>;
+                foreach (var item in _lstSOP)
+                {
+                    var picname = item.filename + ".jpg";
+                    <li>
+                        <div class="row col-12 profile-row" id="sops">
+                            <div class="col-12" style="text-align:center;">
+                                <img src="../assets/images/SOP/@picname" />
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul> </div>*@
 </div>
 
