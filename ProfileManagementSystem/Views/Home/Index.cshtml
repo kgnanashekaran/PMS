@@ -13,14 +13,14 @@
             var _lstUserProfiles = ViewData["UserProfiles"] as List<profileUser>;
             for (int i = 0; i < _lstUserProfiles.Count; i += 9)
             {
-                <li style="height:600px ;margin-bottom:20px;">
-                    <div class="row col-12" style="padding-left:0px;background-color:grey;padding-right:0px;" id="user-profiles">
+                <li style="height:800px ;margin-bottom:20px;" class="fixed-height">
+                    <div class="row col-12" style="padding-left:0px; padding-right:0px;" id="user-profiles">
                         @{ var items = _lstUserProfiles.Skip(i).Take(9).ToList();
                             foreach (var item in items)
                             {
                                 var picname = item.photo + ".jpg";
 
-                                <div class="row col-sm-12 col-lg-4 col-xl-4 col-md-6" style="border:1px solid white;">
+                                <div class="row col-sm-12 col-lg-4 col-xl-4 col-md-6" style="border:1px solid white;background:url('../assets/images/avatars/abstract4.jpg'); background-size:cover;">
                                     @*style="height:188px;border:1px solid white;margin-bottom:0px"
                                         @*<div class="mb-3 profile-responsive card">*@
                                     @*<div class="dropdown-menu-header">*@
@@ -28,10 +28,10 @@
                                     @*<div class="menu-header-image opacity-2" style="background-image: url('../assets/images/avatars/abstract2.jpg');"></div>*@
                                     @*<div class="menu-header-content btn-pane-right">*@
                                     <div class="col-sm-4 col-lg-4 col-xl-4 col-md-4 pull-left" style="padding-left:0px;margin-left:0px;margin-top:2px;margin-bottom:2px;">
-                                        <img src="../assets/images/profiles/@picname" alt="@item.firstname @item.lastname" height="180px" width="140px">
+                                        <img src="../assets/images/profiles/@picname" alt="@item.firstname @item.lastname" height="100%" width="140px" class="fix-img-height">
                                     </div>
-                                    <div class="col-sm-8 col-lg-8 col-xl-8 col-md-8 pull-left" style="padding-right:0px;margin-right:0px;margin-top:40px;">
-                                        <div style="color:white;font-weight: bold;"><strong>@item.firstname @item.lastname</strong> </div>
+                                    <div class="col-sm-8 col-lg-8 col-xl-8 col-md-8 pull-left" style="padding-right:0px;margin-right:0px;margin-top:40px;padding-left: 30px;">
+                                        <div style="color:white;font-weight: bold; font-size:20px"><strong>@item.firstname @item.lastname</strong> </div>
                                         <br />
                                         <div style="color:white;font-weight: normal;">Emp.No# @item.empno</div>
                                         <div style="color:white;">@item.designation </div>
@@ -51,25 +51,16 @@
 
             }
         }
-
-    </ul>
-</div>
-
-
-<div class="scroller" id="divSOP">
-    <ul>
-
         @{
             var _lstSOP = ViewData["SOP"] as List<SOP>;
             foreach (var item in _lstSOP)
             {
 
                 var picname = item.filename + ".jpg";
-                <li style="height:600px ;margin-bottom:20px;">
-                    @*<div>@_lstSOP.Count</div>*@
+                <li style="height:600px ;margin-bottom:20px;" class="fixed-height">
                     <div class="row col-12 profile-row" id="sops">
                         <div class="col-12" style="text-align:center;">
-                            <img src="../assets/images/SOP/@picname" style="max-height:550px;max-width:800px;" />
+                            <img src="../assets/images/SOP/@picname" style="height:550px;max-width:800px;" class="fix-sop-img-height" />
                         </div>
                     </div>
                     <br />
@@ -77,23 +68,55 @@
             }
         }
     </ul>
-    @*<div class="scroller" id="divSOP">
+</div>
+
+
+@*<div class="scroller" id="divSOP">
         <ul>
 
             @{
                 var _lstSOP = ViewData["SOP"] as List<SOP>;
                 foreach (var item in _lstSOP)
                 {
+
                     var picname = item.filename + ".jpg";
-                    <li>
+                    <li style="height:600px ;margin-bottom:20px;" class="fixed-height">
                         <div class="row col-12 profile-row" id="sops">
                             <div class="col-12" style="text-align:center;">
-                                <img src="../assets/images/SOP/@picname" />
+                                <img src="../assets/images/SOP/@picname" style="height:550px;max-width:800px;"/>
                             </div>
                         </div>
+                        <br />
                     </li>
                 }
             }
-        </ul> </div>*@
-</div>
+        </ul>
 
+    </div>*@
+
+<script type="text/javascript">
+    var width = $(window).width();
+    var height = $(window).height();
+    var imgheight = Math.floor(height / 4);
+
+    //alert("height:" + height);
+    //alert("width:" + width);
+
+    //$(".fixed-height").css("height")
+    //$("p").css("background-color");
+    $('.fixed-height').attr('style', 'height: ' + height + 'px');
+    //$('.fixed-height-sop').attr('style', 'height: ' + height-20 + 'px');
+    
+
+    if (height > 790) {
+        //$('.fix-img-height').attr('style', 'width: 160px');
+        $('.fix-img-height').attr('style', 'height: ' + imgheight + 'px; width: 160px;');
+        $('.fix-sop-img-height').attr('style', 'height: ' + Math.floor(height - 100) + 'px; max-width: 1000px;');
+
+    }
+    else {
+        $('.fix-img-height').attr('style', 'height: ' + imgheight + 'px; width: 140px;');
+        $('.fix-sop-img-height').attr('style', 'height: ' + Math.floor(height - 100) + 'px; max-width: 800px;');
+
+    }
+</script>

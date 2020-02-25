@@ -1,13 +1,23 @@
 ﻿@using System.Configuration;
+@using ProfileManagementSystem.Models;
 @{
-    var _switchInterval = int.Parse(ConfigurationManager.AppSettings["PageSwitchInterval_Seconds"].ToString());
-    _switchInterval = _switchInterval * 1000;
+    //decimal _switchInterval = 0; //int.Parse(ConfigurationManager.AppSettings["PageSwitchInterval_Seconds"].ToString());
+    //                             // _switchInterval = _switchInterval * 1000;
+
+    //var _switchInterval1 = int.Parse(ConfigurationManager.AppSettings["PageSwitchInterval_Seconds"].ToString());
+    //_switchInterval1 = _switchInterval1 * 1000;
+
+
 
     var _slideInterval = int.Parse(ConfigurationManager.AppSettings["SlideInterval_Seconds"].ToString());
     _slideInterval = _slideInterval * 1000;
 
-    var _sopSlideInterval = int.Parse(ConfigurationManager.AppSettings["SOP_SlideInterval_Seconds"].ToString());
-    _sopSlideInterval = _sopSlideInterval * 1000;
+    //var _lstUserProfiles = ViewData["UserProfiles"] as List<profileUser>;
+    //var _countofProfiles = Decimal.Ceiling(Convert.ToDecimal(_lstUserProfiles.Count() / 9))+1;
+    //_switchInterval = _countofProfiles * int.Parse(ConfigurationManager.AppSettings["SlideInterval_Seconds"].ToString()) * 1000;
+
+    //var _sopSlideInterval = int.Parse(ConfigurationManager.AppSettings["SOP_SlideInterval_Seconds"].ToString());
+    //_sopSlideInterval = _sopSlideInterval * 1000;
 
 }
 
@@ -109,14 +119,14 @@
             $('#divProfile').easyTicker({
                 direction: 'up',
                 easing: 'swing',
-                interval: @_slideInterval,
+                interval: 10000,
                 //controls: {
                 //    toggle: '.btnToggle1'
                 //}
             });
         });
 
-         $(function () {
+         @*$(function () {
             $('#divSOP').easyTicker({
                 direction: 'up',
                 easing: 'swing',
@@ -125,12 +135,15 @@
                 //    toggle: '.btnToggle2'
                 //}
             });
-        });
+        });*@
     </script>
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
 
         $(document).ready(function () {
+            alert(@_countofProfiles);
+            alert(@_switchInterval);
+             alert(@_switchInterval1);
             //$(".btnToggle1").trigger('click');
                 setInterval(function () {
                     $(".scroller:first").toggle();
@@ -150,7 +163,7 @@
                 }, @_switchInterval);
             });
 
-    </script>
+    </script>*@
 
 
 </body>
